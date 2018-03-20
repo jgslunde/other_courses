@@ -1,0 +1,187 @@
+\documentclass[12p,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage[makeroom]{cancel}
+\usepackage[margin=2cm]{geometry}
+\setlength\parindent{0pt}
+\renewcommand{\baselinestretch}{1}
+
+\newcommand{\half}{\frac{1}{2}}
+\renewcommand{\b}{\boldsymbol}
+\newcommand{\h}{\hat}
+\newcommand{\m}{\mathbb}
+\renewcommand{\exp}{e^}
+
+
+\begin{document}
+
+\title{FYS3110 -- Home Exam}
+\author{
+    \begin{tabular}{r l}
+        Candidate Number 15229
+    \end{tabular}}
+
+\maketitle
+
+\section*{Problem 1}
+\subsection*{a)}
+The pendulum oscilates with a velocity $v = b\dot{\phi}$. This gives a kinetic energi $K_1 = \half m v^2 = \half m b^2\dot{\phi}^2$.
+
+In addition, we have the kinetic energy from the rotation of the wheel around it's own axis, given as $K_2 = \half I\omega^2 = \half I (\dot{\phi} + \alpha t)^2$. This gives a total kinetic energy of
+\[
+    K = K_1 + K_2 = \half m b^2\dot{\phi}^2 + \half I(\dot{\phi} + \alpha t)^2
+\]
+
+The potential energy is purely from gravity, given by the height of the mass mass point B.
+\[
+    V = -mgh = -mgb\cos{\phi}
+\]
+
+Giving a total lagrangian of 
+\[
+    L = K - V = \half m b^2\dot{\phi}^2 + \half I(\dot{\phi} + \alpha t)^2 + mgb\cos{\phi} \\ \\
+\]
+or, writing it out.
+\begin{equation*}
+    L = \half m b^2\dot{\phi}^2 + \half I \dot{\phi}^2 + I\alpha\dot{\phi}t + \half I \alpha^2 t^2 + mgb\cos{\phi} \\
+\end{equation*}
+\begin{equation}\label{eqn:Lagr}
+    L = \half \qty(m b^2\dot + I)\dot{\phi}^2 + I\alpha\dot{\phi}t + mgb\cos{\phi} + \half I \alpha^2 t^2
+\end{equation}
+
+\subsection*{b)}
+We have that
+\[
+    \pdv{L}{\phi} = -mgb\sin{\phi}
+\]
+\[
+    \pdv{L}{\dot{\phi}} = \qty(mb^2 + I)\dot{\phi} + I \alpha t
+\]
+\[
+    \dv{t}\pdv{L}{\dot{\phi}} = \qty(mb^2 + I)\ddot{\phi} + I\alpha
+\]
+Giving a lagrangian equation
+\begin{align*}
+    \dv{t}\pdv{L}{\dot{\phi}} - \pdv{L}{\phi} = 0 \\
+    \qty(mb^2 + I)\ddot{\phi} + I\alpha + mgb\sin{\phi} = 0
+\end{align*}
+
+
+\subsection*{c)}
+We have that
+\begin{align*}
+    \dv{f(\phi, t)}{t} &= \dv{t}\qty[I\alpha\phi t + \frac{1}{6} I \alpha^2t^3] \\
+    &= I\alpha\dot{\phi}t + I\alpha\phi + \half I \alpha^2t^2
+\end{align*}
+We reconize the first and last term from the Lagrangian(\ref{eqn:Lagr}), and include the middle term by adding and subtracting it from the Lagrangian, giving
+\begin{align*}
+    L &= \qty[ \half \qty(m b^2\dot + I)\dot{\phi}^2 + mgb\cos{\phi} - I\alpha\phi ] + \qty[ I\alpha\dot{\phi}t + I\alpha\phi + \half I \alpha^2t^2 ] \\
+    &= L' + \pdv{f(\phi, t)}{t}
+\end{align*}
+where
+\begin{align*}
+    L' = \half \qty(m b^2\dot + I)\dot{\phi}^2 + mgb\cos{\phi} - I\alpha\phi
+\end{align*}
+
+
+\subsection*{d)}
+We have
+\begin{align*}
+    \pdv{L'}{\phi} = -mgb\sin{\phi} - I\alpha
+\end{align*}
+\begin{align*}
+    \pdv{L'}{\dot{\phi}} = (mb^2 + I)\dot{\phi}
+\end{align*}
+\begin{align*}
+    \dv{t}\pdv{L'}{\dot{\phi}} = (mb^2 + I)\ddot{\phi}
+\end{align*}
+giving a Lagrangian equation
+\begin{align*}
+    (mb^2 + I)\ddot{\phi} + mgb\sin{\phi} + I\alpha = 0
+\end{align*}
+
+
+\subsection*{e)}
+The canonical momentum $p'_\phi$ of the coordinate $\phi$ is already calculated as
+\begin{align*}
+    p'_\phi = \pdv{L'}{\dot{\phi}} = (mb^2 + I)\dot{\phi}
+\end{align*}
+The Hamiltonian is defined as
+\begin{align*}
+    H &= \sum_i p_i \dot{q_i} - L = p'_\phi \dot{\phi} - L' \\
+    &= (mb^2 + I)\dot{\phi}^2 - \half \qty(m b^2\dot + I)\dot{\phi}^2 - mgb\cos{\phi} + I\alpha\phi \\
+    &= \half \qty(m b^2\dot + I)\dot{\phi}^2 - mgb\cos{\phi} + I\alpha\phi
+\end{align*}
+
+
+\subsection*{f)}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.2}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.4}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.6}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.8}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=1.0}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=1.2}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=1.4}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=1.6}.pdf}
+    \caption{asdf}
+\end{figure}
+
+\subsection*{g)}
+Firstly, we have
+\begin{align*}
+    p'_\phi = (mb^2 + I)\dot{\phi} \quad\quad \Rightarrow \quad\quad
+    \dot{\phi} = \frac{1}{mb^2 + I}p'_\phi
+\end{align*}
+giving the Hamiltonian as a function of $\phi$ and $p'_\phi$ only:
+\begin{align*}
+    H &= \half \qty(m b^2\dot + I)\dot{\phi}^2 - mgb\cos{\phi} + I\alpha\phi \\
+    &= \half \qty(m b^2\dot + I)\frac{1}{(mb^2 + I)^2}{p'_\phi}^2 - mgb\cos{\phi} + I\alpha\phi \\
+    &= \half \frac{{p'_\phi}^2}{mb^2 + I} - mgb\cos{\phi} + mgb\lambda\phi \\
+\end{align*}
+
+
+
+\section*{Oppgave 2}
+\subsection*{a)}
+
+
+\subsection*{b)}
+Conservation of energy gives that particle A and a must have a combined energy equal to that of particle B before the decacy.
+\begin{align*}
+    E_B = E_A + E_a\\
+    \sqrt{P_B^2c^2 + m_B^2c^4} = \sqrt{P_A^2c^2 + m_A^2c^4} + \sqrt{P_a^2c^2 + m_a^2c^4}
+\end{align*}
+In the rest frame of A, $P_A = 0$, and conservation of momentum gives that $P_a^2 = P_B^2$ (total momentum before decay must equal total momentum after dacay). This gives
+\begin{align*}
+    \sqrt{P_a^2 + m_B^2c^2} = \sqrt{m_A^2c^2} + \sqrt{P_a^2 + m_a^2c^2} \\
+    \qty(\sqrt{P_a^2 + m_B^2c^2} - \sqrt{P_a^2 + m_a^2c^2})^2 = m_A^2c^2 \\
+    P_a^2 + m_B^2c^2 - \sqrt{P_a^2 + m_B^2c^2}\sqrt{P_a^2 + m_a^2c^2} + P_a^2 + m_a^2c^2 = m_A^2c^2 \\
+    P_a^2 + m_B^2c^2 - \sqrt{P_a^4 + P_a^2m_B^2c^2 + P_a^2m_a^2c^2 + m_a^4c^4} + P_a^2 + m_a^2c^2 = m_A^2c^2 \\
+\end{align*}
+
+    
+
+
+\end{document}
