@@ -144,40 +144,58 @@ The canonical momentum $p'_\phi$ of the coordinate $\phi$ is already calculated
 \end{align*}
 The Hamiltonian is defined as (where $q_i$ are the generalized coordinates)
 \begin{align*}
-    H &= \sum_i p_i \dot{q_i} - L = p'_\phi \dot{\phi} - L' \\
+    H'(\phi, \dot{\phi}) &= \sum_i p_i \dot{q_i} - L = p'_\phi \dot{\phi} - L' \\
     &= (mb^2 + I)\dot{\phi}^2 - \half \qty(m b^2\dot + I)\dot{\phi}^2 - mgb\cos{\phi} + I\alpha\phi \\
     &= \half \qty(m b^2\dot + I)\dot{\phi}^2 - mgb\cos{\phi} + I\alpha\phi
 \end{align*}
-
-
-\subsection*{f)}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.00}.pdf}
-    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.15}.pdf}
-    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.30}.pdf}
-    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.45}.pdf}
-    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.60}.pdf}
-    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.75}.pdf}
-    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.90}.pdf}
-    \includegraphics[width=0.49\textwidth]{{fig/lambd=1.05}.pdf}
-    \caption{asdf}
-\end{figure}
-
-\subsection*{g)}
-Firstly, we have
+To get $H'$ as a function of $\phi$ and $p'_\phi$ only, we use to relation
 \begin{align*}
     p'_\phi = (mb^2 + I)\dot{\phi} \quad\quad \Rightarrow \quad\quad
     \dot{\phi} = \frac{1}{mb^2 + I}p'_\phi
 \end{align*}
-giving the Hamiltonian as a function of $\phi$ and $p'_\phi$ only:
+to rewrite $H'$ as
 \begin{align*}
-    H &= \half \qty(m b^2\dot + I)\dot{\phi}^2 - mgb\cos{\phi} + I\alpha\phi \\
-    &= \half \qty(m b^2\dot + I)\frac{1}{(mb^2 + I)^2}{p'_\phi}^2 - mgb\cos{\phi} + I\alpha\phi \\
-    &= \half \frac{{p'_\phi}^2}{mb^2 + I} - mgb\cos{\phi} + mgb\lambda\phi \\
+    H'(\phi, p'_\phi) &= \half \qty(m b^2\dot + I)\frac{1}{(mb^2 + I)^2}{p'_\phi}^2 - mgb\cos{\phi} + I\alpha\phi \\
+    &= \half \frac{{p'_\phi}^2}{mb^2 + I} - mgb\cos{\phi} + I\alpha\phi \\
 \end{align*}
 
+\subsection*{f)}
 
+
+\subsection*{g)}
+
+Substituting $\alpha = \frac{mgb}{I}\lambda$, where $\lambda$ is a dimensionless variable for the angular acceleration of the wheel, gives 
+\begin{align*}
+    H'(\phi, p'_\phi) = \half \frac{{p'_\phi}^2}{mb^2 + I} - mgb\cos{\phi} + mgb\lambda\phi
+\end{align*}
+
+For simplicity we set the parameters $m = 1$, $b = 1$, $I = 1$, $g = 9.81$. With a simple Python script we can produce the countour plots in figure (\ref{fig:contour}), outlining the movement of the pendulum.
+
+At $\lambda = 0$ (no angular acceleration on the wheel), we retrieve the regular pendulum phase space, without energy loss. The circular solutions represents pendulums oscilating in the common way, while the wobbly lines represent pendulums with enough kinetic energy to take full turns.
+
+For $0 < \lambda \leq 1$ the circular solutions remain (although slightly shifted in angle, no longer oscilating around $\phi = 2\pi n$). The "free" solutions however, will now at some point either slow down and turn, or keep accelerating, depending on its initial direction. We can observe this by following a "free" contour line close to the circles, and observe it eventually turn.
+
+When we reach $\lambda = 1$ and above, the pendulum will turn, no matter it's initial conditions. In the high-accuracy plot (\ref{fig:contour2}), we observe that the last circular solutions dissapear at $\lambda = 1$, and the pendulum will always accelerate.
+
+It it obvious from there observations that the accelerating wheel applies a force on the pendulum, accelerating the pendulum's rotation around its fixed point.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.00}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.20}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=0.50}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/lambd=1.00}.pdf}
+    \caption{Contour plots of $H'(\phi, p'_\phi)$}
+    \label{fig:contour}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.49\textwidth]{{fig/x_lambd=0.95}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/x_lambd=1.00}.pdf}
+    \caption{Higher accuracy contour plots of $H'(\phi, p'_\phi)$}
+    \label{fig:contour2}
+\end{figure}
 
 \section*{Oppgave 2}
 \subsection*{a)}
