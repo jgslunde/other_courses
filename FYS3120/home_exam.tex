@@ -105,7 +105,7 @@ We have that
 We reconize the first and last term from the Lagrangian (\ref{eqn:Lagr}), and include the middle term by adding and subtracting it from the Lagrangian, giving
 \begin{align*}
     L &= \qty[ \half \qty(m b^2\dot + I)\dot{\phi}^2 + mgb\cos{\phi} - I\alpha\phi ] + \qty[ I\alpha\dot{\phi}t + I\alpha\phi + \half I \alpha^2t^2 ] \\
-    &= L'(\phi, \dot{\phi}) + \pdv{f(\phi, t)}{t}
+    &= L'(\phi, \dot{\phi}) + \dv{f(\phi, t)}{t}
 \end{align*}
 where
 \begin{align*}
@@ -159,7 +159,18 @@ to rewrite $H'$ as
     &= \half \frac{{p'_\phi}^2}{mb^2 + I} - mgb\cos{\phi} + I\alpha\phi \\
 \end{align*}
 
+
+
 \subsection*{f)}
+$H'$ being a constant of motion involves it having no time-dependence. This is fullfilled if it's corresponding Lagrangian, $L'$, has no \textit{explicit} time depedence. This is captured in the relation
+\[
+    \dv{H'}{t} = - \pdv{L'}{t}
+\]
+where $\pdv{L'}{t} = 0$ as $L'(\phi, \dot{\phi})$ has no explicit time dependence.
+
+This was our reason for replacing our original Lagrangian with $L'$. It's corresponding Hamiltonian $H'$ no longer represents the total energy of the system, but it is a constant of motion. This does among other things allow us to make a phase space plot of the motion.
+
+
 
 
 \subsection*{g)}
@@ -175,7 +186,7 @@ At $\lambda = 0$ (no angular acceleration on the wheel), we retrieve the regular
 
 For $0 < \lambda \leq 1$ the circular solutions remain (although slightly shifted in angle, no longer oscilating around $\phi = 2\pi n$). The "free" solutions however, will now at some point either slow down and turn, or keep accelerating, depending on its initial direction. We can observe this by following a "free" contour line close to the circles, and observe it eventually turn.
 
-When we reach $\lambda = 1$ and above, the pendulum will turn, no matter it's initial conditions. In the high-accuracy plot (\ref{fig:contour2}), we observe that the last circular solutions dissapear at $\lambda = 1$, and the pendulum will always accelerate.
+When we reach $\lambda = 1$ and above, the pendulum will turn, no matter it's initial conditions. In the high-density plot (\ref{fig:contour2}), we observe that the last circular solutions dissapear at $\lambda = 1$, and the pendulum will always accelerate.
 
 It it obvious from there observations that the accelerating wheel applies a force on the pendulum, accelerating the pendulum's rotation around its fixed point.
 
@@ -193,13 +204,21 @@ It it obvious from there observations that the accelerating wheel applies a forc
     \centering
     \includegraphics[width=0.49\textwidth]{{fig/x_lambd=0.95}.pdf}
     \includegraphics[width=0.49\textwidth]{{fig/x_lambd=1.00}.pdf}
-    \caption{Higher accuracy contour plots of $H'(\phi, p'_\phi)$}
+    \caption{Higher density contour plots of $H'(\phi, p'_\phi)$}
     \label{fig:contour2}
 \end{figure}
 
+
+
 \section*{Oppgave 2}
 \subsection*{a)}
+The invariant mass $m_{ab}^2$ does not change between refrence frames because it is a Lorentz invariant quantity.
 
+The sum of two momentum-energy four-vectors are also a four vector\footnote{see, for instance, \url{http://hyperphysics.phy-astr.gsu.edu/hbase/Relativ/vec4.html}}, meaning that $p_a + p_b$ is a four-vector. We also know that the length of a four-vector (defined as $x^2 = x^\mu x_\mu$) is a Lorentz invariant quantity. The quantity
+\[
+    m_{ab}^2c^2 = (p_a + p_b)^2 = (p_a + p_b)^\mu (p_a + o_b)_\mu
+\]
+must therefore be invariant. The invariant mass $m_{ab}^2$ is also invariant, as dividing by a constant $c^2$ does not break Lortentz invariace.
 
 \subsection*{b)}
 Conservation of energy gives that particle A and a must have a combined energy equal to that of particle B before the decacy.
@@ -282,4 +301,84 @@ Inserting this into equation (\ref{eqn:m_ab}) gives
 \end{align*}
 
 
+
+\subsection*{d)}
+The idea is to use the following definitions of the invariant mass:
+\begin{align*}
+    m_{ab}^2 &= \frac{(p_a + p_b)^2}{c^2}\\
+    m_{ac}^2 &= \frac{(p_a + p_c)^2}{c^2}\\
+    m_{bc}^2 &= \dots
+\end{align*}
+To achive this, we need the maginutes of the four-momenta in the same refrence frame. We chose that of the particle E for this.
+
+We start by solving for $p_a$ in reference frame of B (now with particles a and b having mass). This involves $p_B = 0$, and the momenta of a and A to be the same $p_A = p_a$.
+\begin{gather*}
+    E_B = E_A + E_a \\
+    \sqrt{m_B^2c^4} = \sqrt{p_a^2c^2 + m_A^2c^4} + \sqrt{p_a^2c^2 + m_a^2c^4}
+\end{gather*}
+\begin{align}
+    p_a = \frac{\sqrt{ c^4m_a^4 - 2c^4m_a^2m_B^2 + c^4m_B^4 - 2c^2m_A^2m_a^2 - 2c^2m_A^2 m_B^2 + m_A^4 }}{ 2cm_B }
+\end{align}
+
+Following the exact same logic, we find $p_b$ in reference frame of C.
+\begin{align*}
+    p_b &= \frac{\sqrt{ c^4m_b^4 - 2c^4m_b^2m_C^2 + c^4m_C^4 - 2c^2m_B^2m_b^2 - 2c^2m_B^2 m_C^2 + m_B^4 }}{ 2cm_C } \\
+\end{align*}
+The solutions of $p_c$ and $p_d$ in the refrence frames of D and E are similar, but two of the mass terms are zero: $m_c = m_d = 0$. The solutions becomes\footnote{$m_D > m_C$ and $m_E > m_C$, so we keep them in this order to get a positive absolute momentum.}
+\begin{align*}
+    p_c &= \frac{\sqrt{c^4m_D^4 - 2c^2m_C^2 m_D^2 + m_C^4 }}{ 2cm_D } = c\frac{m_D^2 - m_C^2}{2m_D} \\
+    p_d &= \frac{\sqrt{c^4m_E^4 - 2c^2m_D^2 m_E^2 + m_D^4 }}{ 2cm_E } = c\frac{m_E^2 - m_C^2}{2m_E}
+\end{align*}
+
+The idea is now to Lorentz transform these four-momenta into the E refrence frame. To use a Lorentz transformation between the $A-B-C-D-E$ frames, we need their relative velocities.
+
+We solve for $v_A$ in the refrence frame of B, using the definition $p = \gamma m v$ of the relativistic momentum, and employing that $p_a = p_A$ in the frame B.
+\begin{gather*}
+    p_a = p_A = \gamma_{AB}m_A v_A = \frac{1}{\sqrt{1-\frac{v_A^2}{c^2}}} m_A v_A \\
+    p_a^2 = \frac{m_A^2 v_A^2}{1-\frac{v_A^2}{c^2}} \\
+    p_a^2 - p_a^2\frac{v_A^2}{c^2} = m_A^2v_A^2 \\
+    v_A^2(m_A^2 + \frac{p_a^2}{c^2}) = p_a^2 \\
+\end{gather*}
+\begin{equation}
+    v_A = \frac{p_a}{\sqrt{m_A^2 + \frac{p_a^2}{c^2}}}
+\end{equation}
+The same logic can be applied to $v_B$ in the frame of C, and so forth:
+\begin{equation}
+    v_B = \frac{p_b}{\sqrt{m_B^2 + \frac{p_b^2}{c^2}}} \quad\quad
+    v_C = \frac{p_c}{\sqrt{m_C^2 + \frac{p_c^2}{c^2}}} \quad\quad
+    v_D = \frac{p_d}{\sqrt{m_D^2 + \frac{p_d^2}{c^2}}}
+\end{equation}
+
+We now introduce the general Lorentz matrix 
+\begin{align*}
+    L = 
+    \begin{pmatrix}
+        \gamma     &-\gamma\beta_x   &-\gamma\beta_y  &-\gamma\beta_z \\
+        -\gamma\beta_x  &1+(\gamma-1)\frac{\beta^2_x}{\beta^2}  &(\gamma-1)\frac{\beta_x\beta_y}{\beta^2}   &(\gamma-1)\frac{\beta_x\beta_z}{\beta^2}\\
+        -\gamma\beta_y  &(\gamma-1)\frac{\beta_y\beta_x}{\beta^2}  &1+(\gamma-1)\frac{\beta_y^2}{\beta^2}   &(\gamma-1)\frac{\beta_y\beta_z}{\beta^2}\\
+        -\gamma\beta_z  &(\gamma-1)\frac{\beta_z\beta_x}{\beta^2}  &(\gamma-1)\frac{\beta_z\beta_y}{\beta^2}   &1+(\gamma-1)\frac{\beta_z^2}{\beta^2} 
+    \end{pmatrix}
+\end{align*}
+
+to transform the four-momenta between refrence frames. Here we have the identities
+\begin{align*}
+    \beta_x = \frac{v_x}{c} \quad\quad \beta_y = \frac{v_y}{c} \quad\quad \beta_z = \frac{v_z}{c} \quad\quad \beta^2 = \frac{|v|^2}{c^2} \quad\quad \gamma = \frac{1}{\sqrt{1-\frac{v^2}{c^2}}}
+\end{align*}
+
+Since we only have information about the angles of the velocities, we use a transformation to achive the vector-velocities. We denote the angles between $a$ and $B$ as $\theta_a$ and $\phi_a$, and the angels between $A$ and $B$ as $\theta_A$ and $\theta_B$. Since the known (uniformily generated) angels are those of $a$, we transform these to $A$ as
+\[
+    \theta_A = \pi - \theta_a \quad\quad \phi_A = \pi + \phi_a
+\]
+This is due to $A$ and $a$ always having velocities in oposite directions in the frame of $B$ (due to momentum conservation). From here, we get the 3D vector components as
+
+\begin{align*}
+    \vec{v_A} = v_A\qty[\sin{\theta_A}\cos{\phi_A},\ \sin{\theta_A}\sin{\phi_A},\ \cos{\theta}]
+\end{align*}
+This can all easialy be translated to the other decays.
+
+We wish the direction of decaying particles to uniformily distributed on a sphere. This does not, countrary to popular belief, correspond to a uniform distribution of the angles $\theta\in [0,\pi]$ and $\phi \in [0,2\pi]$. This is because an angular interval does not represent a fixed area on the sphere, and a uniform distribution would favor the poles. To create a uniform distribtion, we will employ the angles
+\[
+    \phi = 2\pi u   \quad\quad   \theta = \arccos(2v - 1)
+\]
+where $u$ and $v$ are uniform distributions in $[0, 1]$. This ensures an isotropic decay process.
 \end{document}
