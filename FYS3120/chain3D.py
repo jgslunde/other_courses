@@ -10,7 +10,7 @@ mA = 100.0
 ma = mb = 1.8
 md = mc = 0
 
-PaB = np.zeros(4) #four-momentum for paricle a, seen from B RF
+PaB = np.zeros(4) #four-momentum for particle a, seen from B RF
 PbC = np.zeros(4)
 PcD = np.zeros(4)
 Pd = np.zeros(4)
@@ -35,11 +35,13 @@ gamma = 1/np.sqrt(1 - v**2/c**2)
 def M2xy(x,y):
     return (x[0] + y[0])**2 - ((x[1] + y[1])**2 + (x[2] + y[2])**2 + (x[3] + y[3])**2)
 
-N = 10000
+N = 1000000
 M2 = np.zeros((N,6))
 test = np.zeros(N)
 
 for i in xrange(N):
+    if i%(N//100) == 0:
+        print i/float(N) * 100, "% finished"
     phi = np.random.uniform(0,2*np.pi,4); theta = np.arccos(np.random.uniform(-1,1,4))
     L[0,0] = gamma
     L[1,1] = 1 + (gamma - 1)*(np.cos(phi + np.pi)*np.sin(-theta + np.pi))**2
@@ -90,36 +92,40 @@ for i in xrange(N):
 #    plt.hist(np.sqrt(M2[:,i]),50)
 #    plt.show()
 
+M = np.sqrt(M2)
 
-y, binEdges = np.histogram(M2[:,0],bins=50)
+y, binEdges = np.histogram(M[:,0],bins=50)
 bincenters = 0.5*(binEdges[1:]+binEdges[:-1])
-plt.plot(bincenters,y,'-', label="m_ab")
+plt.plot(bincenters, y,'-', label="m_ab")
 
-y, binEdges = np.histogram(M2[:,1],bins=50)
+y, binEdges = np.histogram(M[:,1],bins=50)
 bincenters = 0.5*(binEdges[1:]+binEdges[:-1])
-plt.plot(bincenters,y,'-', label="m_ac")
+plt.plot(bincenters, y,'-', label="m_ac")
 
-y, binEdges = np.histogram(M2[:,2],bins=50)
+y, binEdges = np.histogram(M[:,2],bins=50)
 bincenters = 0.5*(binEdges[1:]+binEdges[:-1])
-plt.plot(bincenters,y,'-', label="m_ad")
+plt.plot(bincenters, y,'-', label="m_ad")
 
-y, binEdges = np.histogram(M2[:,3],bins=50)
+y, binEdges = np.histogram(M[:,3],bins=50)
 bincenters = 0.5*(binEdges[1:]+binEdges[:-1])
-plt.plot(bincenters,y,'-', label="m_bc")
+plt.plot(bincenters, y,'-', label="m_bc")
 
-y, binEdges = np.histogram(M2[:,4],bins=50)
+y, binEdges = np.histogram(M[:,4],bins=50)
 bincenters = 0.5*(binEdges[1:]+binEdges[:-1])
-plt.plot(bincenters,y,'-', label="m_bd")
+plt.plot(bincenters, y,'-', label="m_bd")
 
-y, binEdges = np.histogram(M2[:,5],bins=50)
+y, binEdges = np.histogram(M[:,5],bins=50)
 bincenters = 0.5*(binEdges[1:]+binEdges[:-1])
-plt.plot(bincenters,y,'-', label="m_cd")
+plt.plot(bincenters, y,'-', label="m_cd")
 
 plt.legend()
-plt.savefig("stuff1.png")
+plt.ylabel("nr of occurrences", size=12)
+plt.xlabel("invariant mass [GeV/c^2]", size=12)
+plt.title("Probability distribution of invariant masses")
+plt.savefig("fig/all_m.png", size=12)
+plt.clf()
 
 # print(np.shape(M2))
-print(np.max(M2[:,0]))
 
 # plt.hist(M2[:,0], 100)
 # plt.show()
@@ -134,56 +140,46 @@ print(np.max(M2[:,0]))
 # plt.hist(M2[:,5], 100)
 # plt.show()
 
-# plt.plot(np.sqrt(M2[:,0]))
-# plt.plot(np.sqrt(M2[:,1]))
-# plt.plot(np.sqrt(M2[:,2]))
-# plt.plot(np.sqrt(M2[:,3]))
-# plt.plot(np.sqrt(M2[:,4]))
-# plt.plot(np.sqrt(M2[:,5]))
 
 
+plt.hist( np.sqrt(M2[:,0]) ,50)
+plt.ylabel("nr of occurrences", size=16)
+plt.xlabel("invariant mass [GeV/c^2]", size=16)
+plt.title("Probability distribution of $m_{ab}$", size=16)
+plt.savefig("fig/m_ab")
+plt.clf()
 
-plt.figure()
-plt.subplot(3,1,1)
-plt.hist(M2[:,0],50)
-plt.xlabel('$ m_{ab}^2 $')
-plt.ylabel("$ Counts $")
+plt.hist( np.sqrt(M2[:,1]) ,50)
+plt.ylabel("nr of occurrences", size=16)
+plt.xlabel("invariant mass [GeV/c^2]", size=16)
+plt.title("Probability distribution of $m_{ac}$", size=16)
+plt.savefig("fig/m_ac")
+plt.clf()
 
-plt.subplot(3,1,2)
-plt.hist(M2[:,1],50)
-plt.xlabel('$ m_{ac}^2 $')
-plt.ylabel("$ Counts $")
+plt.hist( np.sqrt(M2[:,2]) ,50)
+plt.ylabel("nr of occurrences", size=16)
+plt.xlabel("invariant mass [GeV/c^2]", size=16)
+plt.title("Probability distribution of $m_{ad}$", size=16)
+plt.savefig("fig/m_ad")
+plt.clf()
 
-plt.subplot(3,1,3)
-plt.hist(M2[:,2],50)
-plt.xlabel('$ m_{ad}^2 $')
-plt.ylabel("$ Counts $")
+plt.hist(np.sqrt(M2[:,3]) ,50)
+plt.ylabel("nr of occurrences", size=16)
+plt.xlabel("invariant mass [GeV/c^2]", size=16)
+plt.title("Probability distribution of $m_{bc}$", size=16)
+plt.savefig("fig/m_bc")
+plt.clf()
 
-plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
-                wspace=None, hspace=0.9)
+plt.hist(np.sqrt(M2[:,4]),50)
+plt.ylabel("nr of occurrences", size=16)
+plt.xlabel("invariant mass [GeV/c^2]", size=16)
+plt.title("Probability distribution of $m_{bd}$", size=16)
+plt.savefig("fig/m_bd")
+plt.clf()
 
-plt.savefig("stuff2.png")
-
-plt.subplot(3,1,1)
-plt.hist(M2[:,3],50)
-plt.xlabel('$ m_{bc}^2 $')
-plt.ylabel("$ Counts $")
-
-plt.subplot(3,1,2)
-plt.hist(M2[:,4],50)
-plt.xlabel('$ m_{bd}^2 $')
-plt.ylabel("$ Counts $")
-
-plt.subplot(3,1,3)
-plt.hist(M2[:,0],50)
-plt.xlabel('$ m_{cd}^2 $')
-plt.ylabel("$ Counts $")
-
-plt.subplots_adjust(left=None, bottom=None, right=None, top=None,
-                wspace=None, hspace=0.9)
-
-
-plt.savefig("stuff3.png")
-
-#a = np.array([[1,2],[3,4]])
-#print a[:,1]
+plt.hist(np.sqrt(M2[:,5]),50)
+plt.ylabel("nr of occurrences", size=16)
+plt.xlabel("invariant mass [GeV/c^2]", size=16)
+plt.title("Probability distribution of $m_{cd}$", size=16)
+plt.savefig("fig/m_cd")
+plt.clf()

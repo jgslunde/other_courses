@@ -38,16 +38,16 @@
 \title{FYS3110 -- Home Exam}
 \author{
     \begin{tabular}{r l}
-        Candidate Number 15229
+        Candidate Number 15020
     \end{tabular}}
 
 \maketitle
 
 \section*{Problem 1}
 \subsection*{a)}
-We use the generalized coordinate $\phi$ and it's derivative $\dot{\phi}$, which, together with time and an initial condition, uniquely defines the system.
+We use the generalized coordinate $\phi$ and it's derivative $\dot{\phi}$, which, together with time, uniquely defines the system.
 
-The rod has negligible mass, meaning the system's kinetic energy comes from the wheel. The center of mass oscilates with a velocity $v = b\dot{\phi}$. This gives a kinetic energi
+The rod has negligible mass, meaning the system's kinetic energy comes from the wheel. The center of mass, B, rotates around the point A with a velocity $v = b\dot{\phi}$. This gives a kinetic energy
 \[
     K_1 = \half m v^2 = \half m b^2\dot{\phi}^2
 \]
@@ -67,7 +67,7 @@ Since we are in a gravitational field, we have a potential energy from the heigh
     V = -mgh = -mgb\cos{\phi}
 \]
 
-This gives a total lagrangian of 
+This gives a total Lagrangian of 
 \begin{align*}
     L &= K - V = \half m b^2\dot{\phi}^2 + \half I(\dot{\phi} + \alpha t)^2 + mgb\cos{\phi} \\
     &= \half m b^2\dot{\phi}^2 + \half I \dot{\phi}^2 + I\alpha\dot{\phi}t + \half I \alpha^2 t^2 + mgb\cos{\phi} \\
@@ -102,15 +102,15 @@ We have that
     \dv{f(\phi, t)}{t} &= \dv{t}\qty[I\alpha\phi t + \frac{1}{6} I \alpha^2t^3] \\
     &= I\alpha\dot{\phi}t + I\alpha\phi + \half I \alpha^2t^2
 \end{align*}
-We reconize the first and last term from the Lagrangian (\ref{eqn:Lagr}), and include the middle term by adding and subtracting it from the Lagrangian, giving
+We recognize the first and last term from the Lagrangian (\ref{eqn:Lagr}), and include the middle term by adding and subtracting it from the Lagrangian, giving
 \begin{align*}
     L &= \qty[ \half \qty(m b^2\dot + I)\dot{\phi}^2 + mgb\cos{\phi} - I\alpha\phi ] + \qty[ I\alpha\dot{\phi}t + I\alpha\phi + \half I \alpha^2t^2 ] \\
     &= L'(\phi, \dot{\phi}) + \dv{f(\phi, t)}{t}
 \end{align*}
 where
-\begin{align*}
+\begin{align}
     L'(\phi, \dot{\phi}) = \half \qty(m b^2\dot + I)\dot{\phi}^2 + mgb\cos{\phi} - I\alpha\phi
-\end{align*}
+\end{align}
 
 We have successfully split our Lagrangian up into a Lagrangian explicitly independent of time, and a total time derivative.
 
@@ -162,7 +162,7 @@ to rewrite $H'$ as
 
 
 \subsection*{f)}
-$H'$ being a constant of motion involves it having no time-dependence. This is fullfilled if it's corresponding Lagrangian, $L'$, has no \textit{explicit} time depedence. This is captured in the relation
+$H'$ being a constant of motion involves it having no time-dependence. This is fulfilled if it's corresponding Lagrangian, $L'$, has no \textit{explicit} time dependence. This is captured in the relation
 \[
     \dv{H'}{t} = - \pdv{L'}{t}
 \]
@@ -180,15 +180,15 @@ Substituting $\alpha = \frac{mgb}{I}\lambda$, where $\lambda$ is a dimensionless
     H'(\phi, p'_\phi) = \half \frac{{p'_\phi}^2}{mb^2 + I} - mgb\cos{\phi} + mgb\lambda\phi
 \end{align*}
 
-For simplicity we set the parameters $m = 1$, $b = 1$, $I = 1$, $g = 9.81$. With a simple Python script we can produce the countour plots in figure (\ref{fig:contour}), outlining the movement of the pendulum.
+For simplicity we set the parameters $m = 1$, $b = 1$, $I = 1$, $g = 9.81$. With a simple Python script we can produce the contour plots in figure (\ref{fig:contour}), outlining the movement of the pendulum.
 
-At $\lambda = 0$ (no angular acceleration on the wheel), we retrieve the regular pendulum phase space, without energy loss. The circular solutions represents pendulums oscilating in the common way, while the wobbly lines represent pendulums with enough kinetic energy to take full turns.
+At $\lambda = 0$ (no angular acceleration on the wheel), we retrieve the regular pendulum phase plots, without energy loss. The circular solutions represents pendulums oscillating in the common way, while the wobbly "free" lines represent pendulums with enough kinetic energy to take full turns.
 
-For $0 < \lambda \leq 1$ the circular solutions remain (although slightly shifted in angle, no longer oscilating around $\phi = 2\pi n$). The "free" solutions however, will now at some point either slow down and turn, or keep accelerating, depending on its initial direction. We can observe this by following a "free" contour line close to the circles, and observe it eventually turn.
+For $0 < \lambda \leq 1$ the circular solutions remain (although slightly shifted in angle, no longer oscillating around the lowest gravitational potential). The "free" solutions however, will now at some point either slow down and turn, or keep accelerating, depending on its initial direction. We can observe this by following a "free" contour line close to the circles, and observe it eventually turn. As $\lambda$ increases, more and more initial conditions result in free solutions.
 
-When we reach $\lambda = 1$ and above, the pendulum will turn, no matter it's initial conditions. In the high-density plot (\ref{fig:contour2}), we observe that the last circular solutions dissapear at $\lambda = 1$, and the pendulum will always accelerate.
+When we reach $\lambda = 1$ and above, the pendulum will start turning, no matter it's initial conditions. In the high-density plot (\ref{fig:contour2}), we observe that the last circular solutions disappear at $\lambda = 1$, and the pendulum will always accelerate.
 
-It it obvious from there observations that the accelerating wheel applies a force on the pendulum, accelerating the pendulum's rotation around its fixed point.
+It it obvious from there observations that the accelerating wheel applies a force on the pendulum, accelerating it's rotation around the point A.
 
 \begin{figure}[H]
     \centering
@@ -210,23 +210,25 @@ It it obvious from there observations that the accelerating wheel applies a forc
 
 
 
-\section*{Oppgave 2}
+\section*{Question 2}
 \subsection*{a)}
-The invariant mass $m_{ab}^2$ does not change between refrence frames because it is a Lorentz invariant quantity.
+The invariant mass $m_{ab}$ does not change between reference frames because it is a Lorentz invariant quantity.
 
 The sum of two momentum-energy four-vectors are also a four vector\footnote{see, for instance, \url{http://hyperphysics.phy-astr.gsu.edu/hbase/Relativ/vec4.html}}, meaning that $p_a + p_b$ is a four-vector. We also know that the length of a four-vector (defined as $x^2 = x^\mu x_\mu$) is a Lorentz invariant quantity. The quantity
 \[
     m_{ab}^2c^2 = (p_a + p_b)^2 = (p_a + p_b)^\mu (p_a + o_b)_\mu
 \]
-must therefore be invariant. The invariant mass $m_{ab}^2$ is also invariant, as dividing by a constant $c^2$ does not break Lortentz invariace.
+must therefore be invariant. The invariant mass $m_{ab}$ is also invariant, as neither dividing by a constant $c^2$, nor squaring the solution, breaks Lorentz invariance.
 
 \subsection*{b)}
-Conservation of energy gives that particle A and a must have a combined energy equal to that of particle B before the decacy.
+Conservation of energy gives that particle A and a must have a combined energy equal to that of particle B before the decay.
 \begin{align*}
     E_B &= E_A + E_a\\
     \sqrt{p_B^2c^2 + m_B^2c^4} &= \sqrt{p_A^2c^2 + m_A^2c^4} + \sqrt{p_a^2c^2 + m_a^2c^4}
 \end{align*}
-In the rest frame of A, $p_A = 0$, and conservation of momentum gives that $p_a^2 = p_B^2$ (total momentum before decay must equal total momentum after dacay). This gives
+($p_A$, $p_a$ ... now refer to the magnitude of the relativistic momenta, $p_A = |\vec{p_A}|$ ...)
+
+In the rest frame of A, $p_A = 0$, and conservation of momentum gives that $p_a^2 = p_B^2$ (total momentum before decay must equal total momentum after decay). This gives
 
 \begin{gather*}
     \sqrt{p_a^2 + m_B^2c^2} = \sqrt{m_A^2c^2} + \sqrt{p_a^2 + m_a^2c^2} \\
@@ -275,14 +277,14 @@ The squared vectors simply become their magnitudes squared ($\vec{p}^2 = p^2$), 
     m_{ab}^2 = \frac{2}{c^2}p_ap_b(1-\cos{\theta_{ab}})
 \end{align}
 
-We observe that the decay $C \rightarrow bB$ from the refrence frame of $B$ is identical to the decay $B \rightarrow aA$ from the frence frame of $A$, solved in the last exercise. We therefore borrow equation (\ref{eqn:p_a}), substituting $(B, a, A)$ with $(C, b, B)$. Setting $m_b = 0$ gives
+We observe that the decay $C \rightarrow bB$ from the reference frame of $B$ is identical to the decay $B \rightarrow aA$ from the reference frame of $A$, solved in the last exercise. We therefore borrow equation (\ref{eqn:p_a}), substituting $(B, a, A)$ with $(C, b, B)$. Setting $m_b = 0$ gives
 \begin{align}
     p_b = c\frac{\sqrt{m_C^4 + m_B^4 - 2m_C^2m_B^2}}{2m_B} = c\frac{\sqrt{(m_C^2 - m_B^2)^2}}{2m_B} = c\frac{m_C^2 - m_B^2}{2m_B}
 \end{align}
 
 We now need an expression for $p_a$.
 
-Looking at the second decay from the refrence frame of $B$, we get the slightly different energy conservation, with $p_A^2 = p_a^2$ and $p_B = 0$. We also set $m_a = 0$.
+Looking at the second decay from the reference frame of $B$, we get the slightly different energy conservation, with $p_A^2 = p_a^2$ and $p_B = 0$. We also set $m_a = 0$.
 \begin{gather*}
     E_B = E_A + E_a \\
     \sqrt{p_B^2c^2 + m_B^2c^4} = \sqrt{p_A^2c^2 + m_A^2c^4} + \sqrt{p_a^2c^2 + m_a^2c^4} \\
@@ -303,19 +305,20 @@ Inserting this into equation (\ref{eqn:m_ab}) gives
 
 
 \subsection*{d)}
-The idea is to use the following definitions of the invariant mass:
+The idea is to solve for the invariant masses $m_{ab},\ m_{bc}...$ by using our earlier definitions of the invariant mass:
 \begin{align*}
     m_{ab}^2 &= \frac{(p_a + p_b)^2}{c^2}\\
     m_{ac}^2 &= \frac{(p_a + p_c)^2}{c^2}\\
     m_{bc}^2 &= \dots
 \end{align*}
-To achive this, we need the maginutes of the four-momenta in the same refrence frame. We chose that of the particle E for this.
+To achieve this, we need the magnitudes of the four-momenta in the same reference frame. We choose that of the particle E for this.
 
 We start by solving for $p_a$ in reference frame of B (now with particles a and b having mass). This involves $p_B = 0$, and the momenta of a and A to be the same $p_A = p_a$.
 \begin{gather*}
     E_B = E_A + E_a \\
     \sqrt{m_B^2c^4} = \sqrt{p_a^2c^2 + m_A^2c^4} + \sqrt{p_a^2c^2 + m_a^2c^4}
 \end{gather*}
+We let WolframAlpha do this one. The solution is
 \begin{align}
     p_a = \frac{\sqrt{ c^4m_a^4 - 2c^4m_a^2m_B^2 + c^4m_B^4 - 2c^2m_A^2m_a^2 - 2c^2m_A^2 m_B^2 + m_A^4 }}{ 2cm_B }
 \end{align}
@@ -324,15 +327,15 @@ Following the exact same logic, we find $p_b$ in reference frame of C.
 \begin{align*}
     p_b &= \frac{\sqrt{ c^4m_b^4 - 2c^4m_b^2m_C^2 + c^4m_C^4 - 2c^2m_B^2m_b^2 - 2c^2m_B^2 m_C^2 + m_B^4 }}{ 2cm_C } \\
 \end{align*}
-The solutions of $p_c$ and $p_d$ in the refrence frames of D and E are similar, but two of the mass terms are zero: $m_c = m_d = 0$. The solutions becomes\footnote{$m_D > m_C$ and $m_E > m_C$, so we keep them in this order to get a positive absolute momentum.}
+The solutions of $p_c$ and $p_d$ in the reference frames of D and E are similar, but two of the mass terms are zero: $m_c = m_d = 0$. The solutions becomes\footnote{$m_D > m_C$ and $m_E > m_C$, so we keep them in this order to get a positive absolute momentum.}
 \begin{align*}
     p_c &= \frac{\sqrt{c^4m_D^4 - 2c^2m_C^2 m_D^2 + m_C^4 }}{ 2cm_D } = c\frac{m_D^2 - m_C^2}{2m_D} \\
     p_d &= \frac{\sqrt{c^4m_E^4 - 2c^2m_D^2 m_E^2 + m_D^4 }}{ 2cm_E } = c\frac{m_E^2 - m_C^2}{2m_E}
 \end{align*}
 
-The idea is now to Lorentz transform these four-momenta into the E refrence frame. To use a Lorentz transformation between the $A-B-C-D-E$ frames, we need their relative velocities.
+The idea is now to Lorentz transform these four-momenta into the E reference frame. To use a Lorentz transformation between the $A-B-C-D-E$ frames, we need their relative velocities.
 
-We solve for $v_A$ in the refrence frame of B, using the definition $p = \gamma m v$ of the relativistic momentum, and employing that $p_a = p_A$ in the frame B.
+We solve for $v_A$ in the reference frame of B, using the definition $p = \gamma m v$ of the relativistic momentum, and employing that $p_a = p_A$ in the frame B.
 \begin{gather*}
     p_a = p_A = \gamma_{AB}m_A v_A = \frac{1}{\sqrt{1-\frac{v_A^2}{c^2}}} m_A v_A \\
     p_a^2 = \frac{m_A^2 v_A^2}{1-\frac{v_A^2}{c^2}} \\
@@ -360,25 +363,53 @@ We now introduce the general Lorentz matrix
     \end{pmatrix}
 \end{align*}
 
-to transform the four-momenta between refrence frames. Here we have the identities
+to transform the four-momenta between reference frames. Here we have the identities
 \begin{align*}
     \beta_x = \frac{v_x}{c} \quad\quad \beta_y = \frac{v_y}{c} \quad\quad \beta_z = \frac{v_z}{c} \quad\quad \beta^2 = \frac{|v|^2}{c^2} \quad\quad \gamma = \frac{1}{\sqrt{1-\frac{v^2}{c^2}}}
 \end{align*}
 
-Since we only have information about the angles of the velocities, we use a transformation to achive the vector-velocities. We denote the angles between $a$ and $B$ as $\theta_a$ and $\phi_a$, and the angels between $A$ and $B$ as $\theta_A$ and $\theta_B$. Since the known (uniformily generated) angels are those of $a$, we transform these to $A$ as
+We will now attempt to transform our information about the angles of the particles into Cartesian vector-form. We denote the angles between $a$ and $B$ (in RF B) as $\theta_a$ and $\phi_a$, and the angels between $A$ and $B$ as $\theta_A$ and $\theta_B$. Since the known (uniformly generated) angels are those of $a$, we transform these to $A$ as
 \[
     \theta_A = \pi - \theta_a \quad\quad \phi_A = \pi + \phi_a
 \]
-This is due to $A$ and $a$ always having velocities in oposite directions in the frame of $B$ (due to momentum conservation). From here, we get the 3D vector components as
+This is due to $A$ and $a$ always having velocities in opposite directions in the RF of $B$ (due to momentum conservation). From here, we get the 3D vector components as
 
 \begin{align*}
     \vec{v_A} = v_A\qty[\sin{\theta_A}\cos{\phi_A},\ \sin{\theta_A}\sin{\phi_A},\ \cos{\theta}]
 \end{align*}
-This can all easialy be translated to the other decays.
+This can all easily be translated to the velocities of $v_B$, $v_C$...
 
-We wish the direction of decaying particles to uniformily distributed on a sphere. This does not, countrary to popular belief, correspond to a uniform distribution of the angles $\theta\in [0,\pi]$ and $\phi \in [0,2\pi]$. This is because an angular interval does not represent a fixed area on the sphere, and a uniform distribution would favor the poles. To create a uniform distribtion, we will employ the angles
+We wish the direction of decaying particles to uniformly distributed on a sphere. This does not, contrary to popular belief, correspond to a uniform distribution of the angles $\theta\in [0,\pi]$ and $\phi \in [0,2\pi]$. This is because an angular interval does not represent a fixed area on the sphere, and a uniform angular distribution would favor the poles. To create a spherically uniform distribution, we will employ the angles
 \[
     \phi = 2\pi u   \quad\quad   \theta = \arccos(2v - 1)
 \]
 where $u$ and $v$ are uniform distributions in $[0, 1]$. This ensures an isotropic decay process.
+
+We use a Python script to randomly generate angles for all 4 decays, calculate the four-momenta and relative velocities, and finally Lorentz-transform everything to reference frame E before calculating the invariant masses.
+
+Figure \ref{fig:all_m} show the result of randomly generating one million random particle systems and calculating their invariant masses. Figure \ref{fig:seperate_m} shows them separately, as histograms.
+
+As we can see, the invariant masses of the one-step decays $m_{ab}$, $m_{bc}$, $m_{cd}$ have the same shape. This makes sense, as they all represent invariant masses of isotropic one-decay problems. For some reason, it seems like $m_{bd}$ and $m_{ad}$ also has the same shape, while $m_{ac}$ is unique. I have no good explanation for this.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{fig/all_m.png}
+    \caption{Combined invariant mass distributions}
+    \label{fig:all_m}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.49\textwidth]{fig/m_ab.png}
+    \includegraphics[width=0.49\textwidth]{fig/m_ac.png}
+    \includegraphics[width=0.49\textwidth]{fig/m_ad.png}
+    \includegraphics[width=0.49\textwidth]{fig/m_bc.png}
+    \includegraphics[width=0.49\textwidth]{fig/m_bd.png}
+    \includegraphics[width=0.49\textwidth]{fig/m_cd.png}
+    \caption{Histogram of invariant mass distributions}
+    \label{fig:seperate_m}
+\end{figure}
+
+
 \end{document}
