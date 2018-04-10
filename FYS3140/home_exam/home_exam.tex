@@ -1,0 +1,282 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage{minted}
+\usepackage{xcolor}
+\usepackage[margin=2cm]{geometry}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\b}{\textbf}
+\renewcommand{\exp}{e^}
+\newcommand{\infint}{\int\limits_{-\infty}^{\infty}}
+\newcommand{\limN}{\lim_{N\rightarrow \infty}}
+\newcommand{\Gammaint}{\int\limits_{\Gamma_N}}
+
+\usemintedstyle{pastie}
+
+\begin{document}
+
+
+\section*{Problem 1}
+\begin{equation}
+    y''(x) + \frac{3}{x}y'(x) - \frac{24}{x^2}y(x) = 56x^6
+\end{equation}
+
+\subsection*{Homogeneous solution}
+The homogenous solution is on the form
+\begin{align}
+    y'' + \frac{3}{x}y' - \frac{24}{x^2}y &= 0 \\
+    x^2 y''(x) + 3xy' - 24y &= 0
+\end{align}
+which we recognize as an Euler-Cauchy equation.
+
+We substitute $x = \exp{z}$, and get the equation
+\begin{equation}
+    y''(z) + (3-1)y'(z) - 24y = 0 \\
+\end{equation}
+Which is an ordinary linear first order equation with constant coefficients. The characteristic equation is
+\begin{equation}
+    \lambda^2 + 2\lambda - 24 = 0
+\end{equation}
+The solutions are
+\begin{equation}
+    \lambda_\pm = \frac{1}{2}\qty[-2 \pm \sqrt{4-(4\cdot-24)} ] = \frac{1}{2}\qty[-2\pm \sqrt{100}] = -1\pm 5
+\end{equation}
+giving $\lambda_+ = 4$ and $\lambda_- = -6$.
+
+Since these are two real roots, the solution is on the form
+\begin{equation}
+    y_h(z) = C_1\exp{4z} + C_2\exp{-6z}
+\end{equation}
+inserting for $z = \ln|x|$ gives
+\begin{equation}
+    y_h(x) = C_1\exp{4\ln|x|} + C_2\exp{-6\ln|x|} = C_1\exp{\ln|x^4|} + C_2\exp{\ln|x^{-6}|} = C_1 x^4 + C_2 x^{-6}
+\end{equation}
+
+
+
+\subsection*{Particular solution}
+We can use variation of parameters to find the particular solution. Firstly, we have two chosen solutions of the homogeneous solution:
+\begin{equation}
+    y_1 = x^4 \quad\quad y_2 = x^{-6}
+\end{equation}
+and the right hand side $R = 56x^6$. We find the Wronskian:
+\begin{equation}
+    W = \begin{vmatrix} y_1 & y_2 \\ y_1' & y_2' \end{vmatrix} = y_1 y_2' - y_1'y_2 = x^4(-6x^{-7}) - 4x^3 x^{-6} = -10x^{-3}
+\end{equation}
+
+We then have the particular solution
+
+\begin{align}
+    y_p(x) &= -x^4\int \frac{x^{-6}56x^6}{-10x^{-3}}\dd{x} + x^{-6} \int \frac{x^4 56 x^6}{-10x^{-3}} \dd{x} \\
+    &= -x^4\int\frac{28}{5}x^3 \dd{x} + x^{-6} \int \frac{28}{5}x^{13} \dd{x} \\
+    &= -x^4\frac{28}{5}\qty[\frac{x^4}{4}] - x^{-6}\frac{28}{5}\qty[\frac{x^{14}}{14}] = \frac{7}{5}x^8 - \frac{2}{5}x^8 = x^8
+\end{align}
+
+giving a total solution
+\begin{equation}
+    y(x) = y_h(x) + y_p(x) = C_1x^4 + C_2x^{-6} + x^8
+\end{equation}
+
+\section*{Problem 2: Part A}
+\subsection*{a)}
+
+\begin{equation}
+    f(z) = \frac{1}{(z-[3+i])^3(z-2i)^4}
+\end{equation}
+
+
+\subsection*{b)}
+The function can be factorized into
+\begin{equation}
+    \frac{(z+2)(z+1+i\sqrt{3})(z-1-i\sqrt{3})}{(z-5)^3(z+2)} = \frac{(z+1+i\sqrt{3})(z+1-i\sqrt{3})}{(z-5)^3}
+\end{equation}
+As we see, the suspected singularity at $z=2$ does not actually exist.
+
+The other singularity, at $z=5$, is a pole of 3rd order. 
+
+
+
+\section*{Problem 2: Part B}
+\subsection*{a)}
+We write out
+\begin{equation}
+    g(z) = \frac{P(z)}{Q(z)}\cdot \pi \cot(\pi z) = \frac{P(z)}{Q(z)}\cdot \frac{\pi \cos(\pi z)}{\pi \sin(\pi z)} = \frac{P(z) \cos(\pi z)}{Q(z) \sin(\pi z)}
+\end{equation}
+Equation (6.2) from Boas gives us that
+\begin{equation}
+    Res(g;n) = \frac{P(n) \cos(\pi n)}{[Q(n) \sin(\pi n)]'} 
+\end{equation}
+which holds as long as $P(n)\cos(\pi n)$ is finite, $Q(n)\sin(\pi n) = 0$, and $[Q(n)\sin(n)]' \neq 0$ which all holds. By the product rule, we get
+\begin{equation}
+    Res(g;n) = \frac{P(n) \cos(\pi n)}{Q'(n) \sin(\pi n) + Q(n) \cos(\pi n)} 
+\end{equation}
+Since $n\in[0,\ \pm 1,\ \pm 2,...]$, we have that $\sin(\pi n) = 0$ and $\cos(\pi n) = 1$, giving
+\begin{equation}
+    Res(g;n) = \frac{P(n) \cos(\pi n)}{Q(n) \cos(\pi n)} = \frac{P(n)}{Q(n)} = f(n)
+\end{equation}
+
+
+
+
+\subsection*{b)}
+Firstly, we will show that
+\begin{equation}\label{eqn:task2b}
+    \limN \Gammaint F(z) \dd{z} = 0
+\end{equation}
+for some rational function $F(z) = P(z)/Q(z)$ when $Q(z)$ is a polynomial of at least 2 degrees higher than $P(z)$.
+
+We have the relation
+\begin{equation}
+    \qty|\Gammaint F(z) \dd{z}| \leq m\cdot L
+\end{equation}
+where $m$ is the maximum value of $F(z)$ on $\Gamma$, and $L$ is the length of the contour $\Gamma$.
+
+This means that 
+\begin{equation}
+    \limN \qty|\Gammaint F(z) \dd{z}| \leq \limN m\cdot L
+\end{equation}
+
+The length of the contour, $L$, will be go as $\propto N$, since it's a square with sides proportional to $N$. The max of the function, $m$, will go as $\propto\frac{1}{z^2} \propto \frac{1}{N^2}$, since $F(z) = \frac{P(z)}{Q(z)}$, where $degree(Q) \geq degree(P) + 2$. This means that $m\cdot L \propto \frac{1}{N}$, giving that
+
+\begin{equation}
+    \limN m\cdot L = 0
+\end{equation}
+such that
+\begin{equation}
+    \limN \qty| \Gammaint F(z)| \leq \limN m\cdot L = 0
+\end{equation}
+meaning the relation \ref{eqn:task2b} holds.
+
+Since $|\pi\cot(\pi z)| \leq M$ over all $z$ for some constant $M$, we have the relation
+\begin{equation}
+    \qty|\limN \Gammaint f(z) \pi\cot(\pi z) \dd{z}| \leq \qty|\limN \Gammaint f(z) M \dd{z}|
+\end{equation}
+where $f(z)M$ now is a rational function of the type we defined in \ref{eqn:task2b} (since adding a constant M doesn't change degrees). We therefore have
+\begin{equation}
+    \qty|\limN \Gammaint g(z)\dd{z}| \leq \qty|\limN \Gammaint f(z) M \dd{z}| = 0
+\end{equation}
+or
+\begin{equation}\label{eqn:task2b_result}
+    \limN \Gammaint g(z)\dd{z} = 0
+\end{equation}
+
+
+\subsection*{c)}
+The residue theorem states that
+\begin{equation}
+    \Gammaint g(z) \dd{z} = 2\pi i \sum Res(g(z); z_i)
+\end{equation}
+where $z_i$ are all the singularities of $g(z)$. We can split the residues up into the singularities of $f(z)$ and those of $\pi \cot(\pi z)$, and let $N\rightarrow \infty$
+\begin{equation}
+    \limN \Gammaint g(z) \dd{z} = \limN 2\pi i \qty[ \sum Res(g(z); n) + \sum Res(g(z); \text{ poles of } f(z)) ]
+\end{equation}
+We know from \ref{eqn:task2b_result} that this equals 0. Also inserting $\sum Res(g(z); n) = f(n)$ gives
+\begin{equation}
+    \limN 2\pi i \qty[\sum_{n=-N}^{N} f(n) + \sum Res(g(z); \text{ poles of } f(z))] = 0
+\end{equation}
+\begin{equation}\label{eqn:task2c}
+    \sum_{n=-N}^{N} f(n) = - \sum Res(g(z); \text{ poles of } f(z))
+\end{equation}
+
+
+
+\subsection*{d)}
+We have the function
+\begin{equation}
+    f(n) = \frac{1}{1+n^2} = \frac{1}{(n+i)(n-1)}
+\end{equation}
+with simple poles at $n = \pm i$. Using \ref{eqn:task2c}, we have that
+\begin{equation}
+    \limN \sum_{n=-N}^{N} \frac{1}{1+n^2} = - \sum(\text{Residues of } g(z) \text{at the poles of } f(z))
+\end{equation}
+where
+\begin{equation}
+    g(n) = \pi\cot(\pi n) \frac{1}{(n+i)(n-i)}
+\end{equation}
+
+The residues can be found as
+\begin{equation}
+    Res(g(n); n) = \lim_{z\rightarrow z_0} g(z_0)
+\end{equation}
+
+This gives the residues
+\begin{align}
+    Res(g(n); i) = \lim_{z\rightarrow i}\qty[(n-i)\pi\cot(i\pi)\frac{1}{(n+i)(n-i)}] = \frac{\pi\cot(i\pi)}{2i} = -\frac{1}{2}\pi\coth(\pi)
+\end{align}
+where we used the relation $\cot(i\pi) = -i\coth(i)$.
+\begin{align}
+    Res(g(n); -i) = \lim_{z\rightarrow -i}\qty[(n+i)\pi\cot(-i\pi)\frac{1}{(n+i)(n-i)}] = \frac{\pi\cot(-i\pi)}{-2i} = -\frac{1}{2}\pi\coth(\pi)
+\end{align}
+This gives
+\begin{equation}
+    \limN \sum_{n=-N}^{N} \frac{1}{1+n^2} = - \sum(\text{Residues of } g(z) \text{at the poles of } f(z)) = \pi \coth{\pi}
+\end{equation}
+
+
+
+
+\section*{Problem 3}
+\subsection*{a)}
+We will prove the relation
+\begin{equation}\label{eqn:task3a}
+    \delta[f(t)] = \sum_i \frac{1}{|f'(t_i)|}\delta[t-t_i]
+\end{equation}
+by massaging the left hand side into the right. Since this is an operator, we apply a test-function $g(t)$, and integrate over all $t$. We will remove these at the end:
+\begin{equation}
+    = \infint \delta[f(t)]\cdot g(t)\dd{t}
+\end{equation}
+
+$\delta[f(t)]$ will be a series of delta-spikes at the zero-points of $f$, $f(t_i)$, and zero everywher else. We can therefore rewrite the integral to a sum of integrals around each of the zero-points $t_i$.
+\begin{equation}
+    = \sum_i \int\limits_{t_i - \epsilon}^{t_i+\epsilon} \delta[f(t)]\cdot g(t) \dd{t}
+\end{equation}
+
+We Taylor-expand $f(t)$ around each zero-point $t_i$:
+\begin{equation}
+    f(t) = \underbrace{f(t_i)}_{=0} + f'(t_i)(t-t_i) + \mathcal{O}(t^2) \approx f'(t_i)(t-t_i)
+\end{equation}
+Inserting this gives
+\begin{equation}
+    \sum_i \int\limits_{t_i - \epsilon}^{t_i+\epsilon} \delta[f'(t_i)(t-t_i)]g(t)\dd{t}
+\end{equation}
+Using the identity $\delta[\alpha x] = \frac{1}{|\alpha|}x$ we get
+\begin{equation}
+    \sum_i \int\limits_{t_i - \epsilon}^{t_i+\epsilon} \frac{1}{|f'(t_i)|}\delta[t-t_i]g(t)\dd{t}
+\end{equation}
+
+This is now a sum of integrations over delta-spikes (multiplied by some stuff). We can rewrite this as a integral over the sum of all the delta-spikes by switching the order of the sum and the integral. Since the integrand is zero outside the proximity of the $t_i$'s anyway, we can just let the integral run from $-\infty$ to $\infty$:
+
+\begin{equation}
+    \infint \sum_i \frac{1}{|f'(t_i)|}\delta[t-t_i]g(t)\dd{t}
+\end{equation}
+
+
+Finally, removing the integral and test-function, we get the left hand side of equation \ref{eqn:task3a}
+\begin{equation}
+    \sum_i \frac{1}{|f'(t_i)|} \delta[t-t_i]
+\end{equation}
+and our identity is proven.
+
+
+\end{document}
