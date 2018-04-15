@@ -98,11 +98,14 @@ giving a total solution
     y(x) = y_h(x) + y_p(x) = C_1x^4 + C_2x^{-6} + x^8
 \end{equation}
 
+
+
+
 \section*{Problem 2: Part A}
 \subsection*{a)}
 
 \begin{equation}
-    f(z) = \frac{1}{(z-[3+i])^3(z-2i)^4}
+    f(z) = \frac{(z-2i)^4}{(z-[3+i])^3}
 \end{equation}
 
 
@@ -114,6 +117,8 @@ The function can be factorized into
 As we see, the suspected singularity at $z=2$ does not actually exist.
 
 The other singularity, at $z=5$, is a pole of 3rd order. 
+
+
 
 
 
@@ -131,7 +136,7 @@ which holds as long as $P(n)\cos(\pi n)$ is finite, $Q(n)\sin(\pi n) = 0$, and $
 \begin{equation}
     Res(g;n) = \frac{P(n) \cos(\pi n)}{Q'(n) \sin(\pi n) + Q(n) \cos(\pi n)} 
 \end{equation}
-Since $n\in[0,\ \pm 1,\ \pm 2,...]$, we have that $\sin(\pi n) = 0$ and $\cos(\pi n) = 1$, giving
+Since $n\in[0,\, \pm 1,\, \pm 2,...]$, we have that $\sin(\pi n) = 0$ and $\cos(\pi n) = 1$, giving
 \begin{equation}
     Res(g;n) = \frac{P(n) \cos(\pi n)}{Q(n) \cos(\pi n)} = \frac{P(n)}{Q(n)} = f(n)
 \end{equation}
@@ -242,7 +247,7 @@ We will prove the relation
 \begin{equation}\label{eqn:task3a}
     \delta[f(t)] = \sum_i \frac{1}{|f'(t_i)|}\delta[t-t_i]
 \end{equation}
-by massaging the left hand side into the right. Since this is an operator, we apply a test-function $g(t)$, and integrate over all $t$. We will remove these at the end:
+by massaging the left hand side into the right. Since this is an operator, we apply a test-function $g(t)$, and integrate over all $t$. We will remove these at the end.
 \begin{equation}
     = \infint \delta[f(t)]\cdot g(t)\dd{t}
 \end{equation}
@@ -277,6 +282,54 @@ Finally, removing the integral and test-function, we get the left hand side of e
     \sum_i \frac{1}{|f'(t_i)|} \delta[t-t_i]
 \end{equation}
 and our identity is proven.
+
+
+
+\subsection*{b)}
+\subsubsection*{(i)}
+We have that
+\begin{equation}
+    f(t) = t^2 - a^2 \quad\Rightarrow\quad f'(t_i) = 2t_i
+\end{equation}
+The functions has zero-points at
+\begin{equation}
+    t_1 = a \quad \text{and} \quad t_2 = -a
+\end{equation}
+We then have that
+\begin{align}
+    \delta(t^2-a^2) = \sum_i \frac{1}{|2t_i|}\delta[t-t_i] 
+    = \frac{1}{|2\cdot 1|} \delta[t-a] + \frac{1}{|2\cdot -1|} \delta[t--a] \\
+    = \frac{1}{2}\delta[t-a] + \frac{1}{2}\delta[t+a]
+\end{align}
+
+
+\subsubsection*{(ii)}
+We have that
+\begin{equation}
+    f(t) = \sin(t) \quad\Rightarrow\quad f'(t_i) = \cos(t_i)
+\end{equation}
+The functions has zero-points at
+\begin{equation}
+    t_i = \pi i \quad \text{for} \quad i \in [0,\, \pm 1,\, \pm 2, ...]
+\end{equation}
+This gives
+\begin{equation}\label{eqn:3b2}
+    \delta[\sin(t)] = \sum_{i=-\infty}^{\infty} \frac{1}{|\cos(t_i)|} \delta[t-\pi i] = \sum_{i=-\infty}^{\infty} \delta[t-\pi i]
+\end{equation}
+since $|\cos(\pi i)| = 1$ for $i\in [0,\, \pm 1,\, \pm 2, ...]$
+
+
+\subsection*{d)}
+Inserting $\delta[\sin(t)]$ from equation \ref{eqn:3b2} gives
+\begin{align}
+    \int\limits_{-\pi/2}^{\pi/2} \cos(t)\delta[\sin(t)]\dd{t} = \int\limits_{-\pi/2}^{\pi/2}\qty[ \cos(t)\sum_{i=-\infty}^{\infty} \delta[t-\pi i] \dd{t} ]
+\end{align}
+Since the integral only runs from $-\pi/2$ to $\pi/2$, the values of the integrand outside these limits are irrelevant. The delta-functions only has values at it's zero-points. The only value of $i$ that makes the delta-function fall inside the limits is $i=0$.\footnote{The two neighbouring values, $i=1$ and $i=-1$ will make the spikes fall at $t=\pi$ and $t=-\pi$, which are both outside the limits.} We can therefore replace the sum by only the single delta function $\delta[t]$.
+
+The integral then becomes
+\begin{align}
+    = \int\limits_{-\pi/2}^{\pi/2} \cos(t) \delta[t] \dd{t} = \cos(0) = 1
+\end{align}
 
 
 \end{document}
