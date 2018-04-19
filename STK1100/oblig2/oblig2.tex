@@ -1,0 +1,61 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage{minted}
+\usepackage{xcolor}
+\usepackage{pdfpages}
+\usepackage[margin=2cm]{geometry}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\b}{\textbf}
+\renewcommand{\exp}{e^}
+
+\usemintedstyle{pastie}
+
+\begin{document}
+
+\title{STK1100 -- Oblig 2}
+\author{
+    \begin{tabular}{r l}
+        Jonas Gahr Sturtzel Lunde - (\texttt{jonassl})
+    \end{tabular}}
+\date{}    % if commented out, the date is set to the current date
+
+\maketitle
+
+
+Kode og figurer ligger til slutt.
+
+\includepdf[pages={1-}, scale=0.8]{handwritten.pdf}
+
+
+\section*{Oppgave 3 kode}
+\inputminted[frame=single, fontsize=\footnotesize]{MatLab}{oblig2.m}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{pareto.png}
+\end{figure}
+
+\end{document}
