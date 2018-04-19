@@ -36,6 +36,9 @@
 
 \begin{document}
 
+\title{Home Exam - FYS3140}
+\author{Candidate Number 15046}
+\maketitle
 
 \section*{Problem 1}
 \begin{equation}
@@ -43,7 +46,7 @@
 \end{equation}
 
 \subsection*{Homogeneous solution}
-The homogenous solution is on the form
+We first solve the Homogeneous equation on the form
 \begin{align}
     y'' + \frac{3}{x}y' - \frac{24}{x^2}y &= 0 \\
     x^2 y''(x) + 3xy' - 24y &= 0
@@ -54,7 +57,7 @@ We substitute $x = \exp{z}$, and get the equation
 \begin{equation}
     y''(z) + (3-1)y'(z) - 24y = 0 \\
 \end{equation}
-Which is an ordinary linear first order equation with constant coefficients. The characteristic equation is
+This is now a linear first order equation with constant coefficients. The characteristic equation is
 \begin{equation}
     \lambda^2 + 2\lambda - 24 = 0
 \end{equation}
@@ -68,7 +71,7 @@ Since these are two real roots, the solution is on the form
 \begin{equation}
     y_h(z) = C_1\exp{4z} + C_2\exp{-6z}
 \end{equation}
-inserting for $z = \ln|x|$ gives
+inserting for $z = \ln|x|$ gives the final homogeneous solution
 \begin{equation}
     y_h(x) = C_1\exp{4\ln|x|} + C_2\exp{-6\ln|x|} = C_1\exp{\ln|x^4|} + C_2\exp{\ln|x^{-6}|} = C_1 x^4 + C_2 x^{-6}
 \end{equation}
@@ -76,7 +79,7 @@ inserting for $z = \ln|x|$ gives
 
 
 \subsection*{Particular solution}
-We can use variation of parameters to find the particular solution. Firstly, we have two chosen solutions of the homogeneous solution:
+We can use variation of parameters to find the particular solution. Firstly, we have two chosen solutions of the homogeneous equation:
 \begin{equation}
     y_1 = x^4 \quad\quad y_2 = x^{-6}
 \end{equation}
@@ -101,20 +104,39 @@ giving a total solution
 
 
 
+
 \section*{Problem 2: Part A}
 \subsection*{a)}
+We wish to construct a function with a zero of order 4 at $z=2i$. This requires that the function is zero at this point, and that the zero-point is only removed when dividing by $(z-2i)^n$, where $n$ is at least 4. The simplest way of creating this property is having the function be some factor of $(z-2i)^4$.
+
+Similarly, a pole of order 3 at $z=3+i$ requires the function to have a singularity at $z=3+i$, and that the singularity is only removed by multiplying the function with $(z-3-i)^n$ where $n$ is at least 3. Again, this is simply achived by including a factor $(z-3-i)^3$ in the denominator.
+
+We can therefore construct the simplest such function as
 
 \begin{equation}
-    f(z) = \frac{(z-2i)^4}{(z-[3+i])^3}
+    f(z) = \frac{(z-2i)^4}{(z-3-i)^3}
 \end{equation}
+
+As the function is already factorized, there are no possibilities of any removable singularities or such, due to some terms cancelling. We also see that the function is analytic in the rest of the complex plane, as the only singularity exist at $z=3+i$.
+
+
 
 
 \subsection*{b)}
-The function can be factorized into
+We wish to factorize $z^3+8$ to look for any removable singularities caused by terms cancelling. We have that
+\begin{align}
+    z^3 + 8 = 0 \quad \rightarrow \quad
+    z = \sqrt[3]{-8}
+\end{align}
+which has the solutions
+\begin{align}
+z_1 = -2 \quad\quad z_2 = 1-i\sqrt{3}, \quad\quad z_3 = 1+i\sqrt{3}
+\end{align}
+which gives the factorization
 \begin{equation}
-    \frac{(z+2)(z+1+i\sqrt{3})(z-1-i\sqrt{3})}{(z-5)^3(z+2)} = \frac{(z+1+i\sqrt{3})(z+1-i\sqrt{3})}{(z-5)^3}
+    \frac{z^3+8}{(z-5)^3(z+2)} = \frac{(z+2)(z-1+i\sqrt{3})(z-1-i\sqrt{3})}{(z-5)^3(z+2)} = \frac{(z-1+i\sqrt{3})(z-1-i\sqrt{3})}{(z-5)^3}
 \end{equation}
-As we see, the suspected singularity at $z=2$ does not actually exist.
+As we see, the suspected singularity at $z=2$ is actually removable.
 
 The other singularity, at $z=5$, is a pole of 3rd order. 
 
@@ -128,19 +150,15 @@ We write out
 \begin{equation}
     g(z) = \frac{P(z)}{Q(z)}\cdot \pi \cot(\pi z) = \frac{P(z)}{Q(z)}\cdot \frac{\pi \cos(\pi z)}{\pi \sin(\pi z)} = \frac{P(z) \cos(\pi z)}{Q(z) \sin(\pi z)}
 \end{equation}
-Equation (6.2) from Boas gives us that
+Boas chapter 14, equation (6.2) gives us that
 \begin{equation}
-    Res(g;n) = \frac{P(n) \cos(\pi n)}{[Q(n) \sin(\pi n)]'} 
-\end{equation}
-which holds as long as $P(n)\cos(\pi n)$ is finite, $Q(n)\sin(\pi n) = 0$, and $[Q(n)\sin(n)]' \neq 0$ which all holds. By the product rule, we get
-\begin{equation}
-    Res(g;n) = \frac{P(n) \cos(\pi n)}{Q'(n) \sin(\pi n) + Q(n) \cos(\pi n)} 
+    Res(g;n) = \frac{P(n) \cos(\pi n)}{[Q(n) \sin(\pi n)]'}  = \frac{P(n) \cos(\pi n)}{Q'(n) \sin(\pi n) + Q(n) \cos(\pi n)} 
 \end{equation}
 Since $n\in[0,\, \pm 1,\, \pm 2,...]$, we have that $\sin(\pi n) = 0$ and $\cos(\pi n) = 1$, giving
 \begin{equation}
     Res(g;n) = \frac{P(n) \cos(\pi n)}{Q(n) \cos(\pi n)} = \frac{P(n)}{Q(n)} = f(n)
 \end{equation}
-
+According to Boas, this derivation holds as long as $P(n)\cos(\pi n)$ is finite, $Q(n)\sin(\pi n) = 0$, and $[Q(n)\sin(n)]' \neq 0$. The first two are trivial, as n is an integer and $P$ and $Q$ are polynomials. We also saw that $[Q(n)\sin(n)]' = Q(n)$ for integer n, and we know that $Q(n)\neq 0$ since $F(z)$ does not have singularities at $n$. 
 
 
 
@@ -151,21 +169,21 @@ Firstly, we will show that
 \end{equation}
 for some rational function $F(z) = P(z)/Q(z)$ when $Q(z)$ is a polynomial of at least 2 degrees higher than $P(z)$.
 
-We have the relation
+The estimation lemma tells us that
 \begin{equation}
     \qty|\Gammaint F(z) \dd{z}| \leq m\cdot L
 \end{equation}
-where $m$ is the maximum value of $F(z)$ on $\Gamma$, and $L$ is the length of the contour $\Gamma$.
+where $m$ is the maximum value of $F(z)$ on some contour $\Gamma$, and $L$ is the length of $\Gamma$.
 
 This means that 
 \begin{equation}
     \limN \qty|\Gammaint F(z) \dd{z}| \leq \limN m\cdot L
 \end{equation}
 
-The length of the contour, $L$, will be go as $\propto N$, since it's a square with sides proportional to $N$. The max of the function, $m$, will go as $\propto\frac{1}{z^2} \propto \frac{1}{N^2}$, since $F(z) = \frac{P(z)}{Q(z)}$, where $degree(Q) \geq degree(P) + 2$. This means that $m\cdot L \propto \frac{1}{N}$, giving that
+The length of the contour, $L$, will be go as $\propto N$ when $N\rightarrow\infty$, since it's a square with sides proportional to $N$. The max of the function, $m$, will go as $\propto\frac{1}{|z^2|} \propto \frac{1}{N^2}$ when $N$ goes to infinity, since $F(z) = \frac{P(z)}{Q(z)}$, where $degree(Q) \geq degree(P) + 2$. When we let $N\rightarrow \infty$, all lower order terms in the polynomials become irrelevant. This means that $m\cdot L \propto \frac{1}{N}$, giving that
 
 \begin{equation}
-    \limN m\cdot L = 0
+    \limN m\cdot L = \limN \frac{1}{N} = 0
 \end{equation}
 such that
 \begin{equation}
@@ -187,6 +205,8 @@ or
 \end{equation}
 
 
+
+
 \subsection*{c)}
 The residue theorem states that
 \begin{equation}
@@ -203,6 +223,7 @@ We know from \ref{eqn:task2b_result} that this equals 0. Also inserting $\sum Re
 \begin{equation}\label{eqn:task2c}
     \sum_{n=-N}^{N} f(n) = - \sum Res(g(z); \text{ poles of } f(z))
 \end{equation}
+
 
 
 
@@ -237,6 +258,7 @@ This gives
 \begin{equation}
     \limN \sum_{n=-N}^{N} \frac{1}{1+n^2} = - \sum(\text{Residues of } g(z) \text{at the poles of } f(z)) = \pi \coth{\pi}
 \end{equation}
+
 
 
 
@@ -285,6 +307,7 @@ and our identity is proven.
 
 
 
+
 \subsection*{b)}
 \subsubsection*{(i)}
 We have that
@@ -298,9 +321,10 @@ The functions has zero-points at
 We then have that
 \begin{align}
     \delta(t^2-a^2) = \sum_i \frac{1}{|2t_i|}\delta[t-t_i] 
-    = \frac{1}{|2\cdot 1|} \delta[t-a] + \frac{1}{|2\cdot -1|} \delta[t--a] \\
-    = \frac{1}{2}\delta[t-a] + \frac{1}{2}\delta[t+a]
+    = \frac{1}{|2\cdot a|} \delta[t-a] + \frac{1}{|2\cdot -a|} \delta[t--a] \\
+    = \frac{1}{2a}\delta[t-a] + \frac{1}{2a}\delta[t+a]
 \end{align}
+
 
 
 \subsubsection*{(ii)}
@@ -319,6 +343,31 @@ This gives
 since $|\cos(\pi i)| = 1$ for $i\in [0,\, \pm 1,\, \pm 2, ...]$
 
 
+
+
+\subsection*{c)}
+We choose the delta-sequence
+\begin{equation}
+    \phi_n(x) = \frac{n}{\pi}\frac{1}{1+n^2x^2}
+\end{equation}
+and write a Python-script to insert the functions $x = f(t)$ from the former exercise. Figures \ref{fig:1} and \ref{fig:2} shows the resulting delta-spikes. The known zero-points of the functions $f(t)$ are also shown as red lines. We clearly see that the delta-spikes hits the zero-points of our functions perfectly. Code in appendix.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{delta_seq_a.pdf}
+    \caption{Delta sequence plot of $\delta[t^2-2^2]$}
+    \label{fig:1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{delta_seq_sin.pdf}
+    \caption{Delta sequence plot of $\delta[\sin(t)]$}
+    \label{fig:2}
+\end{figure}
+
+
+
 \subsection*{d)}
 Inserting $\delta[\sin(t)]$ from equation \ref{eqn:3b2} gives
 \begin{align}
@@ -330,6 +379,11 @@ The integral then becomes
 \begin{align}
     = \int\limits_{-\pi/2}^{\pi/2} \cos(t) \delta[t] \dd{t} = \cos(0) = 1
 \end{align}
+
+
+\pagebreak
+\section*{Appendix: Code for problem 3c}
+\inputminted[frame=single, fontsize=\footnotesize]{Python}{delta_seq.py}
 
 
 \end{document}
