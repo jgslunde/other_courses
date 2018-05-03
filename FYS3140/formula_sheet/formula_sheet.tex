@@ -1,8 +1,6 @@
 \documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc,url}
-\usepackage{multicol}
-\usepackage{multirow}
 \usepackage{parskip}
 \usepackage{lmodern}
 \usepackage{microtype}
@@ -21,39 +19,61 @@
 \usepackage{hyperref}
 \usepackage{tabularx}
 \usepackage{siunitx}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{framed}
 \usepackage{fancyvrb}
 \usepackage{xcolor}
-\usepackage[margin=3cm]{geometry}
+\usepackage[a4paper, margin=0.2cm]{geometry}
+
 \renewcommand{\baselinestretch}{1}
 \renewcommand{\b}{\textbf}
 \renewcommand{\exp}{e^}
 
+\newcommand{\infint}{\int_{-\infty}^{\infty}}
+\newcommand{\zeroinfint}{\int_{-\infty}^{\infty}}
+
+\newcommand{\gr}{\colorbox{green}}
+\newcommand{\yl}{\colorbox{yellow}}
+
+\setlength{\columnsep}{0.4cm}
+\setlength{\columnseprule}{0.06cm}
+\setlength{\FrameSep}{0.2cm}
+
+
+
+
 
 \begin{document}
+\begin{multicols}{2}
+
+
 
 \section*{Ordinary Differential Equations}
 
-\begin{tikzpicture}[level distance=2.5cm,
-  level 1/.style={sibling distance=8cm},
-  level 2/.style={sibling distance=6cm},
-  level 3/.style={sibling distance=3cm}]
-    \node[circle, draw](z){$ODEs$}
-        child{node[circle,draw]{1st Order}
-            child{node[circle,draw]{Separable}}
-            child{node[circle,draw]{Linear}}
-            }
-        child{node[circle,draw]{2nd Order}
-            child{node[circle,draw]{Homogeneous}
-                child{node[circle,draw]{Constant coeff.}}
-                child{node[circle,draw]{Euler-Cauchy}}
-                }
-            child{node[circle,draw]{Inhomogeneous}
-                child{node[circle,draw]{Constant coeff.}}
-                child{node[circle,draw]{Factorization}}
-                child{node[circle,draw]{Variation of parameters}}
-                }
-            };
-\end{tikzpicture}
+% \begin{tikzpicture}[level distance=2.5cm,
+%   level 1/.style={sibling distance=8cm},
+%   level 2/.style={sibling distance=6cm},
+%   level 3/.style={sibling distance=3cm}]
+%     \node[circle, draw](z){$ODEs$}
+%         child{node[circle,draw]{1st Order}
+%             child{node[circle,draw]{Separable}}
+%             child{node[circle,draw]{Linear}}
+%             }
+%         child{node[circle,draw]{2nd Order}
+%             child{node[circle,draw]{Homogeneous}
+%                 child{node[circle,draw]{Constant coeff.}}
+%                 child{node[circle,draw]{Euler-Cauchy}}
+%                 }
+%             child{node[circle,draw]{Inhomogeneous}
+%                 child{node[circle,draw]{Constant coeff.}}
+%                 child{node[circle,draw]{Factorization}}
+%                 child{node[circle,draw]{Variation of parameters}}
+%                 }
+%             };
+% \end{tikzpicture}
+
+
 
 \subsection*{First Order, Linear, ODEs - Integrating Factor}
 \[
@@ -96,10 +116,48 @@ for $\lambda_1$ and $\lambda_2$.
 
 
 \subsubsection*{Two, complex roots}
+\begin{equation*}
+\begin{split}
+    y(x) = A\exp{\lambda_1 x} + B\exp{\lambda_2 x} = \exp{-a/2 x}\qty[A\exp{i\omega x} + B\exp{-i\omega x}] =\\
+    \exp{-a/2 x}\qty[\hat{A}\cos{\omega x} + \hat{B}\sin{\omega x}]
+\end{split}
+\end{equation*}
+
+
+
+
+
+
+\newpage
+
+
+\section*{Fourier Transforms}
+\begin{gather*}
+    f(x) = \sum_{n=-\infty}^{\infty} c_n \exp{in\pi x/L}  \quad\quad
+    c_n = \frac{1}{2L}\int_{-L}^L f(x) \exp{-in\pi x/L}\\
+    f(x) = \frac{1}{\sqrt{2\pi}} \infint F(k) \exp{ikx} \dd{k} \quad\quad
+    F(k) = \frac{1}{\sqrt{2\pi}} \infint f(x) \exp{-ikx} \dd{x}
+\end{gather*}
+
+
+\subsection*{Odd and even functions}
+If $f(x)$ is an odd function, $f(x) = -f(-x)$, the Fourier transform can be done using only sine (as cosine is symmetric around 0):
 \[
-    y(x) = A\exp{\lambda_1 x} + B\exp{\lambda_2 x} = \exp{-a/2 x}\qty[A\exp{i\omega x} + B\exp{-i\omega x}] = \exp{-a/2 x}\qty[\hat{A}\cos{\omega x} + \hat{B}\sin{\omega x}]
+    f(x) = \sqrt{\frac{2}{\pi}} i\int\limits_0^{\infty} F(k) \sin(k x) \dd{k}   \quad
+    F(k) = \sqrt{\frac{2}{\pi}} i\int\limits_0^{\infty} f(x) \sin(k x) \dd{x}
+\]
+If $f(x)$ is even, $f(x) = f(-x)$, we need only cosine (as sine is anti-symmentric):
+\[
+    f(x) = \sqrt{\frac{2}{\pi}} \int\limits_0^{\infty} F(k) \cos(k x) \dd{k}   \quad
+    F(k) = \sqrt{\frac{2}{\pi}} \int\limits_0^{\infty} f(x) \cos(k x) \dd{x}
 \]
 
 
+\subsection*{FT of a derivative}
+\[
+    \mathcal{F}\qty[f^{(n)}(x)] = (ik)^n \mathcal{F}\qty[f(x)]
+\]
+\newpage
 
+\end{multicols}
 \end{document}
