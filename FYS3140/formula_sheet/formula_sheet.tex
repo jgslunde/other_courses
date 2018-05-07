@@ -33,6 +33,14 @@
 \newcommand{\infint}{\int_{-\infty}^{\infty}}
 \newcommand{\zeroinfint}{\int_{-\infty}^{\infty}}
 
+\newcommand{\infsum}{\sum_{n=-\infty}^{\infty}}
+\newcommand{\zeroinfsum}{\sum_{n=0}^{\infty}}
+\newcommand{\oneinfsum}{\sum_{n=1}^{\infty}}
+
+\newcommand{\holine}{\line(1,0){280}}
+
+\newcommand{\half}{\frac{1}{2}}
+
 \newcommand{\gr}{\colorbox{green}}
 \newcommand{\yl}{\colorbox{yellow}}
 
@@ -131,14 +139,36 @@ for $\lambda_1$ and $\lambda_2$.
 \newpage
 
 
-\section*{Fourier Transforms}
-\begin{gather*}
+\section*{Fourier Series}
+\[
+    f(x) = \half a_0 + \oneinfsum a_n\cos(\frac{n\pi x}{L}) + \oneinfsum a_n\sin(\frac{n\pi x}{L})
+\]
+\[
+    a_n = \frac{1}{L}\int\limits_{-L}^{L}f(x) \cos(\frac{n\pi x}{L}) \dd{x} \quad\quad
+    b_n = \frac{1}{L}\int\limits_{-L}^{L}f(x) \sin(\frac{n\pi x}{L}) \dd{x}
+\]
+\[
     f(x) = \sum_{n=-\infty}^{\infty} c_n \exp{in\pi x/L}  \quad\quad
-    c_n = \frac{1}{2L}\int_{-L}^L f(x) \exp{-in\pi x/L}\\
+    c_n = \frac{1}{2L}\int_{-L}^L f(x) \exp{-in\pi x/L}
+\]
+
+\subsection*{Even and Odd functions}
+If $f(x)$ is \b{even}:
+\[
+    a_n = \frac{2}{L}\int_0^L f(x)\cos(\frac{n\pi x}{L}) \dd{x} \quad\quad b_n = 0
+\]
+If $f(x)$ is \b{odd}:
+\[
+    a_n = 0 \quad\quad b_n = \frac{2}{L}\int_0^L f(x)\sin(\frac{n\pi x}{L}) \dd{x}
+\]
+
+\holine
+
+\section*{Fourier Transforms}
+\[
     f(x) = \frac{1}{\sqrt{2\pi}} \infint F(k) \exp{ikx} \dd{k} \quad\quad
     F(k) = \frac{1}{\sqrt{2\pi}} \infint f(x) \exp{-ikx} \dd{x}
-\end{gather*}
-
+\]
 
 \subsection*{Odd and even functions}
 If $f(x)$ is an odd function, $f(x) = -f(-x)$, the Fourier transform can be done using only sine (as cosine is symmetric around 0):
@@ -157,7 +187,43 @@ If $f(x)$ is even, $f(x) = f(-x)$, we need only cosine (as sine is anti-symmentr
 \[
     \mathcal{F}\qty[f^{(n)}(x)] = (ik)^n \mathcal{F}\qty[f(x)]
 \]
+
 \newpage
+
+
+\section*{Partial Differential Equations}
+\subsection*{Wave Equation}
+\[
+    \pdv[2]{y}{x} = \frac{1}{c^2}\pdv[2]{y}{t}
+\]
+Solution as linear combination of the the solutions
+\[
+    y(x,t) = \qty{\begin{matrix} \sin(kx) \\ \cos(kx) \end{matrix}} \times \qty{\begin{matrix} \sin(kvt) \\ \cos(kvt) \end{matrix}}
+\]
+The end-points are usually fixed at 0, leaving only the $\sin(kt)$ term, and forcing $k=n\pi/L$.
+
+If the velocity is 0 at $t=0$, we discard the sin-velocity term and get
+
+\[
+    y(x,t) = \oneinfsum b_n\sin(\frac{n\pi x}{L})\cos(\frac{n\pi v t}{L})
+\]
+
+If position is 0 at $t=0$, we discard the cos-velocity term instead.
+
+Initial position will be on the form
+\[
+    y(x,0) = \oneinfsum b_n \sin(\frac{n\pi x}{L}) = f(x)
+\]
+where $f(x)$ is the initial position or velocity. The coefficients $b_n$ are now Fourier coefficients, given as:
+\[
+    b_n = \frac{1}{2L}\int_{0}^{L} f(x)\sin(\frac{n\pi x}{L}) \dd{x}
+\]
+
+\newpage
+
+
+
+
 
 \end{multicols}
 \end{document}
