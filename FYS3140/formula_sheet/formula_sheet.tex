@@ -37,7 +37,7 @@
 \newcommand{\zeroinfsum}{\sum_{n=0}^{\infty}}
 \newcommand{\oneinfsum}{\sum_{n=1}^{\infty}}
 
-\newcommand{\holine}{\line(1,0){280}}
+\newcommand{\holine}{\line(1,0){286}}
 
 \newcommand{\half}{\frac{1}{2}}
 
@@ -56,9 +56,32 @@
 \begin{multicols}{2}
 
 
+\section*{Usefull Shit}
+\subsection*{Integration}
+\[
+    \int (uv') = uv - \int(u'v)
+\]
 
+
+
+\subsection*{Trigenometric Identities}
+\[
+    \exp{\pm i z} = \cos{z} \pm i\sin{z} \\
+\]
+\[
+    \cos{z} = \half \qty(\exp{iz} + \exp{-iz}) \quad\quad
+    \sin{z} = \frac{1}{2i}\qty(\exp{iz} - \exp{-iz})
+\]
+
+
+
+% ██████╗ ██████╗ ███████╗
+%██╔═══██╗██╔══██╗██╔════╝
+%██║   ██║██║  ██║█████╗  
+%██║   ██║██║  ██║██╔══╝  
+%╚██████╔╝██████╔╝███████╗
+% ╚═════╝ ╚═════╝ ╚══════╝
 \section*{Ordinary Differential Equations}
-
 % \begin{tikzpicture}[level distance=2.5cm,
 %   level 1/.style={sibling distance=8cm},
 %   level 2/.style={sibling distance=6cm},
@@ -93,9 +116,6 @@
 \]
 
 
-\[
-    \int (uv') = uv - \int(u'v)
-\]
 
 
 
@@ -133,12 +153,39 @@ for $\lambda_1$ and $\lambda_2$.
 
 
 
+\section*{Euler-Cauchy Equations}
+\[
+    x^2y'' + a_1x y' + a_0 y = 0
+\]
+
+Introducing
+\[
+    x = \exp{z} \quad\quad\Rightarrow\quad\quad z = \ln|x|
+\]
+The equation can be rewritten to
+\[
+    \pdv[2]{y}{z} + (a_1-1)\pdv{y}{z} + a_0 y = 0
+\]
+Solve and insert for $z$.
 
 
 
+%███████╗ ██████╗ ██╗   ██╗██████╗ ██╗███████╗██████╗ 
+%██╔════╝██╔═══██╗██║   ██║██╔══██╗██║██╔════╝██╔══██╗
+%█████╗  ██║   ██║██║   ██║██████╔╝██║█████╗  ██████╔╝
+%██╔══╝  ██║   ██║██║   ██║██╔══██╗██║██╔══╝  ██╔══██╗
+%██║     ╚██████╔╝╚██████╔╝██║  ██║██║███████╗██║  ██║
+%╚═╝      ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝
 \newpage
 
+\section*{Trigonometric Functions}
+\subsection*{Orthogonality}
+\[
+    \int_{-\pi}^\pi \sin(mx)\sin(nx) \dd{x} = \int_{-\pi}^\pi \cos(mx)\cos(nx) \dd{x} = \pi \delta_{mn}
+\]
 
+
+\holine
 \section*{Fourier Series}
 \[
     f(x) = \half a_0 + \oneinfsum a_n\cos(\frac{n\pi x}{L}) + \oneinfsum a_n\sin(\frac{n\pi x}{L})
@@ -153,17 +200,32 @@ for $\lambda_1$ and $\lambda_2$.
 \]
 
 \subsection*{Even and Odd functions}
-If $f(x)$ is \b{even}:
+If $f(x)$ is \b{even} $\qty[f(x) = f(-x)]$:
 \[
     a_n = \frac{2}{L}\int_0^L f(x)\cos(\frac{n\pi x}{L}) \dd{x} \quad\quad b_n = 0
 \]
-If $f(x)$ is \b{odd}:
+If $f(x)$ is \b{odd} $\qty[f(x) = -f(-x)]$:
 \[
     a_n = 0 \quad\quad b_n = \frac{2}{L}\int_0^L f(x)\sin(\frac{n\pi x}{L}) \dd{x}
 \]
 
-\holine
 
+\holine 
+\subsection*{Dirichlet Conditions for Fourier Series}
+\begin{enumerate}
+    \item Finite number of min/max in interval.
+    \item Finitite number of (only) finite discontinuities.
+\end{enumerate}
+If this holds, then the series will converge to $f(x)$ at all points. At discontinuities, the series will converge to the mid-point.
+\holine
+\subsection*{Parseval's Theorem}
+\[
+    \int_{-L}^L |f(x)|^2 \dd{x} = 2L\sum_{-\infty}^\infty |c_n|^2
+\]
+
+
+
+\holine
 \section*{Fourier Transforms}
 \[
     f(x) = \frac{1}{\sqrt{2\pi}} \infint F(k) \exp{ikx} \dd{k} \quad\quad
@@ -188,10 +250,40 @@ If $f(x)$ is even, $f(x) = f(-x)$, we need only cosine (as sine is anti-symmentr
     \mathcal{F}\qty[f^{(n)}(x)] = (ik)^n \mathcal{F}\qty[f(x)]
 \]
 
+
+    
+
+
+
+
+%██████╗ ██████╗ ███████╗
+%██╔══██╗██╔══██╗██╔════╝
+%██████╔╝██║  ██║█████╗  
+%██╔═══╝ ██║  ██║██╔══╝  
+%██║     ██████╔╝███████╗
+%╚═╝     ╚═════╝ ╚══════╝
 \newpage
-
-
 \section*{Partial Differential Equations}
+\subsection*{Separation of variables}
+1) The the solution function as a product of functions of each variable, i.e:
+\[
+    u(x,y) = X(x)Y(y) \quad\quad\quad u(r, \theta) = R(r)T(\theta)
+\]
+2) Insert this into the equation, and separate the equation into parts of only each variable. Each side must then be constant, and equals some \textit{separation constant}.
+
+3) Solve each side of the equation (equaling the seperation constant).
+
+4) The final solution is a linear combination of the solutions.
+
+
+\subsection*{Laplace Equation - 2D Cartesian}
+\[
+    \nabla u(x,y) = 0
+\]
+
+Separation of variables, $u(x,y) = X(x)Y(y)$ gives solutions as linear combinations of
+
+
 \subsection*{Wave Equation}
 \[
     \pdv[2]{y}{x} = \frac{1}{c^2}\pdv[2]{y}{t}
