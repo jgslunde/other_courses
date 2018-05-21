@@ -37,7 +37,8 @@
 \newcommand{\zeroinfsum}{\sum_{n=0}^{\infty}}
 \newcommand{\oneinfsum}{\sum_{n=1}^{\infty}}
 
-\newcommand{\holine}{\line(1,0){286}}
+\newcommand{\holine}{\rule{286pt}{1pt}}
+\newcommand{\Holine}{\rule{286pt}{3pt}}
 
 \newcommand{\half}{\frac{1}{2}}
 
@@ -57,13 +58,21 @@
 
 
 \section*{Usefull Shit}
+\subsection*{Random shit I always forget}
+\[
+    c \ln{x} = \ln{x^c} \quad\quad\quad \dv{x}\ln{x} = \frac{1}{x}
+\]
+\\
+\[
+    x = \frac{-b\pm \sqrt{b^2 - 4ac}}{2a}
+\]
 \subsection*{Integration}
 \[
     \int (uv') = uv - \int(u'v)
 \]
 
 
-
+\holine
 \subsection*{Trigenometric Identities}
 \[
     \exp{\pm i z} = \cos{z} \pm i\sin{z} \\
@@ -74,6 +83,23 @@
 \]
 
 
+\holine
+\subsection*{Common ODE solutions}
+\textbf{Harmonic oscilator}
+\[
+    u''(z) = -\omega^2 u(z)
+\]
+\[
+    u(z) = k_1 \cos(\omega z) + k_2\sin(\omega z) = c_1 \exp{i\omega x} + c_2 \exp{-i\omega x}
+\]
+
+
+\section*{Complex analysis}
+Ask Julie about principal value thingy.
+
+
+
+
 
 % ██████╗ ██████╗ ███████╗
 %██╔═══██╗██╔══██╗██╔════╝
@@ -81,6 +107,7 @@
 %██║   ██║██║  ██║██╔══╝  
 %╚██████╔╝██████╔╝███████╗
 % ╚═════╝ ╚═════╝ ╚══════╝
+\newpage
 \section*{Ordinary Differential Equations}
 % \begin{tikzpicture}[level distance=2.5cm,
 %   level 1/.style={sibling distance=8cm},
@@ -106,6 +133,7 @@
 
 
 
+
 \subsection*{First Order, Linear, ODEs - Integrating Factor}
 \[
     y'(x) + P(x) y(x) = Q(x)
@@ -118,8 +146,32 @@
 
 
 
+\Holine
+\section*{Homogenous ODEs}
+\[
+    y'' + P(x)y' + Q(x)y = 0
+\]
+\textbf{Properties}
+\begin{itemize}
+    \item Linear combination of solutions is also a solution
+    \item General solution on form $y(x) = c_1 y_1(x) + c_2 y_2(x)$
+    \item Linearly independent solutions have a Wronskian of 0.
+\end{itemize}
+\[
+    W(x) = 
+    \begin{vmatrix} y_1(x) & y_2(x) \\ y_1'(x) & y_2'(x) \end{vmatrix}
+\]
 
-\subsection*{Second Order, Homogenous, Linear ODEs, with constant coefficients - Particular Equation}
+
+\holine
+\subsection*{Variation of the constant}
+If you have one of the two linearly indepedent solutions, you can find the other as $y_2(x) = C(x)\cdot y_1(x)$, where $C(x)$ is a functions determined by inserting $y_2(x)$ into the ODE.
+
+When you arrive at a solution for $C(x)$, you may discard any constants or coefficients, i.e. $C(x) = \alpha x^3 + \beta$.
+
+
+\holine
+\subsection*{Constant coefficients - Particular Equation}
 \[
     y''(x) + ay'(x) + by(x) = 0
 \]
@@ -146,14 +198,14 @@ for $\lambda_1$ and $\lambda_2$.
 \subsubsection*{Two, complex roots}
 \begin{equation*}
 \begin{split}
-    y(x) = A\exp{\lambda_1 x} + B\exp{\lambda_2 x} = \exp{-a/2 x}\qty[A\exp{i\omega x} + B\exp{-i\omega x}] =\\
-    \exp{-a/2 x}\qty[\hat{A}\cos{\omega x} + \hat{B}\sin{\omega x}]
+    y(x) = A\exp{\lambda_1 x} + B\exp{\lambda_2 x} = \exp{-a/2 x}\qty[A\exp{i\omega x} + B\exp{-i\omega x}] \\
+    =\exp{-a/2 x}\qty[\hat{A}\cos{\omega x} + \hat{B}\sin{\omega x}]
 \end{split}
 \end{equation*}
 
 
-
-\section*{Euler-Cauchy Equations}
+\holine
+\subsection*{Euler-Cauchy Equations}
 \[
     x^2y'' + a_1x y' + a_0 y = 0
 \]
@@ -167,6 +219,123 @@ The equation can be rewritten to
     \pdv[2]{y}{z} + (a_1-1)\pdv{y}{z} + a_0 y = 0
 \]
 Solve and insert for $z$.
+
+
+
+\holine
+\subsection*{Power methods}
+\begin{itemize}
+    \item Represent $P(x)$ and $Q(x)$ as power series.
+    \item Assume solution on the form
+    \begin{itemize}
+        \item $y(x) = \sum_{n=0}^\infty a_n x^n$
+        \item $y'(x) = \sum_{n=1}^\infty n a_n x^{n-1}$
+        \item $y''(x) = \sum_{n=2}^\infty n(n-1) a_n x^{n-2}$ 
+    \end{itemize}
+    \item Insert back into ODE.
+    \item Split into equations of matching powers of $x$.
+\end{itemize}
+This will give you one or two undetermined coefficients. The equations maybe give the coefficients as a series depending on each other, like $a_{s+1} = a_s^2$. If the series are odd/even, two undetermined coefficients are required to describe them, so the solution is complete.
+
+
+
+\holine
+\subsection*{Fröbenius method}
+\[
+    x^2 y'' + xb(x)y' + c(x) y = 0
+\]
+Assuming solution on form
+\[
+    y_p(x) = \sum_{m=0}^\infty a_m x^{m+s}
+\]
+where $s$ is some real number determined  the \textit{indicial equation}
+\[
+    s(s-1) + b_0s + c_0 = 0
+\]
+where $b_0=b(0)$, and $c_0=c(0)$
+
+\textbf{Three possible scenarios:}
+\begin{itemize}
+    \item Different roots, $s_1\neq s_2$, and $s_1-s_2\neq \text{integer}$.
+    \begin{itemize}
+        \item Two indepedens solutions $y_i(x) = x^{si}\sum_{m=0}^\infty a_0 x^m$
+    \end{itemize}
+    \item Different roots, $s_1\neq s_2$, but $s_1-s_2=\text{integer}$. ($s_1>s_2$).
+    \begin{itemize}
+        \item Solve for both by Power Series.
+        \item Often, $s_2$ gives the complete solution (two undetermined coefficients), so try this first.
+        \item Sometimes, only $s_1$ gives a solution. Find the other by variation of the constant.
+    \end{itemize}
+    \item Double root, $s_1 = s_2$.
+    \begin{itemize}
+        \item Find the solution by Power Series.
+        \item Find the second solution by variation of the constant.
+    \end{itemize}
+\end{itemize}
+
+
+
+\Holine
+\section*{Inhomogenous ODEs}
+\[
+    y'' + P(x)y' + Q(x)y = R(x)
+\]
+\textbf{Remember} to always rewrite to this form.
+
+\textbf{Properties}
+\begin{itemize}
+    \item Solutions on form\\
+    $y(x) = y_h(x) + y_p(x) = c_1y_1(x) + c_2y_2(x) + y_p(x)$.
+    \item $y_h(x)$ is the solution to the homogenous equation.
+    \item $y_p(x)$ is \textit{any} solution to the whole ODE.
+    \item Since $y_h$ contains two arbritrary constants, $y_p$ should contain none.
+\end{itemize}
+
+
+
+\holine
+\subsection*{Inhomo ODEs with constant coefficients}
+\[
+    y'' + ay' + by = R(x)
+\]
+\begin{itemize}
+    \item Make a guess at $y_p$ with the same form as $R(x)$, with unknown coefficients.
+    \item Insert back into ODE to solve for coefficients.
+\end{itemize}
+\textbf{Special case:} $R(x) = A\exp{kx}$.\\
+Let $\alpha$ and $\beta $ be the roots of $\lambda^2 + a\lambda + b = 0$.
+\begin{enumerate}
+    \item If $k\neq \alpha,\beta$: Try $y_p = C\exp{\lambda x}$.
+    \item If $k = \alpha \text{ or } \beta$: Try $y_p = Cx\exp{\lambda x}$.
+    \item If $k = \alpha = \beta$: Try $y_p = C\exp{\lambda x}$.
+\end{enumerate}
+
+
+\holine
+\subsection*{Inhomo ODEs with varying coefficients}
+\[
+    y'' + P(x)y' + Q(x)y = R(x)
+\]
+
+\subsubsection*{Factorization}
+If $u(x)$ is a known solution to the homo-ODE, a particular solution is $y_p = u(x)\cdot v(x)$ where
+\[
+    w' = v \quad\quad\quad w' + \qty[\frac{2u'}{u} + P]w = \frac{R}{u}
+\]
+Solve the ODE for $w$ with integrating factor.
+
+
+\subsubsection*{Variation of parameters}
+\[
+    y_p = -y_1\int\frac{y_2R}{W}\dd{x} + y_2 \int\frac{y_1R}{W}\dd{x}
+\]
+where $y_1$ and $y_2$ are known linearly indepedendent solutions to the homo-ODE.
+\textbf{NOTE:} Remember that $R(x)$ is the RHS after the ODE is rewritten on the standard form.
+
+
+
+
+
 
 
 
@@ -264,6 +433,13 @@ If $f(x)$ is even, $f(x) = f(-x)$, we need only cosine (as sine is anti-symmentr
 %╚═╝     ╚═════╝ ╚══════╝
 \newpage
 \section*{Partial Differential Equations}
+\subsection*{Notes}
+\begin{itemize}
+    \item In symentrical systems, it seems your can switch x<->y if it is required to suit boundary conditions (example: Diritchlet conditions are at x=a instad of at y=b).
+    \item When resulting in cos/sin solutions of frequencies, include n=0 for cos, as it gives a non-zero solution, but not for sin.
+\end{itemize}
+
+\holine
 \subsection*{Separation of variables}
 1) The the solution function as a product of functions of each variable, i.e:
 \[
@@ -271,33 +447,54 @@ If $f(x)$ is even, $f(x) = f(-x)$, we need only cosine (as sine is anti-symmentr
 \]
 2) Insert this into the equation, and separate the equation into parts of only each variable. Each side must then be constant, and equals some \textit{separation constant}.
 
-3) Solve each side of the equation (equaling the seperation constant).
+3) Solve each side of the equation (equaling the seperation constant), giving an infinite set of \textit{eigenfunctions}, $u_n(x,y)$ for the equation.
 
-4) The final solution is a linear combination of the solutions.
+4) The final solution is a linear combination of the eigenfunctions.
+\[
+u(x,y) = \sum_{n=-\infty}^\infty c_n u_n(x,y)
+\]
 
 
+
+\holine
 \subsection*{Laplace Equation - 2D Cartesian}
 \[
     \nabla u(x,y) = 0
 \]
 
-Separation of variables, $u(x,y) = X(x)Y(y)$ gives solutions as linear combinations of
+Separation of variables, $u(x,y) = X(x)Y(y)$ gives solutions
+\[
+    u(x,y) = X(x)Y(y) = \qty{\begin{matrix} \exp{ky} \\ \exp{-ky} \end{matrix}} \times \qty{\begin{matrix} \sin(kx) \\ \cos(kx) \end{matrix}}
+\]
+
+\textbf{Diritchlet BC:} $u(x,0) = u(0,y) = u(a,y) = 0$, $u(x,b) = f(x)$
+Eigenfunctions on form
+\[
+    u_n(x,y) = A_nF_n(x)G_n(x) = A_n\sin(n\pi x/a)\sinh(n\pi y/a)
+\]
 
 
+\holine
 \subsection*{Wave Equation}
 \[
     \pdv[2]{y}{x} = \frac{1}{c^2}\pdv[2]{y}{t}
 \]
-Solution as linear combination of the the solutions
+Seperation of variables, $u(x,t) = F(x)G(t)$ gives equations
 \[
-    y(x,t) = \qty{\begin{matrix} \sin(kx) \\ \cos(kx) \end{matrix}} \times \qty{\begin{matrix} \sin(kvt) \\ \cos(kvt) \end{matrix}}
+    F''(x) = -k^2F(x) \quad\quad\quad \ddot{G}(t) = -k^2c^2G(t)
+\]
+where the seperation constant, $-k^2$ must be negative, else the solutions would blow up.
+
+The equations has solutions on the form
+\[
+    y(x,t) = \qty{\begin{matrix} \sin(kx) \\ \cos(kx) \end{matrix}} \times \qty{\begin{matrix} \sin(kct) \\ \cos(kct) \end{matrix}}
 \]
 The end-points are usually fixed at 0, leaving only the $\sin(kt)$ term, and forcing $k=n\pi/L$.
 
 If the velocity is 0 at $t=0$, we discard the sin-velocity term and get
 
 \[
-    y(x,t) = \oneinfsum b_n\sin(\frac{n\pi x}{L})\cos(\frac{n\pi v t}{L})
+    y(x,t) = \oneinfsum b_n\sin(\frac{n\pi x}{L})\cos(\frac{n\pi c t}{L})
 \]
 
 If position is 0 at $t=0$, we discard the cos-velocity term instead.
@@ -310,6 +507,28 @@ where $f(x)$ is the initial position or velocity. The coefficients $b_n$ are now
 \[
     b_n = \frac{1}{2L}\int_{0}^{L} f(x)\sin(\frac{n\pi x}{L}) \dd{x}
 \]
+
+
+
+\holine
+\subsection*{Orthogonal Functions}
+Functions on the form
+\[
+    p(x)y'' + p'(x)y' + \qty[q(x) + \lambda r(x)]y = 0
+\]
+on some interval $[a,b]$ has solutions as linear combinations of eigenfunctions $y_n(x)$ which are orthogonal with respect to $r(x)$ such that
+\[
+    \int_a^b r(x)y_n(x)y_m(x)^* \dd{x} = 0 \quad\quad \text{for} \lambda_n \neq \lambda{m}
+\]
+Any function can be written as a linear combination of these eigenfunctions
+\[
+    f(x) = \sum_{n=1}^\infty a_n y_n(x)
+\]
+then the set $\{y_n(x)\}$ is complete. The coefficients $a_n$ are determined by the orthogonality:
+\[
+    a_n = \int_a^b f(x)r(x)y_n(x)^* \dd{x}
+\]
+
 
 \newpage
 
