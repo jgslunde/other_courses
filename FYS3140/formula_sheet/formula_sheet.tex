@@ -24,6 +24,7 @@
 \usepackage{framed}
 \usepackage{fancyvrb}
 \usepackage{xcolor}
+\usepackage{titlesec} % For title spacing.
 \usepackage[a4paper, margin=0.2cm]{geometry}
 
 \renewcommand{\baselinestretch}{1}
@@ -42,13 +43,27 @@
 
 \newcommand{\half}{\frac{1}{2}}
 
-\newcommand{\gr}{\colorbox{green}}
-\newcommand{\yl}{\colorbox{yellow}}
+
+% Colorcoding. First for inside equations, second for text.
+% Yellow for "problem".
+\newcommand{\yl}[1]{\colorbox{yellow}{$\displaystyle #1$}}
+\newcommand{\yll}{\colorbox{yellow}}
+% Green for "solution".
+\newcommand{\gr}[1]{\colorbox{green}{$\displaystyle #1$}}
+\newcommand{\grr}{\colorbox{green}}
+% Blue for "additional info".
+\newcommand{\bl}[1]{\colorbox{cyan}{$\displaystyle #1$}}
+\newcommand{\bll}{\colorbox{cyan}}
+
 
 \setlength{\columnsep}{0.4cm}
 \setlength{\columnseprule}{0.06cm}
 \setlength{\FrameSep}{0.2cm}
 
+% Setting section spacing
+\titlespacing\section{0pt}{0pt}{0pt}
+\titlespacing\subsection{0pt}{0pt}{0pt}
+\titlespacing\subsubsection{0pt}{0pt}{0pt}
 
 
 
@@ -58,6 +73,14 @@
 
 
 \section*{Usefull Shit}
+
+\begin{equation*}
+    \yl{
+        c \ln{x} = \ln{x^c} \quad\quad\quad \dv{x}\ln{x} = \frac{1}{x}
+    }
+\end{equation*}
+
+
 \subsection*{Random shit I always forget}
 \[
     c \ln{x} = \ln{x^c} \quad\quad\quad \dv{x}\ln{x} = \frac{1}{x}
@@ -75,13 +98,15 @@
 \holine
 \subsection*{Trigenometric Identities}
 \[
-    \exp{\pm i z} = \cos{z} \pm i\sin{z} \\
+    \exp{\pm i x} = \cos{x} \pm i\sin{x} \\
 \]
 \[
-    \cos{z} = \half \qty(\exp{iz} + \exp{-iz}) \quad\quad
-    \sin{z} = \frac{1}{2i}\qty(\exp{iz} - \exp{-iz})
+    \cos{x} = \half \qty(\exp{ix} + \exp{-ix}) \quad\quad
+    \sin{x} = \frac{1}{2i}\qty(\exp{ix} - \exp{-ix})
 \]
-
+\[
+    \sinh{z} = \half\qty(\exp{z}-\exp{-z}) \quad\quad \cosh{z} = \half\qty(\exp{z}+\exp{-z})
+\]
 
 \holine
 \subsection*{Common ODE solutions}
@@ -94,9 +119,311 @@
 \]
 
 
-\section*{Complex analysis}
-Ask Julie about principal value thingy.
 
+
+% ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗     ███████╗██╗  ██╗
+%██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║     ██╔════╝╚██╗██╔╝
+%██║     ██║   ██║██╔████╔██║██████╔╝██║     █████╗   ╚███╔╝ 
+%██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║     ██╔══╝   ██╔██╗ 
+%╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ███████╗███████╗██╔╝ ██╗
+% ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝  ╚═╝
+\newpage
+\section*{Complex analysis}
+\subsection*{Usefull shit}
+
+\begin{itemize}
+    \item $(z-z_0)<R$ means all complex numbers within radius $R$ of $z_0$ in the complex field.
+    \item In many functions, the order of it's pole is very obvious. i.e $1/(z-3)$ is a first order pole at $z=3$, and $1/(z+2i)^3$ is a third order pole at $z=-2i$.
+    \item When encountered by a fraction with $i$ in the denominator, multiply by the complex conjugate to move the $i$ upstairs. (i.e. $1/(3+2i)$, multiply by $(3-2i)$). In general:
+    \[
+        (x+iy)(x-iy) = (x^2 + y^2)
+    \]
+\end{itemize}
+
+\[
+    \ln{z} = \ln|z| + i\theta, \quad\quad \theta\in[-\pi,\, \pi]
+\]
+
+
+
+\holine
+\subsection*{Polar representation and roots}
+\[
+    z = x + iy = r(\cos(\theta) + i\sin(\theta)) = r\exp{i\theta}
+\]
+
+\textbf{Powers of z:}
+\[
+    z^n = (r\exp{i\theta})^n = r^n\exp{in\theta} = \cos(n\theta) + i \sin(n\theta)
+\]
+
+\textbf{Roots of z:} 
+\[
+    z^{1/n} = r^{1/n}\exp{i(\theta + 2\pi k)/n}, \quad\quad\quad k\in 0,1,2,...,n-1
+\]
+$z^{1/n}$ has $n$ roots, spread evenly in a circle in the complex plane.
+
+
+
+\holine
+\subsection*{Complex Series}
+The complex sequence
+\[
+    \{z_n\} = \{z_1, z_2, z_3, ...\}
+\]
+converges if both the real and imaginary parts of $z_n$ approaches zero for large $n$.
+
+The complex series
+\[
+    s_n = \sum_{k=1}^n z_k
+\]
+converges if $z_k$ converges.
+
+\textbf{Ratio test:}
+if $\frac{z_{n+1}}{z_n} \leq 1$ for large $n$, then $z_k$ converges.
+
+
+\holine
+\subsection*{Complex Power Series}
+\[
+    \sum_{n=0}^\infty a_n(z-z_0)^n
+\]
+Around a point $z_0$, series converges for the area of $z$ where
+\[
+    |z-z_0| < \lim_{n\rightarrow\infty} \qty|\frac{a_n}{a_{n+1}}| = R
+\]
+where $R$ is called the \textit{radius of convergence}.
+
+
+\holine
+\subsection*{Analytic Functions}
+Analytic functions are special in that they treat $z=x+iy$ as a single unit, i.e. respect the complex structure.
+
+If the output can be expressed solely in $z$ (without $x$ or $y$), the function is analytic. Remember that $x = \half (z+z^*)$ and $=\frac{1}{2i}(z-z^*)$.
+
+An function analytic in a region always has an unique derivative in the region.
+
+\textit{Regular point:} Point where $f$ is analytic.\\
+\textit{Singular point:} Point where $f$ is not analytic.
+
+If $f$ is analytic in some region (has a first derivative), it has derivatives of all orders in that region.
+
+
+
+\subsubsection*{Cauchy-Riemann Equations}
+\[
+    \pdv{u}{x} = \pdv{u}{y} \quad\quad \pdv{u}{y} = - \pdv{v}{x}
+\]
+Criteria for a function to be analytic in a region, derived from demanding existence of the derivative.
+
+
+
+\holine
+\subsection*{Harmonic Functions}
+Harmonic functions are solutions to the \textbf{2D Laplace equation}:
+\[
+    \nabla^2 \phi = \pdv[2]{\phi}{x} + \pdv[2]{\phi}{y} = 0
+\]
+
+If $f(z) = u(x,y) + iv(x,y)$ is analytic in some region, then $u(x,y)$ and $v(x,y)$ are harmonic functions.
+
+\textbf{Theorem:} Given a harmonic function $u(x,y)$, we can always find it's \textit{harmonic conjugate} $v(x,y)$ such that $f = u + iv$ is an analytic function.
+
+
+
+\holine
+\subsection*{Contour Integrals of Complex Functions}
+\[
+    \int_\Gamma f(z) \dd{z}
+\]
+
+
+\subsubsection*{Upper Bound Estimate of Contour Integral}
+\[
+    \qty|\int_\Gamma f(z) \dd{z}| \leq M\cdot L
+\]
+where $M$ is the maximum value of $f(z)$ on $\Gamma$, and $L$ is the length of $\Gamma$.
+
+
+\subsubsection*{Independence of Path}
+If $\Gamma_1$ and $\Gamma_2$ are two contours that can be continously deformed into one another (without crossing singularities), then
+\[
+    \int_{\Gamma_1} f(z) \dd{z} = \int_{\Gamma_2} f(z) \dd{z}
+\]
+
+\textbf{Cauchy's Theorem:} As a result, any contour integral that doesn't enclose a singularity, is 0.
+
+
+\holine
+\subsection*{Cauchy's Integral Formula}
+Formula for evaluating the contour integral around a $n+1$'th order pole at $z_0$.
+\[
+    \int_\Gamma \frac{f(z)}{(z-z_0)^{n+1}}\dd{z} = \frac{2\pi i}{n!}f^{(n)}(z_0)
+\]
+\textbf{Note:} Rewrite the expression until it is on the form above. If the contour contains several singularities, rewrite the above expression to handle each of the poles seperately.
+
+
+
+\holine
+\subsection*{Taylor Series}
+\[
+    f(z_0) = \sum_{n=0}^\infty a_n(z-z_0)^n, \quad\quad a_n = \frac{f^{(n)}(z_0)}{n!}
+\]
+\textbf{Theorem:} If $f(z)$ is analytic in the disk $|z-z_0| \leq R$, then the Taylor series converges for all $z$ \textit{inside} the disk.
+
+
+\holine
+\subsection*{Laurent Series}
+We combine the \textit{Taylor} series with a \textit{Principal} series of negative powers.
+\[
+\yl{
+    f(z_0) = \sum_{n=0}^\infty a_k(z-z_0)^n - \sum_{n=1}^\infty b_k\frac{1}{(z-z_0)^n}
+}
+\]
+\begin{itemize}
+    \item The Taylor series of positive powers converge \textit{inside} some circle $|z-z_0| < R_2$.
+    \item The Principal series of negative powers converge \textit{outside} some circle $R_1 < |z-z_0|$.
+    \item The Laurent series converges in the donut between the two circles, $R_1 < |z-z_0| < R_2$.
+\end{itemize}
+\textbf{Tip:} If you only need the series to converge outside/inside some circle, you only need one of the series.
+
+The factor $b_0$ is called the \textbf{residue} of $f$ at $z_0$.
+
+\subsection*{Finding Laurent Series}
+\begin{itemize}
+    \item If the Laurent Series should expand from a point $z_0 \neq 0$, you must make a substitution $w = z - z_0$.
+    \item Manipulate the function to the form
+    \[
+        f(w) = C(w)\cdot \frac{1}{1-g}
+    \]
+    where $g$ is any factor/power of $w$, and $C(w)$ is any function of $w$.
+    \item The Laurent Series is then given as
+\[
+\gr{
+    f(w) = C(w)\cdot \frac{1}{1-g} = \begin{cases} \ \ C(w)\sum\limits_{n=0}^\infty w^n \quad\quad \text{(Taylor)} \\ -C(w)\sum\limits_{n=1}^\infty\dfrac{1}{w^n} \quad\quad \text{(Principal)} \end{cases}
+}
+\]
+\end{itemize}
+
+
+
+\holine
+\subsection*{Singularities}
+Assume $f(z)$ has an isolated singularity at $z_0$, and it's Larent series is as given above.
+\begin{itemize}
+    \item If all $b_n = 0$, $z_0$ is a \textit{removable} singularity (not actually a singularity).
+    \item If $b_n \neq 0$ for some $n$, but zero for all factors above $n$ (such that $(z-z_0)^{-n}$ is the biggest negative power), we say that $z_0$ is a \textit{pole} of order $n$.
+    \item If there are infinite negative terms, we say that $z_0$ is an \textit{essential} singularity.
+\end{itemize}
+
+
+\holine
+\subsection*{Residue Theory}
+Any integral over a contour $\Gamma$ can be split up into integrals over only infinitesimally small contours around all singularities in $\Gamma$.
+
+An contour integral containing $N$ singularities $z_k$ is given as the sum of the residues at all the singularities.
+
+\[
+    \int_\Gamma f(z) \dd{z} = 2\pi i \sum_{k=1}^N Res(f,z_k)
+\]
+
+\subsection*{Ways of finding residues}
+\begin{itemize}
+    \item \textbf{\underline{Use Laurent Series} (always works):} Write out the Laurent Series of the expression around the singularities, and find the $b_1$ term (the $1/z$ coefficient).
+    \item \textbf{\underline{For Simple Poles} (alt 1):} \\
+    $\gr{Res(f, z_0) = \lim\limits_{z\rightarrow z_0}(z-z_0)f(z)}$\\
+    \item \textbf{\underline{For Simple Poles} (alt 2):}\\
+    If $f$ is a rational function $f(z) = \frac{P(z_0)}{Q(z_0)}$:\\
+    $\gr{Res(f,z_0) = \frac{P(z_0)}{Q'(z_0)}}$
+    \item \textbf{\underline{For Multiple Poles}:} If $f$ has a pole of order $m$ at $z_0$, and $M\geq m$, then\\
+    $\gr{Res(f,z_0) = \lim\limits_{z\rightarrow z_0} \frac{1}{(M-1)!} \dv[M-1]{z}\qty[(z-z_0)^M f(z)]}$
+\end{itemize}
+
+
+
+
+% ██████╗ ███████╗ █████╗ ██╗         ██╗███╗   ██╗████████╗
+% ██╔══██╗██╔════╝██╔══██╗██║         ██║████╗  ██║╚══██╔══╝
+% ██████╔╝█████╗  ███████║██║         ██║██╔██╗ ██║   ██║   
+% ██╔══██╗██╔══╝  ██╔══██║██║         ██║██║╚██╗██║   ██║   
+% ██║  ██║███████╗██║  ██║███████╗    ██║██║ ╚████║   ██║██╗
+% ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝  ╚═══╝   ╚═╝╚═╝
+\newpage
+\section*{Applications to Real Integrals}
+\subsection*{Type I: Trigonometric integrals over $[0, 2\pi]$}
+\[
+    \int_0^{2\pi} u(\cos{\theta}, \sin{\theta}) \dd{\theta}
+\]
+
+Substitute for
+
+\[
+\yl{
+    \cos{\theta} = \dfrac{1}{2}\qty(z+\dfrac{1}{z}) \quad\quad \sin{\theta} = \dfrac{1}{2i}\qty(z-\dfrac{1}{z}) \quad\quad \dd{\theta} = \dfrac{\dd{z}}{iz}
+}
+\]
+
+The integral is now around a circular contour in the complex plane, centered around $(0,0)$ with radius $1$. Evaluate the integral by finding singularities inside the circle and solving for residues.
+
+
+
+
+\holine
+\subsection*{Type IIa: Rational Functions Over $[-\infty, \infty]$}
+\[
+    I = \int_{-\infty}^\infty f(x) \dd{x} = \int_{-\infty}^\infty \dfrac{P(x)}{Q(x)} \dd{x}
+\]
+
+\[
+    I = 2\pi i \sum Res(f, z_n)
+\]
+where $z_n$ are the singularities in the \textit{upper} plane.
+
+
+Works if
+\begin{itemize}
+    \item $degree(Q) \geq degree(P) + 2$
+    \item $f$ is analytic on and above the complex plane.
+\end{itemize}
+
+
+
+\holine
+\subsection*{Jordan's Lemma}
+If $m>0$ is real, and $P$ and $Q$ are polynomials such that $P/Q$ is rational, then:
+\[
+    \lim\limits_{\rho\rightarrow\infty}\int\limits_{C_\rho} \frac{P(z)}{Q(z)}\exp{imz} \dd{z} = 0
+\]
+where $C_\rho$ is a half-circle contour with radius $\rho$
+
+
+
+\holine
+\subsection*{Type IIb: ... with Trigonometric Functions}
+\[
+    I = \int_{-\infty}^\infty \dfrac{P(x)}{Q(x)}\cos(m x) \dd{x} \quad\quad \text{(or sin)}
+\]
+
+
+
+\holine
+\subsection*{Type III: Singularities on the real axis (Principal Value)}
+When a real integral passes singularities, we say that the integral is not defined, but it's \textbf{principal value} is. It behaves just as an ordinary integral:
+\[
+\yl{
+    PV\int_a^b f(x) \dd{x} = \lim\limits_{r\rightarrow 0^+} \qty[\int\limits_a^{C-r} f(x) \dd{x} + \int\limits_{C+r}^b f(x) \dd{x} ]
+}
+\]
+
+where $C$ is a singularity. Using the same logic as in Type II, with an added infinite half-circle on the upper plane, this evaluates to
+\[
+\gr{
+    PV\infint f(x) \dd{x} = 2\pi i \sum_k Res(f; z_k) + \pi i \sum_j Res(f;z_j)
+}
+\]
+where $\bl{z_k}$ are singularities in the \bll{upper half plane}, and $\bl{z_j}$ are singularities \bll{\textit{on} the real axis.}
+
+We see that singularities on the exit contribute \textit{half} of those above.
 
 
 
@@ -109,30 +436,6 @@ Ask Julie about principal value thingy.
 % ╚═════╝ ╚═════╝ ╚══════╝
 \newpage
 \section*{Ordinary Differential Equations}
-% \begin{tikzpicture}[level distance=2.5cm,
-%   level 1/.style={sibling distance=8cm},
-%   level 2/.style={sibling distance=6cm},
-%   level 3/.style={sibling distance=3cm}]
-%     \node[circle, draw](z){$ODEs$}
-%         child{node[circle,draw]{1st Order}
-%             child{node[circle,draw]{Separable}}
-%             child{node[circle,draw]{Linear}}
-%             }
-%         child{node[circle,draw]{2nd Order}
-%             child{node[circle,draw]{Homogeneous}
-%                 child{node[circle,draw]{Constant coeff.}}
-%                 child{node[circle,draw]{Euler-Cauchy}}
-%                 }
-%             child{node[circle,draw]{Inhomogeneous}
-%                 child{node[circle,draw]{Constant coeff.}}
-%                 child{node[circle,draw]{Factorization}}
-%                 child{node[circle,draw]{Variation of parameters}}
-%                 }
-%             };
-% \end{tikzpicture}
-
-
-
 
 \subsection*{First Order, Linear, ODEs - Integrating Factor}
 \[
@@ -348,6 +651,11 @@ where $y_1$ and $y_2$ are known linearly indepedendent solutions to the homo-ODE
 \newpage
 
 \section*{Trigonometric Functions}
+\subsection*{Usefull Shit}
+\begin{itemize}
+    \item recognize \textbf{odd} and \textbf{even} integrands. I.e $\infint \sin{x}/x^2 = 0$ due to odd, and $\infint\cos{x}/(1+x^2) = 2\zeroinfint\cos{x}/(1+x^2)$ due to even.
+\end{itemize}
+
 \subsection*{Orthogonality}
 \[
     \int_{-\pi}^\pi \sin(mx)\sin(nx) \dd{x} = \int_{-\pi}^\pi \cos(mx)\cos(nx) \dd{x} = \pi \delta_{mn}
@@ -396,10 +704,10 @@ If this holds, then the series will converge to $f(x)$ at all points. At discon
 
 \holine
 \section*{Fourier Transforms}
-\[
+\[\yl{
     f(x) = \frac{1}{\sqrt{2\pi}} \infint F(k) \exp{ikx} \dd{k} \quad\quad
     F(k) = \frac{1}{\sqrt{2\pi}} \infint f(x) \exp{-ikx} \dd{x}
-\]
+}\]
 
 \subsection*{Odd and even functions}
 If $f(x)$ is an odd function, $f(x) = -f(-x)$, the Fourier transform can be done using only sine (as cosine is symmetric around 0):
