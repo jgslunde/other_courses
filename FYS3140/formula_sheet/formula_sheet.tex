@@ -61,9 +61,10 @@
 \setlength{\FrameSep}{0.2cm}
 
 % Setting section spacing
-\titlespacing\section{0pt}{0pt}{0pt}
-\titlespacing\subsection{0pt}{0pt}{0pt}
-\titlespacing\subsubsection{0pt}{0pt}{0pt}
+\titlespacing\part{0pt}{0pt plus 6pt}{0pt}
+\titlespacing\section{0pt}{0pt plus 6pt}{0pt}
+\titlespacing\subsection{0pt}{0pt plus 6pt}{0pt}
+\titlespacing\subsubsection{0pt}{0pt plus 6pt}{0pt}
 
 
 
@@ -72,15 +73,20 @@
 \begin{multicols}{2}
 
 
-\section*{Usefull Shit}
+\part*{Usefull Shit}
 
-\begin{equation*}
-    \yl{
-        c \ln{x} = \ln{x^c} \quad\quad\quad \dv{x}\ln{x} = \frac{1}{x}
-    }
-\end{equation*}
+\subsection*{Taylor Expansions}
+\[
+    \exp{x} = \sum_{n=0}^\infty \dfrac{x^n}{n!} \quad\quad\quad
+    \frac{1}{1-x} = \sum_{n=0}^\infty x^n
+\]
+\[
+    \sin{x} = \sum_{n=0}^\infty \dfrac{(-1)^n}{(2n+1)!}x^{2n+1} \quad\quad
+    \cos{x} = \sum_{n=0}^\infty \dfrac{(-1)^n}{(2n)!}x^{2n}
+\]
 
 
+\holine
 \subsection*{Random shit I always forget}
 \[
     c \ln{x} = \ln{x^c} \quad\quad\quad \dv{x}\ln{x} = \frac{1}{x}
@@ -89,7 +95,11 @@
 \[
     x = \frac{-b\pm \sqrt{b^2 - 4ac}}{2a}
 \]
-\subsection*{Integration}
+\\
+\[
+    \dv{x}\qty[\dfrac{u(x)}{v(x)}] = \dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}
+\]
+\\
 \[
     \int (uv') = uv - \int(u'v)
 \]
@@ -121,23 +131,109 @@
 
 
 
-% ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗     ███████╗██╗  ██╗
-%██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║     ██╔════╝╚██╗██╔╝
-%██║     ██║   ██║██╔████╔██║██████╔╝██║     █████╗   ╚███╔╝ 
-%██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║     ██╔══╝   ██╔██╗ 
-%╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ███████╗███████╗██╔╝ ██╗
-% ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝  ╚═╝
+% ████████╗███████╗███╗   ██╗███████╗ ██████╗ ██████╗ ███████╗
+% ╚══██╔══╝██╔════╝████╗  ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝
+%    ██║   █████╗  ██╔██╗ ██║███████╗██║   ██║██████╔╝███████╗
+%    ██║   ██╔══╝  ██║╚██╗██║╚════██║██║   ██║██╔══██╗╚════██║
+%    ██║   ███████╗██║ ╚████║███████║╚██████╔╝██║  ██║███████║
+%    ╚═╝   ╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+\vspace*{\fill}
+\columnbreak
+\part*{Tensors}
+\subsection*{Random Shit}
+\[
+    A^{-1}A = \mathcal{I} \quad\quad A_T = A_{ij}^T = A_{ji}
+\]
+    
+\[
+    \det{A} = \det{A^T} \quad\quad \det{AB} = \det{A}\det{B}
+\]
+
+Common tensor product
+\[
+    AB = A_{ij}B_{jk}
+\]
+
+\holine
+\subsection*{PLZ SEND HELP}
+
+Rotation matrices are orthogonal, such that $\gr{A^T = A^{-1}}$.
+
+Transformational matrices from a coordinate system $\b{e}'$ to $\b{e}$ is given as $A_{ij} = e'_i \cdot e_i$
+
+\[
+    y_i = A_{ij}x_j =
+    \begin{pmatrix}
+        A_{11} & A_{12} & A_{13} \\
+        A_{21} & A_{22} & A_{23} \\
+        A_{31} & A_{32} & A_{33}
+    \end{pmatrix}
+    \begin{pmatrix}
+        x_1 \\
+        x_2 \\
+        x_3
+    \end{pmatrix}
+\]
+
+\[
+    x_j = A_{ji}y_i = A^Ty
+\]
+
+Transformation of a higher order tensor:
+\[
+    T'_{\alpha\beta\gamma\delta} = A_{\alpha i}A_{\beta j}A_{\gamma k}A_{\delta l}T_{ijkl}
+\]
+where $A$ is the transformation matrix.
+
+
+\[
+    (\b{B}\times\b{C})_i = \epsilon_{ijk}B_jC_k
+\]
+
+\holine
+\subsection*{Dirac Delta \& Levi-Civita}
+\[
+    \delta_{ij} = \begin{cases}
+    1 &\text{if} \quad i=j \\
+    0 &\text{else}
+    \end{cases}
+    \quad\quad
+    \epsilon_{ijk} = \begin{cases}
+    1 &\text{if} \quad i,j,k \ \text{in order} \\
+    -1 &\text{if} \quad i,j,k \ \text{not in order} \\
+    0 &\text{else}
+    \end{cases}
+\]
+
+\[
+    \infint \delta(x-a)f(x)\dd{x} = f(a)
+\]
+
+
+
+
+
+
+
+%  ██████╗ ██████╗ ███╗   ███╗██████╗ ██╗     ███████╗██╗  ██╗
+% ██╔════╝██╔═══██╗████╗ ████║██╔══██╗██║     ██╔════╝╚██╗██╔╝
+% ██║     ██║   ██║██╔████╔██║██████╔╝██║     █████╗   ╚███╔╝ 
+% ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║     ██╔══╝   ██╔██╗ 
+% ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ███████╗███████╗██╔╝ ██╗
+%  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝  ╚═╝
 \newpage
-\section*{Complex analysis}
+\part*{Complex analysis}
 \subsection*{Usefull shit}
 
 \begin{itemize}
-    \item $(z-z_0)<R$ means all complex numbers within radius $R$ of $z_0$ in the complex field.
+    \item \bll{Positively oriented} contour integrals are counter-clockwise.
+    \item $\yl{(z-z_0)<R}$ means all complex numbers within radius $R$ of $z_0$ in the complex field.
     \item In many functions, the order of it's pole is very obvious. i.e $1/(z-3)$ is a first order pole at $z=3$, and $1/(z+2i)^3$ is a third order pole at $z=-2i$.
-    \item When encountered by a fraction with $i$ in the denominator, multiply by the complex conjugate to move the $i$ upstairs. (i.e. $1/(3+2i)$, multiply by $(3-2i)$). In general:
+    \item When encountered by a fraction with $i$ in the denominator, multiply by the \bll{complex conjugate} to move the $i$ upstairs. (i.e. $1/(3+2i)$, multiply by $(3-2i)$). In general:
     \[
         (x+iy)(x-iy) = (x^2 + y^2)
     \]
+    \item When showing that a contour integral is 0, an \bll{upper-bound estimate} is often usefull.
 \end{itemize}
 
 \[
@@ -158,9 +254,9 @@
 \]
 
 \textbf{Roots of z:} 
-\[
+\[\gr{
     z^{1/n} = r^{1/n}\exp{i(\theta + 2\pi k)/n}, \quad\quad\quad k\in 0,1,2,...,n-1
-\]
+}\]
 $z^{1/n}$ has $n$ roots, spread evenly in a circle in the complex plane.
 
 
@@ -199,21 +295,19 @@ where $R$ is called the \textit{radius of convergence}.
 \subsection*{Analytic Functions}
 Analytic functions are special in that they treat $z=x+iy$ as a single unit, i.e. respect the complex structure.
 
-If the output can be expressed solely in $z$ (without $x$ or $y$), the function is analytic. Remember that $x = \half (z+z^*)$ and $=\frac{1}{2i}(z-z^*)$.
+If the \bll{output can be expressed} solely in $z$ (without $x$, $y$ or $z^*$), the function is analytic. Remember that $x = \half (z+z^*)$ and $=\frac{1}{2i}(z-z^*)$.
 
-An function analytic in a region always has an unique derivative in the region.
+An function analytic in a region always has an unique derivatives of all orders in that region.
+
 
 \textit{Regular point:} Point where $f$ is analytic.\\
 \textit{Singular point:} Point where $f$ is not analytic.
 
-If $f$ is analytic in some region (has a first derivative), it has derivatives of all orders in that region.
-
-
 
 \subsubsection*{Cauchy-Riemann Equations}
-\[
+\[\yl{
     \pdv{u}{x} = \pdv{u}{y} \quad\quad \pdv{u}{y} = - \pdv{v}{x}
-\]
+}\]
 Criteria for a function to be analytic in a region, derived from demanding existence of the derivative.
 
 
@@ -221,46 +315,57 @@ Criteria for a function to be analytic in a region, derived from demanding exist
 \holine
 \subsection*{Harmonic Functions}
 Harmonic functions are solutions to the \textbf{2D Laplace equation}:
-\[
+\[\yl{
     \nabla^2 \phi = \pdv[2]{\phi}{x} + \pdv[2]{\phi}{y} = 0
-\]
+}\]
 
 If $f(z) = u(x,y) + iv(x,y)$ is analytic in some region, then $u(x,y)$ and $v(x,y)$ are harmonic functions.
 
 \textbf{Theorem:} Given a harmonic function $u(x,y)$, we can always find it's \textit{harmonic conjugate} $v(x,y)$ such that $f = u + iv$ is an analytic function.
 
 
+\textbf{Finding Harmonic Conjugates:} Given an harmonic function $u(x,y)$, we find it's harmonic conjugate by inserting $u(x,y)$ and $v(x,y)$ into the \textit{Cauchy-Riemann Equations}, integrating for $v$ (remember to include constants, which are only constant in regard to the integrating term), and solve for the constants to get a complete $v$.
+
 
 \holine
 \subsection*{Contour Integrals of Complex Functions}
-\[
-    \int_\Gamma f(z) \dd{z}
-\]
-
+\[\gr{
+    \int_{C_r} (z-z_0)^n \dd{z} = \begin{cases}
+    2\pi i &\text{if} \ n=-1 \\
+    0 &\text{else}
+    \end{cases}
+}\]
+where $C_r$ is a circle in positive (counter-clockwise) direction one time around the complex plane.
 
 \subsubsection*{Upper Bound Estimate of Contour Integral}
-\[
+\[\gr{
     \qty|\int_\Gamma f(z) \dd{z}| \leq M\cdot L
-\]
+}\]
 where $M$ is the maximum value of $f(z)$ on $\Gamma$, and $L$ is the length of $\Gamma$.
+
+Remember the \textbf{Triangle Inequalities:}
+\[
+    |z_1 + z_2| \leq |z_1| + |z_2| \quad\quad |z_2 - z_1| \geq |z_2| - |z_1|
+\]
 
 
 \subsubsection*{Independence of Path}
 If $\Gamma_1$ and $\Gamma_2$ are two contours that can be continously deformed into one another (without crossing singularities), then
-\[
+\[\gr{
     \int_{\Gamma_1} f(z) \dd{z} = \int_{\Gamma_2} f(z) \dd{z}
-\]
+}\]
 
-\textbf{Cauchy's Theorem:} As a result, any contour integral that doesn't enclose a singularity, is 0.
+\textbf{Cauchy's Theorem:} As a result, any contour integral that doesn't enclose a singularity, is 0, as it can be shrinked to a point.
+
 
 
 \holine
 \subsection*{Cauchy's Integral Formula}
 Formula for evaluating the contour integral around a $n+1$'th order pole at $z_0$.
-\[
+\[\gr{
     \int_\Gamma \frac{f(z)}{(z-z_0)^{n+1}}\dd{z} = \frac{2\pi i}{n!}f^{(n)}(z_0)
-\]
-\textbf{Note:} Rewrite the expression until it is on the form above. If the contour contains several singularities, rewrite the above expression to handle each of the poles seperately.
+}\]
+\textbf{Note:} Remember to rewrite the expression to \textit{exactly} the form above. If the contour contains several singularities, rewrite to handle each of the singularities seperately. Example, integral around $z=4$ singularity of $\cos{z}/[(z-4)(z+5)]$, rewrite to $[\cos{z}/(z+5)]/(z-4) = f(z)/(z-4)$.
 
 
 
@@ -281,34 +386,36 @@ We combine the \textit{Taylor} series with a \textit{Principal} series of negati
 }
 \]
 \begin{itemize}
-    \item The Taylor series of positive powers converge \textit{inside} some circle $|z-z_0| < R_2$.
-    \item The Principal series of negative powers converge \textit{outside} some circle $R_1 < |z-z_0|$.
-    \item The Laurent series converges in the donut between the two circles, $R_1 < |z-z_0| < R_2$.
+    \item The \bll{Taylor series of positive powers converge \textit{inside}} some circle $|z-z_0| < R_2$.
+    \item The \bll{Principal series of negative powers converge \textit{outside}} some circle $R_1 < |z-z_0|$.
+    \item The \bll{Laurent series converges in the donut between} the two circles, $R_1 < |z-z_0| < R_2$.
 \end{itemize}
-\textbf{Tip:} If you only need the series to converge outside/inside some circle, you only need one of the series.
+\textbf{Tip:} If you only need the series to converge outside/inside some circle, \bll{you only need one of the series.}
 
 The factor $b_0$ is called the \textbf{residue} of $f$ at $z_0$.
 
 \subsection*{Finding Laurent Series}
-\begin{itemize}
-    \item If the Laurent Series should expand from a point $z_0 \neq 0$, you must make a substitution $w = z - z_0$.
-    \item Manipulate the function to the form
-    \[
-        f(w) = C(w)\cdot \frac{1}{1-g}
-    \]
+If the Laurent Series should expand from a point $z_0 \neq 0$, make a substitution $\bl{w = z - z_0}$, such that the series expands from $w=0$.
+
+\textbf{By Geometric Series:} Manipulate the function to the form
+\[
+    f(w) = C(w)\cdot \frac{1}{1-g}
+\]
     where $g$ is any factor/power of $w$, and $C(w)$ is any function of $w$.
-    \item The Laurent Series is then given as
+    The Laurent Series is then given as
 \[
 \gr{
     f(w) = C(w)\cdot \frac{1}{1-g} = \begin{cases} \ \ C(w)\sum\limits_{n=0}^\infty w^n \quad\quad \text{(Taylor)} \\ -C(w)\sum\limits_{n=1}^\infty\dfrac{1}{w^n} \quad\quad \text{(Principal)} \end{cases}
 }
 \]
-\end{itemize}
 
+\textbf{By Taylor Expansion:} If the function has no singularities, you can simply make a Taylor expansion of it. Make sure to do the substitution first.
 
 
 \holine
-\subsection*{Singularities}
+\subsection*{Singularities and zeros}
+The \textbf{order of a zero or singularity} is the \bll{number of times you must derivate the function} until the zero or infinity disapears.
+
 Assume $f(z)$ has an isolated singularity at $z_0$, and it's Larent series is as given above.
 \begin{itemize}
     \item If all $b_n = 0$, $z_0$ is a \textit{removable} singularity (not actually a singularity).
@@ -323,9 +430,9 @@ Any integral over a contour $\Gamma$ can be split up into integrals over only i
 
 An contour integral containing $N$ singularities $z_k$ is given as the sum of the residues at all the singularities.
 
-\[
+\[\yl{
     \int_\Gamma f(z) \dd{z} = 2\pi i \sum_{k=1}^N Res(f,z_k)
-\]
+}\]
 
 \subsection*{Ways of finding residues}
 \begin{itemize}
@@ -337,6 +444,8 @@ An contour integral containing $N$ singularities $z_k$ is given as the sum of t
     $\gr{Res(f,z_0) = \frac{P(z_0)}{Q'(z_0)}}$
     \item \textbf{\underline{For Multiple Poles}:} If $f$ has a pole of order $m$ at $z_0$, and $M\geq m$, then\\
     $\gr{Res(f,z_0) = \lim\limits_{z\rightarrow z_0} \frac{1}{(M-1)!} \dv[M-1]{z}\qty[(z-z_0)^M f(z)]}$
+    \\
+    Naturally, if you know the order of the pole, you pick $M=m$.
 \end{itemize}
 
 
@@ -351,17 +460,15 @@ An contour integral containing $N$ singularities $z_k$ is given as the sum of t
 \newpage
 \section*{Applications to Real Integrals}
 \subsection*{Type I: Trigonometric integrals over $[0, 2\pi]$}
-\[
+\[\yl{
     \int_0^{2\pi} u(\cos{\theta}, \sin{\theta}) \dd{\theta}
-\]
+}\]
 
 Substitute for
 
-\[
-\yl{
+\[\gr{
     \cos{\theta} = \dfrac{1}{2}\qty(z+\dfrac{1}{z}) \quad\quad \sin{\theta} = \dfrac{1}{2i}\qty(z-\dfrac{1}{z}) \quad\quad \dd{\theta} = \dfrac{\dd{z}}{iz}
-}
-\]
+}\]
 
 The integral is now around a circular contour in the complex plane, centered around $(0,0)$ with radius $1$. Evaluate the integral by finding singularities inside the circle and solving for residues.
 
@@ -370,15 +477,14 @@ The integral is now around a circular contour in the complex plane, centered aro
 
 \holine
 \subsection*{Type IIa: Rational Functions Over $[-\infty, \infty]$}
-\[
+\[\yl{
     I = \int_{-\infty}^\infty f(x) \dd{x} = \int_{-\infty}^\infty \dfrac{P(x)}{Q(x)} \dd{x}
-\]
+}\]
 
-\[
+\[\gr{
     I = 2\pi i \sum Res(f, z_n)
-\]
+}\]
 where $z_n$ are the singularities in the \textit{upper} plane.
-
 
 Works if
 \begin{itemize}
@@ -390,19 +496,20 @@ Works if
 
 \holine
 \subsection*{Jordan's Lemma}
-If $m>0$ is real, and $P$ and $Q$ are polynomials such that $P/Q$ is rational, then:
-\[
+If $m>0$ is real, and $P$ and $Q$ are polynomials such that $P/Q$ is rational, and $\bl{degree(Q) \geq degree(P) + 1}$ then:
+\[\gr{
     \lim\limits_{\rho\rightarrow\infty}\int\limits_{C_\rho} \frac{P(z)}{Q(z)}\exp{imz} \dd{z} = 0
-\]
+}\]
 where $C_\rho$ is a half-circle contour with radius $\rho$
 
+Same holds for the lower plane if $m<0$.
 
 
 \holine
 \subsection*{Type IIb: ... with Trigonometric Functions}
-\[
+\[\yl{
     I = \int_{-\infty}^\infty \dfrac{P(x)}{Q(x)}\cos(m x) \dd{x} \quad\quad \text{(or sin)}
-\]
+}\]
 
 
 
@@ -435,100 +542,100 @@ We see that singularities on the exit contribute \textit{half} of those above.
 %╚██████╔╝██████╔╝███████╗
 % ╚═════╝ ╚═════╝ ╚══════╝
 \newpage
-\section*{Ordinary Differential Equations}
+\part*{Ordinary Differential Equations}
 
 \subsection*{First Order, Linear, ODEs - Integrating Factor}
-\[
+\[\yl{
     y'(x) + P(x) y(x) = Q(x)
-\]
+}\]
 
-\[
-    y(x)\mu(x) = \int Q(x)\mu(x) \dd{x} + C \quad\quad\text{with}\quad\quad \mu(x) = \exp{\int P(x)\dd{x}}
-\]
+\[\gr{
+    y(x)\mu(x) = \int Q(x)\mu(x) \dd{x} + C} \quad\quad\text{with}\quad\quad \gr{\mu(x) = \exp{\int P(x)\dd{x}}
+}\]
 
 
 
 
 \Holine
 \section*{Homogenous ODEs}
-\[
+\[\yl{
     y'' + P(x)y' + Q(x)y = 0
-\]
+}\]
 \textbf{Properties}
 \begin{itemize}
     \item Linear combination of solutions is also a solution
-    \item General solution on form $y(x) = c_1 y_1(x) + c_2 y_2(x)$
+    \item General solution on form $\gr{y(x) = c_1 y_1(x) + c_2 y_2(x)}$
     \item Linearly independent solutions have a Wronskian of 0.
 \end{itemize}
-\[
+\[\gr{
     W(x) = 
     \begin{vmatrix} y_1(x) & y_2(x) \\ y_1'(x) & y_2'(x) \end{vmatrix}
-\]
+}\]
 
 
 \holine
 \subsection*{Variation of the constant}
-If you have one of the two linearly indepedent solutions, you can find the other as $y_2(x) = C(x)\cdot y_1(x)$, where $C(x)$ is a functions determined by inserting $y_2(x)$ into the ODE.
+If you have \underline{one of the two linearly indepedent solutions}, you can find the other as $\gr{y_2(x) = C(x)\cdot y_1(x)}$, where $C(x)$ is a functions determined by inserting $y_2(x)$ into the ODE.
 
 When you arrive at a solution for $C(x)$, you may discard any constants or coefficients, i.e. $C(x) = \alpha x^3 + \beta$.
 
 
 \holine
 \subsection*{Constant coefficients - Particular Equation}
-\[
+\[\yl{
     y''(x) + ay'(x) + by(x) = 0
-\]
+}\]
 
 Solve the particular equation
-\[
+\[\yl{
     \lambda^2 + a\lambda + b = 0
-\]
+}\]
 for $\lambda_1$ and $\lambda_2$.
 
 
-\subsubsection*{Two, real roots}
-\[
+\textbf{Two, real roots}
+\[\gr{
     y(x) = C_1\exp{\lambda_1 x} + C_2\exp{\lambda_2 x}
-\]
+}\]
 
 
-\subsubsection*{One, real root}
-\[
+\textbf{One, real root}
+\[\gr{
     y(x) = (C_1 + xC_2)\exp{\lambda x}
-\]
+}\]
 
 
-\subsubsection*{Two, complex roots}
+\textbf{Two, complex roots}
 \begin{equation*}
-\begin{split}
-    y(x) = A\exp{\lambda_1 x} + B\exp{\lambda_2 x} = \exp{-a/2 x}\qty[A\exp{i\omega x} + B\exp{-i\omega x}] \\
-    =\exp{-a/2 x}\qty[\hat{A}\cos{\omega x} + \hat{B}\sin{\omega x}]
+\begin{split}\gr{
+    y(x) = A\exp{\lambda_1 x} + B\exp{\lambda_2 x} = \exp{-a/2 x}\qty[A\exp{i\omega x} + B\exp{-i\omega x}]} \\
+    \gr{=\exp{-a/2 x}\qty[\hat{A}\cos{\omega x} + \hat{B}\sin{\omega x}]}
 \end{split}
 \end{equation*}
 
 
 \holine
 \subsection*{Euler-Cauchy Equations}
-\[
+\[\yl{
     x^2y'' + a_1x y' + a_0 y = 0
-\]
+}\]
 
 Introducing
 \[
-    x = \exp{z} \quad\quad\Rightarrow\quad\quad z = \ln|x|
+    \bl{x = \exp{z}} \quad\quad\Rightarrow\quad\quad \bl{z = \ln|x|}
 \]
 The equation can be rewritten to
-\[
+\[\yl{
     \pdv[2]{y}{z} + (a_1-1)\pdv{y}{z} + a_0 y = 0
-\]
-Solve and insert for $z$.
+}\]
+Solve the ODE, and insert for $z$.
 
 
 
 \holine
 \subsection*{Power methods}
 \begin{itemize}
-    \item Represent $P(x)$ and $Q(x)$ as power series.
+    \item Represent $P(x)$ and $Q(x)$ as power series (polynomials).
     \item Assume solution on the form
     \begin{itemize}
         \item $y(x) = \sum_{n=0}^\infty a_n x^n$
@@ -544,17 +651,17 @@ This will give you one or two undetermined coefficients. The equations maybe giv
 
 \holine
 \subsection*{Fröbenius method}
-\[
+\[\yl{
     x^2 y'' + xb(x)y' + c(x) y = 0
-\]
+}\]
 Assuming solution on form
-\[
+\[\gr{
     y_p(x) = \sum_{m=0}^\infty a_m x^{m+s}
-\]
+}\]
 where $s$ is some real number determined  the \textit{indicial equation}
-\[
+\[\yl{
     s(s-1) + b_0s + c_0 = 0
-\]
+}\]
 where $b_0=b(0)$, and $c_0=c(0)$
 
 \textbf{Three possible scenarios:}
@@ -598,9 +705,9 @@ where $b_0=b(0)$, and $c_0=c(0)$
 
 \holine
 \subsection*{Inhomo ODEs with constant coefficients}
-\[
+\[\yl{
     y'' + ay' + by = R(x)
-\]
+}\]
 \begin{itemize}
     \item Make a guess at $y_p$ with the same form as $R(x)$, with unknown coefficients.
     \item Insert back into ODE to solve for coefficients.
@@ -616,23 +723,25 @@ Let $\alpha$ and $\beta $ be the roots of $\lambda^2 + a\lambda + b = 0$.
 
 \holine
 \subsection*{Inhomo ODEs with varying coefficients}
-\[
+\[\yl{
     y'' + P(x)y' + Q(x)y = R(x)
-\]
+}\]
 
+\holine
 \subsubsection*{Factorization}
-If $u(x)$ is a known solution to the homo-ODE, a particular solution is $y_p = u(x)\cdot v(x)$ where
+If $u(x)$ is a \underline{known solution} to the homo-ODE, a particular solution is $\gr{y_p = u(x)\cdot v(x)}$ where
 \[
-    w' = v \quad\quad\quad w' + \qty[\frac{2u'}{u} + P]w = \frac{R}{u}
+    \gr{w' = v} \quad\quad\quad \yl{w' + \qty[\frac{2u'}{u} + P]w = \frac{R}{u}}
 \]
 Solve the ODE for $w$ with integrating factor.
 
-
+\holine
 \subsubsection*{Variation of parameters}
-\[
+\[\gr{
     y_p = -y_1\int\frac{y_2R}{W}\dd{x} + y_2 \int\frac{y_1R}{W}\dd{x}
-\]
+}\]
 where $y_1$ and $y_2$ are known linearly indepedendent solutions to the homo-ODE.
+
 \textbf{NOTE:} Remember that $R(x)$ is the RHS after the ODE is rewritten on the standard form.
 
 
@@ -649,8 +758,7 @@ where $y_1$ and $y_2$ are known linearly indepedendent solutions to the homo-ODE
 %██║     ╚██████╔╝╚██████╔╝██║  ██║██║███████╗██║  ██║
 %╚═╝      ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝
 \newpage
-
-\section*{Trigonometric Functions}
+\part*{Fourier}
 \subsection*{Usefull Shit}
 \begin{itemize}
     \item recognize \textbf{odd} and \textbf{even} integrands. I.e $\infint \sin{x}/x^2 = 0$ due to odd, and $\infint\cos{x}/(1+x^2) = 2\zeroinfint\cos{x}/(1+x^2)$ due to even.
@@ -704,7 +812,7 @@ If this holds, then the series will converge to $f(x)$ at all points. At discon
 
 \holine
 \section*{Fourier Transforms}
-\[\yl{
+\[\gr{
     f(x) = \frac{1}{\sqrt{2\pi}} \infint F(k) \exp{ikx} \dd{k} \quad\quad
     F(k) = \frac{1}{\sqrt{2\pi}} \infint f(x) \exp{-ikx} \dd{x}
 }\]
@@ -740,7 +848,7 @@ If $f(x)$ is even, $f(x) = f(-x)$, we need only cosine (as sine is anti-symmentr
 %██║     ██████╔╝███████╗
 %╚═╝     ╚═════╝ ╚══════╝
 \newpage
-\section*{Partial Differential Equations}
+\part*{Partial Differential Equations}
 \subsection*{Notes}
 \begin{itemize}
     \item In symentrical systems, it seems your can switch x<->y if it is required to suit boundary conditions (example: Diritchlet conditions are at x=a instad of at y=b).
@@ -785,24 +893,24 @@ Eigenfunctions on form
 \holine
 \subsection*{Wave Equation}
 \[
-    \pdv[2]{y}{x} = \frac{1}{c^2}\pdv[2]{y}{t}
+    \pdv[2]{y}{x} = \frac{1}{v^2}\pdv[2]{y}{t}
 \]
 Seperation of variables, $u(x,t) = F(x)G(t)$ gives equations
 \[
-    F''(x) = -k^2F(x) \quad\quad\quad \ddot{G}(t) = -k^2c^2G(t)
+    F''(x) = -k^2F(x) \quad\quad\quad \ddot{G}(t) = -k^2v^2G(t)
 \]
 where the seperation constant, $-k^2$ must be negative, else the solutions would blow up.
 
 The equations has solutions on the form
 \[
-    y(x,t) = \qty{\begin{matrix} \sin(kx) \\ \cos(kx) \end{matrix}} \times \qty{\begin{matrix} \sin(kct) \\ \cos(kct) \end{matrix}}
+    y(x,t) = \qty{\begin{matrix} \sin(kx) \\ \cos(kx) \end{matrix}} \times \qty{\begin{matrix} \sin(kvt) \\ \cos(kvt) \end{matrix}}
 \]
 The end-points are usually fixed at 0, leaving only the $\sin(kt)$ term, and forcing $k=n\pi/L$.
 
 If the velocity is 0 at $t=0$, we discard the sin-velocity term and get
 
 \[
-    y(x,t) = \oneinfsum b_n\sin(\frac{n\pi x}{L})\cos(\frac{n\pi c t}{L})
+    y(x,t) = \oneinfsum b_n\sin(\frac{n\pi x}{L})\cos(\frac{n\pi v t}{L})
 \]
 
 If position is 0 at $t=0$, we discard the cos-velocity term instead.
