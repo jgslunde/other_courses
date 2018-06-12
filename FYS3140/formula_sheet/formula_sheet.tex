@@ -247,13 +247,9 @@ where $A$ is the transformation matrix.
 \[
     z = x + iy = r(\cos(\theta) + i\sin(\theta)) = r\exp{i\theta}
 \]
-
-\textbf{Powers of z:}
 \[
     z^n = (r\exp{i\theta})^n = r^n\exp{in\theta} = \cos(n\theta) + i \sin(n\theta)
 \]
-
-\textbf{Roots of z:} 
 \[\gr{
     z^{1/n} = r^{1/n}\exp{i(\theta + 2\pi k)/n}, \quad\quad\quad k\in 0,1,2,...,n-1
 }\]
@@ -372,9 +368,9 @@ Formula for evaluating the contour integral around a $n+1$'th order pole at $z_0
 \holine
 \subsection*{Taylor Series}
 \[
-    f(z_0) = \sum_{n=0}^\infty a_n(z-z_0)^n, \quad\quad a_n = \frac{f^{(n)}(z_0)}{n!}
+    f(z; z_0) = \sum_{n=0}^\infty a_n(z-z_0)^n, \quad\quad a_n = \frac{f^{(n)}(z_0)}{n!}
 \]
-\textbf{Theorem:} If $f(z)$ is analytic in the disk $|z-z_0| \leq R$, then the Taylor series converges for all $z$ \textit{inside} the disk.
+\textbf{Theorem:} If $f(z)$ is analytic in the disk $|z-z_0| \leq R$, then the Taylor series converges for all $z$ \textit{inside} the disk. AKA, Taylor converges around $z_0$ out to the nearest singularity.
 
 
 
@@ -383,7 +379,7 @@ Formula for evaluating the contour integral around a $n+1$'th order pole at $z_0
 We combine the \textit{Taylor} series with a \textit{Principal} series of negative powers.
 \[
 \yl{
-    f(z_0) = \sum_{n=0}^\infty a_k(z-z_0)^n + \sum_{n=1}^\infty b_k\frac{1}{(z-z_0)^n}
+    f(z; z_0) = \sum_{n=0}^\infty a_k(z-z_0)^n + \sum_{n=1}^\infty b_k\frac{1}{(z-z_0)^n}
 }
 \]
 \begin{itemize}
