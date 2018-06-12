@@ -32,7 +32,7 @@
 \renewcommand{\exp}{e^}
 
 \newcommand{\infint}{\int_{-\infty}^{\infty}}
-\newcommand{\zeroinfint}{\int_{-\infty}^{\infty}}
+\newcommand{\zeroinfint}{\int_{0}^{\infty}}
 
 \newcommand{\infsum}{\sum_{n=-\infty}^{\infty}}
 \newcommand{\zeroinfsum}{\sum_{n=0}^{\infty}}
@@ -295,7 +295,7 @@ where $R$ is called the \textit{radius of convergence}.
 \subsection*{Analytic Functions}
 Analytic functions are special in that they treat $z=x+iy$ as a single unit, i.e. respect the complex structure.
 
-If the \bll{output can be expressed} solely in $z$ (without $x$, $y$ or $z^*$), the function is analytic. Remember that $x = \half (z+z^*)$ and $=\frac{1}{2i}(z-z^*)$.
+If the \bll{output can be expressed} solely in $z$ (without $x$, $y$ or $z^*$), the function is analytic. Remember that $x = \half (z+z^*)$ and $y=\frac{1}{2i}(z-z^*)$.
 
 An function analytic in a region always has an unique derivatives of all orders in that region.
 
@@ -377,12 +377,13 @@ Formula for evaluating the contour integral around a $n+1$'th order pole at $z_0
 \textbf{Theorem:} If $f(z)$ is analytic in the disk $|z-z_0| \leq R$, then the Taylor series converges for all $z$ \textit{inside} the disk.
 
 
+
 \holine
 \subsection*{Laurent Series}
 We combine the \textit{Taylor} series with a \textit{Principal} series of negative powers.
 \[
 \yl{
-    f(z_0) = \sum_{n=0}^\infty a_k(z-z_0)^n - \sum_{n=1}^\infty b_k\frac{1}{(z-z_0)^n}
+    f(z_0) = \sum_{n=0}^\infty a_k(z-z_0)^n + \sum_{n=1}^\infty b_k\frac{1}{(z-z_0)^n}
 }
 \]
 \begin{itemize}
@@ -405,7 +406,7 @@ If the Laurent Series should expand from a point $z_0 \neq 0$, make a substituti
     The Laurent Series is then given as
 \[
 \gr{
-    f(w) = C(w)\cdot \frac{1}{1-g} = \begin{cases} \ \ C(w)\sum\limits_{n=0}^\infty w^n \quad\quad \text{(Taylor)} \\ -C(w)\sum\limits_{n=1}^\infty\dfrac{1}{w^n} \quad\quad \text{(Principal)} \end{cases}
+    f(w) = C(w)\cdot \frac{1}{1-g} = \begin{cases} \ \ C(w)\sum\limits_{n=0}^\infty g^n \quad\quad \text{(Taylor)} \\ -C(w)\sum\limits_{n=1}^\infty\dfrac{1}{g^n} \quad\quad \text{(Principal)} \end{cases}
 }
 \]
 
