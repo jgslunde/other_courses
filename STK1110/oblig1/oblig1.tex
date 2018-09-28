@@ -1,0 +1,82 @@
+\documentclass[12p,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage[makeroom]{cancel}
+\usepackage[margin=2.4cm]{geometry}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\exp}{e^}
+\renewcommand{\b}{\boldsymbol}
+\newcommand{\h}{\hat}
+\newcommand{\m}{\mathbb}
+\newcommand{\half}{\frac{1}{2}}
+\renewcommand{\exp}{e^}
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\title{STK1110 -- Oblig 1}
+\author{
+    \begin{tabular}{r l}
+        Jonas Gahr Sturtzel Lunde & (\texttt{jonassl})
+    \end{tabular}}
+% \date{}    % if commented out, the date is set to the current date
+
+\maketitle
+
+\hspace{10cm}
+
+\section*{Oppgave 2}
+\subsection*{a)}
+Ettersom ligning (1) fra oppgaven er en t-fordeling med $n-1$ frihetsgrader, vet vi at den følger
+\begin{equation}
+    P\qty(t_{\alpha/2,\, n-1} < \frac{\bar{X} - \mu}{S/\sqrt{n}} < t_{1-\alpha/2,\, n-1}) = 1-\alpha
+\end{equation}
+der $t_{\alpha/2,\, n-1}$ og $t_{1-\alpha/2,\, n-1}$ er $\alpha/2$ og $1-\alpha/2$ persentilene til en t-fordeling med $n-1$ frihetsgrader. 
+
+Løser vi ulikheten inni parantesen for $\mu$ får vi at
+\begin{equation*}
+    \bar{X} - t_{\alpha/2,\, n-1}\cdot\frac{S}{\sqrt{n}} < \mu < \bar{X} + t_{1 - \alpha/2, n-1}\cdot\frac{S}{\sqrt{n}}
+\end{equation*}
+som er $100(1-\alpha)\%$ konfidensintervallet til $\mu$.
+
+
+\subsection*{b}
+Ettersom ligning (1) fra oppgaven er kjikvadrat-fordelt med $n-1$ frihetsgrader, vet vi at den tilfredsstiller
+\begin{equation}
+    P\qty(\chi_{\alpha/2,\, n-1} < \frac{(n-1)}{\sigma^2}S^2 < \chi_{\alpha/2,\, n-1}) = 1 - \alpha
+\end{equation}
+der $\chi_{\alpha/2,\, n-1}$ og $\chi_{1-\alpha/2,\, n-1}$ er $\alpha/2$ og $1-\alpha/2$ persentilene til en kjikvadrat-fordeling med $n-1$ frihetsgrader. 
+
+Løser vi ulikheten inni parantesen for $\sigma$ får vi at
+\begin{equation}
+    \sqrt{\frac{(n-1)}{\chi_{\alpha/2,\, n-1}}}S < \sigma < \sqrt{\frac{(n-1)}{\chi_{1-\alpha/2,\, n-1}}}S
+\end{equation}
+
+
+
+
+
+
+
+
+\end{document}
