@@ -38,8 +38,13 @@
 \newcommand{\zeroinfsum}{\sum_{n=0}^{\infty}}
 \newcommand{\oneinfsum}{\sum_{n=1}^{\infty}}
 
-\newcommand{\holine}{\rule{286pt}{1pt}}
-\newcommand{\Holine}{\rule{286pt}{3pt}}
+%\newcommand{\holine}{\rule{286pt}{1pt}}
+% \newcommand{\Holine}{\rule{286pt}{3pt}}
+
+\newcommand{\holine}[1][\medskipamount]{\par\vspace*{\dimexpr-\parskip-\baselineskip+#1}\noindent\rule{\linewidth}{1pt}\par\vspace*{\dimexpr-\parskip-.5\baselineskip+#1}}
+
+\newcommand{\Holine}[1][\medskipamount]{\par\vspace*{\dimexpr-\parskip-\baselineskip+#1}\noindent\rule{\linewidth}{3pt}\par\vspace*{\dimexpr-\parskip-.5\baselineskip+#1}}
+
 
 \newcommand{\half}{\frac{1}{2}}
 
@@ -77,6 +82,10 @@
 
 \subsection*{Taylor Expansions}
 \[
+    f(z) = \zeroinfsum \frac{f^{(n)}(z_0)}{n!}(z-z_0)^n
+\]
+\textbf{Around 0:}
+\[
     \exp{x} = \sum_{n=0}^\infty \dfrac{x^n}{n!} \quad\quad\quad
     \frac{1}{1-x} = \sum_{n=0}^\infty x^n
 \]
@@ -91,15 +100,12 @@
 \[
     c \ln{x} = \ln{x^c} \quad\quad\quad \dv{x}\ln{x} = \frac{1}{x}
 \]
-\\
 \[
     x = \frac{-b\pm \sqrt{b^2 - 4ac}}{2a}
 \]
-\\
 \[
     \dv{x}\qty[\dfrac{u(x)}{v(x)}] = \dfrac{u'(x)v(x) - u(x)v'(x)}{v(x)^2}
 \]
-\\
 \[
     \int (uv') = uv - \int(u'v)
 \]
@@ -118,17 +124,6 @@
     \sinh{z} = \half\qty(\exp{z}-\exp{-z}) \quad\quad \cosh{z} = \half\qty(\exp{z}+\exp{-z})
 \]
 
-\holine
-\subsection*{Common ODE solutions}
-\textbf{Harmonic oscilator}
-\[
-    u''(z) = -\omega^2 u(z)
-\]
-\[
-    u(z) = k_1 \cos(\omega z) + k_2\sin(\omega z) = c_1 \exp{i\omega x} + c_2 \exp{-i\omega x}
-\]
-
-
 
 
 % ████████╗███████╗███╗   ██╗███████╗ ██████╗ ██████╗ ███████╗
@@ -137,26 +132,15 @@
 %    ██║   ██╔══╝  ██║╚██╗██║╚════██║██║   ██║██╔══██╗╚════██║
 %    ██║   ███████╗██║ ╚████║███████║╚██████╔╝██║  ██║███████║
 %    ╚═╝   ╚══════╝╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
-\vspace*{\fill}
-\columnbreak
-\part*{Tensors}
-\subsection*{Random Shit}
+
+\subsection*{Tensors}
 \[
     A^{-1}A = \mathcal{I} \quad\quad A_T = A_{ij}^T = A_{ji}
+    AB = A_{ij}B_{jk}
 \]
-    
 \[
     \det{A} = \det{A^T} \quad\quad \det{AB} = \det{A}\det{B}
 \]
-
-Common tensor product
-\[
-    AB = A_{ij}B_{jk}
-\]
-
-\holine
-\subsection*{PLZ SEND HELP}
-
 Rotation matrices are orthogonal, such that $\gr{A^T = A^{-1}}$.
 
 Transformational matrices from a coordinate system $\b{e}'$ to $\b{e}$ is given as $A_{ij} = e'_i \cdot e_i$
@@ -221,7 +205,7 @@ where $A$ is the transformation matrix.
 % ██║     ██║   ██║██║╚██╔╝██║██╔═══╝ ██║     ██╔══╝   ██╔██╗ 
 % ╚██████╗╚██████╔╝██║ ╚═╝ ██║██║     ███████╗███████╗██╔╝ ██╗
 %  ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝╚═╝  ╚═╝
-\newpage
+\Holine
 \part*{Complex analysis}
 \subsection*{Usefull shit}
 
@@ -247,9 +231,13 @@ where $A$ is the transformation matrix.
 \[
     z = x + iy = r(\cos(\theta) + i\sin(\theta)) = r\exp{i\theta}
 \]
+
+\textbf{Powers of z:}
 \[
     z^n = (r\exp{i\theta})^n = r^n\exp{in\theta} = \cos(n\theta) + i \sin(n\theta)
 \]
+
+\textbf{Roots of z:} 
 \[\gr{
     z^{1/n} = r^{1/n}\exp{i(\theta + 2\pi k)/n}, \quad\quad\quad k\in 0,1,2,...,n-1
 }\]
@@ -368,9 +356,9 @@ Formula for evaluating the contour integral around a $n+1$'th order pole at $z_0
 \holine
 \subsection*{Taylor Series}
 \[
-    f(z; z_0) = \sum_{n=0}^\infty a_n(z-z_0)^n, \quad\quad a_n = \frac{f^{(n)}(z_0)}{n!}
+    f(z_0) = \sum_{n=0}^\infty a_n(z-z_0)^n, \quad\quad a_n = \frac{f^{(n)}(z_0)}{n!}
 \]
-\textbf{Theorem:} If $f(z)$ is analytic in the disk $|z-z_0| \leq R$, then the Taylor series converges for all $z$ \textit{inside} the disk. AKA, Taylor converges around $z_0$ out to the nearest singularity.
+\textbf{Theorem:} If $f(z)$ is analytic in the disk $|z-z_0| \leq R$, then the Taylor series converges for all $z$ \textit{inside} the disk.
 
 
 
@@ -379,7 +367,7 @@ Formula for evaluating the contour integral around a $n+1$'th order pole at $z_0
 We combine the \textit{Taylor} series with a \textit{Principal} series of negative powers.
 \[
 \yl{
-    f(z; z_0) = \sum_{n=0}^\infty a_k(z-z_0)^n + \sum_{n=1}^\infty b_k\frac{1}{(z-z_0)^n}
+    f(z_0) = \sum_{n=0}^\infty a_k(z-z_0)^n + \sum_{n=1}^\infty b_k\frac{1}{(z-z_0)^n}
 }
 \]
 \begin{itemize}
@@ -396,15 +384,19 @@ If the Laurent Series should expand from a point $z_0 \neq 0$, make a substituti
 
 \textbf{By Geometric Series:} Manipulate the function to the form
 \[
-    f(w) = C(w)\cdot \frac{1}{1-g}
+    f(w) = \frac{1}{1-\eta} = \zeroinfsum \eta^n
 \]
-    where $g$ is any factor/power of $w$, and $C(w)$ is any function of $w$.
-    The Laurent Series is then given as
-\[
-\gr{
-    f(w) = C(w)\cdot \frac{1}{1-g} = \begin{cases} \ \ C(w)\sum\limits_{n=0}^\infty g^n \quad\quad \text{(Taylor)} \\ -C(w)\sum\limits_{n=1}^\infty\dfrac{1}{g^n} \quad\quad \text{(Principal)} \end{cases}
-}
-\]
+The series converges for $|\eta| < 1$
+\begin{itemize}
+    \item \textbf{Taylor}: inside the cirlce $(z-z_0) < R\ \Rightarrow\ \eta = (z-z_0)/R$
+    \item \textbf{Principal}: outside the cirlce $(z-z_0) > R\ \Rightarrow\ \eta = R/(z-z_0)$
+\end{itemize}
+
+% \[
+% \gr{
+%     f(w) = C(w)\cdot \frac{1}{1-g} = \begin{cases} \ \ C(w)\sum\limits_{n=0}^\infty g^n \quad\quad \text{(Taylor)} \\ -C(w)\sum\limits_{n=1}^\infty\dfrac{1}{g^n} \quad\quad \text{(Principal)} \end{cases}
+% }
+% \]
 
 \textbf{By Taylor Expansion:} If the function has no singularities, you can simply make a Taylor expansion of it. Make sure to do the substitution first.
 
@@ -454,7 +446,7 @@ An contour integral containing $N$ singularities $z_k$ is given as the sum of t
 % ██╔══██╗██╔══╝  ██╔══██║██║         ██║██║╚██╗██║   ██║   
 % ██║  ██║███████╗██║  ██║███████╗    ██║██║ ╚████║   ██║██╗
 % ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝    ╚═╝╚═╝  ╚═══╝   ╚═╝╚═╝
-\newpage
+
 \section*{Applications to Real Integrals}
 \subsection*{Type I: Trigonometric integrals over $[0, 2\pi]$}
 \[\yl{
@@ -507,7 +499,12 @@ Same holds for the lower plane if $m<0$.
 \[\yl{
     I = \int_{-\infty}^\infty \dfrac{P(x)}{Q(x)}\cos(m x) \dd{x} \quad\quad \text{(or sin)}
 }\]
-
+\subsubsection*{Option 1}
+Use complex version of sin or cos to split the integral. USE $\frac{1}{2i}$ IF SIN
+\[I = \half \infint \frac{P(x)}{Q(x)}\exp{imx} \dd x + \half \infint \frac{P(x)}{Q(x)}\exp{-imx} \dd x = I_1 + I_2\]
+Solve $I_1$ by close contour in upper half plane $y>0$, $I_2$ in lower half plane $y<0$.
+\subsubsection*{Option 2, if $\frac{P(x)}{Q(x)}$ is real!}
+Replace trig function with $\exp{imz}$, compute the contour integral in upper half plane and take the real or imaginary part at the end.
 
 
 \holine
@@ -538,7 +535,7 @@ We see that singularities on the exit contribute \textit{half} of those above.
 %██║   ██║██║  ██║██╔══╝  
 %╚██████╔╝██████╔╝███████╗
 % ╚═════╝ ╚═════╝ ╚══════╝
-\newpage
+\Holine
 \part*{Ordinary Differential Equations}
 
 \subsection*{First Order, Linear, ODEs - Integrating Factor}
@@ -636,13 +633,17 @@ Solve the ODE, and insert for $z$.
     \item Assume solution on the form
     \begin{itemize}
         \item $y(x) = \sum_{n=0}^\infty a_n x^n$
-        \item $y'(x) = \sum_{n=1}^\infty n a_n x^{n-1}$
-        \item $y''(x) = \sum_{n=2}^\infty n(n-1) a_n x^{n-2}$ 
+        \item $y'(x) = \sum_{n=1(0)}^\infty n a_n x^{n-1}$
+        \item $y''(x) = \sum_{n=2(0)}^\infty n(n-1) a_n x^{n-2}$ 
     \end{itemize}
     \item Insert back into ODE.
     \item Split into equations of matching powers of $x$.
 \end{itemize}
-This will give you one or two undetermined coefficients. The equations maybe give the coefficients as a series depending on each other, like $a_{s+1} = a_s^2$. If the series are odd/even, two undetermined coefficients are required to describe them, so the solution is complete.
+Since we should only have two undetermined coefficients, we get one of the following:
+
+The coefficients may be linked as a series depending on each other, like $a_{s+1} = a_s^2$. If the series are split into odd/even, two undetermined coefficients are required to describe them, so the solution is complete. Otherwise, solve the other by variation of the constant.
+
+They may also come on a form which shows that all but two of the coefficients are zero, which gives the two linearly independent solutions from the above general solution.
 
 
 
@@ -653,7 +654,7 @@ This will give you one or two undetermined coefficients. The equations maybe giv
 }\]
 Assuming solution on form
 \[\gr{
-    y_p(x) = \sum_{m=0}^\infty a_m x^{m+s}
+    y(x) = \sum_{m=0}^\infty a_m x^{m+s}
 }\]
 where $s$ is some real number determined  the \textit{indicial equation}
 \[\yl{
@@ -695,7 +696,7 @@ where $b_0=b(0)$, and $c_0=c(0)$
     $y(x) = y_h(x) + y_p(x) = c_1y_1(x) + c_2y_2(x) + y_p(x)$.
     \item $y_h(x)$ is the solution to the homogenous equation.
     \item $y_p(x)$ is \textit{any} solution to the whole ODE.
-    \item Since $y_h$ contains two arbritrary constants, $y_p$ should contain none.
+    \item Since $y_h$ contains two arbritrary constants, $y_p$ should contain none. You can discard any such constants (set them as you wish).
 \end{itemize}
 
 
@@ -706,17 +707,23 @@ where $b_0=b(0)$, and $c_0=c(0)$
     y'' + ay' + by = R(x)
 }\]
 \begin{itemize}
+    \item Works if $R(x)$ has a derivative that resembles itself.
     \item Make a guess at $y_p$ with the same form as $R(x)$, with unknown coefficients.
     \item Insert back into ODE to solve for coefficients.
 \end{itemize}
-\textbf{Special case:} $R(x) = A\exp{kx}$.\\
+\textbf{Exponential:} $R(x) = A\exp{kx}$.\\
 Let $\alpha$ and $\beta $ be the roots of $\lambda^2 + a\lambda + b = 0$.
 \begin{enumerate}
-    \item If $k\neq \alpha,\beta$: Try $y_p = C\exp{\lambda x}$.
-    \item If $k = \alpha \text{ or } \beta$: Try $y_p = Cx\exp{\lambda x}$.
-    \item If $k = \alpha = \beta$: Try $y_p = C\exp{\lambda x}$.
+    \item If $k\neq \alpha,\beta$: Try $y_p = C\exp{k x}$.
+    \item If $k = \alpha \text{ or } \beta$: Try $y_p = Cx\exp{k x}$.
+    \item If $k = \alpha = \beta$: Try $y_p = Cx^2\exp{k x}$.
 \end{enumerate}
 
+\textbf{Harmonic:} $R(x)=Asin(kx)$ or $R(x)=Acos(kx)$:
+$y_{p}$ will be of the form $B\cdot sin(kx) + C\cdot cos(kx)$. Efficient to solve for $R(x)~e^{ikx}$ and take Re or Im at the end.
+
+\textbf{Exp times poly:} $R(x)=e^{kx}\cdot P_{n}(x)$:
+Try above method multiplied by a polynomial of same degree.
 
 \holine
 \subsection*{Inhomo ODEs with varying coefficients}
@@ -724,13 +731,15 @@ Let $\alpha$ and $\beta $ be the roots of $\lambda^2 + a\lambda + b = 0$.
     y'' + P(x)y' + Q(x)y = R(x)
 }\]
 
-\holine
 \subsubsection*{Factorization}
 If $u(x)$ is a \underline{known solution} to the homo-ODE, a particular solution is $\gr{y_p = u(x)\cdot v(x)}$ where
 \[
     \gr{w' = v} \quad\quad\quad \yl{w' + \qty[\frac{2u'}{u} + P]w = \frac{R}{u}}
 \]
 Solve the ODE for $w$ with integrating factor.
+
+
+
 
 \holine
 \subsubsection*{Variation of parameters}
@@ -740,6 +749,39 @@ Solve the ODE for $w$ with integrating factor.
 where $y_1$ and $y_2$ are known linearly indepedendent solutions to the homo-ODE.
 
 \textbf{NOTE:} Remember that $R(x)$ is the RHS after the ODE is rewritten on the standard form.
+
+
+
+\subsection*{Greens functions}
+Let $D = \qty[ dv[2]{x} + P(x)\dv{x} + Q(x)]$ be the differential operator. Assume BC's for given $y(x)$, $y(a)$ and $y(b)$, then Greens functions will give the full solution including BC's for given D and given BC's, for \underline{any} $R(x)$.
+\begin{enumerate}
+\item Solution \[y(x) = \int_a^b G(x,z)R(z) \dd z \qc a \leq x, \, z \leq b\]
+
+Conditions:
+\item $D(x)G(x,z) = \delta(x-z)$, original DE with $R(x) \rightarrow \delta(x-z)$. Get two separate solutions for $x<z$ and $x>z$. $\delta(x-z) =0$ at $x=z$.
+\item $G(x,z)$ must obey same BC's in x, ex ${G(a,z)=G(b,z)=0}$ if $y(a)=y(b)=0$.
+\item $G(x,z)$ is continuous at $x=z$, while $\lim_{\epsilon\rightarrow0}\abs{\dv{g}{z}} = 1$ 
+\end{enumerate}
+
+
+\subsection*{Orthogonal Functions}
+Functions on the form
+\[
+    p(x)y'' + p'(x)y' + \qty[q(x) + \lambda r(x)]y = 0
+\]
+on some interval $[a,b]$ has solutions as linear combinations of eigenfunctions $y_n(x)$ which are orthogonal with respect to $r(x)$ such that
+\[
+    \int_a^b r(x)y_n(x)y_m(x)^* \dd{x} = 0 \quad\quad \text{for} \lambda_n \neq \lambda{m}
+\]
+Any function can be written as a linear combination of these eigenfunctions
+\[
+    f(x) = \sum_{n=1}^\infty a_n y_n(x)
+\]
+then the set $\{y_n(x)\}$ is complete. The coefficients $a_n$ are determined by the orthogonality:
+\[
+    a_n = \int_a^b f(x)r(x)y_n(x)^* \dd{x}
+\]
+
 
 
 
@@ -754,7 +796,7 @@ where $y_1$ and $y_2$ are known linearly indepedendent solutions to the homo-ODE
 %██╔══╝  ██║   ██║██║   ██║██╔══██╗██║██╔══╝  ██╔══██╗
 %██║     ╚██████╔╝╚██████╔╝██║  ██║██║███████╗██║  ██║
 %╚═╝      ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝╚══════╝╚═╝  ╚═╝
-\newpage
+\Holine
 \part*{Fourier}
 \subsection*{Usefull Shit}
 \begin{itemize}
@@ -778,7 +820,7 @@ where $y_1$ and $y_2$ are known linearly indepedendent solutions to the homo-ODE
 \]
 \[
     f(x) = \sum_{n=-\infty}^{\infty} c_n \exp{in\pi x/L}  \quad\quad
-    c_n = \frac{1}{2L}\int_{-L}^L f(x) \exp{-in\pi x/L}
+    c_n = \frac{1}{2L}\int_{-L}^L f(x) \exp{-in\pi x/L} \dd{x}
 \]
 
 \subsection*{Even and Odd functions}
@@ -830,8 +872,9 @@ If $f(x)$ is even, $f(x) = f(-x)$, we need only cosine (as sine is anti-symmentr
 \subsection*{FT of a derivative}
 \[
     \mathcal{F}\qty[f^{(n)}(x)] = (ik)^n \mathcal{F}\qty[f(x)]
+\quad\quad
+    \mathcal{F}\qty[\pdv{f}{t}(x)] = \pdv{t}\mathcal{F}\qty[f(x)]
 \]
-
 
     
 
@@ -844,7 +887,7 @@ If $f(x)$ is even, $f(x) = f(-x)$, we need only cosine (as sine is anti-symmentr
 %██╔═══╝ ██║  ██║██╔══╝  
 %██║     ██████╔╝███████╗
 %╚═╝     ╚═════╝ ╚══════╝
-\newpage
+\Holine
 \part*{Partial Differential Equations}
 \subsection*{Notes}
 \begin{itemize}
@@ -888,7 +931,7 @@ Eigenfunctions on form
 
 
 \holine
-\subsection*{Wave Equation}
+\subsection*{1D Wave Equation}
 \[
     \pdv[2]{y}{x} = \frac{1}{v^2}\pdv[2]{y}{t}
 \]
@@ -924,26 +967,158 @@ where $f(x)$ is the initial position or velocity. The coefficients $b_n$ are now
 
 
 \holine
-\subsection*{Orthogonal Functions}
-Functions on the form
-\[
-    p(x)y'' + p'(x)y' + \qty[q(x) + \lambda r(x)]y = 0
-\]
-on some interval $[a,b]$ has solutions as linear combinations of eigenfunctions $y_n(x)$ which are orthogonal with respect to $r(x)$ such that
-\[
-    \int_a^b r(x)y_n(x)y_m(x)^* \dd{x} = 0 \quad\quad \text{for} \lambda_n \neq \lambda{m}
-\]
-Any function can be written as a linear combination of these eigenfunctions
-\[
-    f(x) = \sum_{n=1}^\infty a_n y_n(x)
-\]
-then the set $\{y_n(x)\}$ is complete. The coefficients $a_n$ are determined by the orthogonality:
-\[
-    a_n = \int_a^b f(x)r(x)y_n(x)^* \dd{x}
-\]
+\subsection*{Heat flow equation}
+General: $\frac{\partial u}{\partial t} = c^{2}\nabla^{2}u$, $\nabla^{2} = \frac{\partial^{2}}{\partial x^{2}} + \frac{\partial^{2}}{\partial y^{2}} + \frac{\partial^{2}}{\partial z^{2}}$, and $u(x,y,z,t)$.
+In 1D: $\frac{\partial u}{\partial t}=c^{2}\frac{\partial^{2}u}{\partial x^{2}}$. BC: $u(0,t)=u(L,t)=0$. IC: $u(x,0)=f(x)$ 1)Sep. of variables: $\rightarrow u(x,t) = F(x)G(t)$ 
+\begin{align*}
+    \Rightarrow F\cdot \dot G = c^{2}F''\cdot G \Rightarrow \frac{\dot G}{c^{2}G} = \frac{F''}{F}=k (negative as before) \\
+    \Rightarrow k = -p^{2} \Rightarrow F'' + p^{2}F = 0 \text{ and } \dot G + c^{2}p^{2}G=0
+\end{align*}
+2) Impose BCs: Exactly like 1D wave eq.: $F_{n}(x)=sin(\frac{n\pi x}{L})$, n=1,2,.. Find G(t):
+\begin{align*}
+    \dot G + c^{2}p_{n}^{2}G=0 \text{ or } \dot G_{n} + \lambda_{n}^{2}G_{n} = 0, \lambda_{n} = \frac{cn\pi}{L} \\
+    \Rightarrow G_{n}(t) = B_{n}e^{-\lambda_{n}^{2}t} \\
+    \Rightarrow \text{Eigenfunctions: } u_{n}(x,t) = B_{n}sin(\frac{n\pi x}{L})e^{-\lambda_{n}^{2}t}
+\end{align*}
+3) Full solution, Fourier series, implement ICs: \\
+General: \(u(x,t) = \sum_{n=1}^{\infty}B_{n}sin(\frac{n\pi x}{L})e^{-\lambda_{n}^{2}t} \)\\
+Initial condition: \(u(x,0)= \sum_{n=1}^{\infty}B_{n}sin(\frac{n\pi x}{L}) \overset{!}{=}f(x)\) \[\Rightarrow B_{n}=\frac{2}{L}\int_{0}^{L}f(x)sin(\frac{n\pi x}{L})dx\]
+
+\subsection*{2D Wave eq.(Vibrating membrane)}
+DE: $\frac{\partial^{2}u}{\partial t^{2}}=c^{2}\left(\frac{\partial^{2}u}{\partial x^{2}} + \frac{\partial^{2}u}{\partial y^{2}}\right)$. BCs: $u=0$ on the boundary at all times. ICs: $u(x,y,0)=f(x,y)$ and $\dot u(x,y,0)=g(x,y)$. u(x,y,t): displacement of point (x,y) on the membrane at time t. Rectangular membrane $\rightarrow$ Cartesian. Sep. of variables $\rightarrow$ Double Fourier series.
+1)Sep. of variables: 3 ODE's.
+Seperate out t-dependence:$u(x,y,t)=F(x,y)\cdot G(t)$ 
+\begin{align*}
+\Rightarrow F\cdot \ddot G = c^{2}G\left(\frac{\partial^{2}F}{\partial x^{2}}+\frac{\partial^{2}F}{\partial y^{2}}\right) \\
+\Rightarrow \frac{\ddot G}{c^{2}G} = \frac{1}{F}\left(\frac{\partial^{2}F}{\partial x^{2}}+\frac{\partial^{2}F}{\partial y^{2}}\right) = -\nu^{2} \text{ (negative constant like before)} \\
+\Rightarrow \ddot G + \lambda^{2}G=0; \lambda=c\cdot \nu \text{ time eq.} \\
+\frac{\partial^{2}F}{\partial x^{2}}+\frac{\partial^{2}F}{\partial y^{2}} + \nu^{2}F = 0 \text{ Spatial eq.}
+\end{align*}
+Seperate: $F(x,y)=H(x)Q(y)$. \(\frac{d^{2}H}{dx^{2}} + k^{2}H = 0\) and \(\frac{d^{2}Q}{dy^{2}} + p^{2}H = 0\) with \(p^{2}+k^{2}=\nu^{2}\). \[\Rightarrow H(x) = Acos(kx) + Bsin(kx)\] and \[Q(y) = c\cdot cos(py) + Dsin(py)\]
+2)BC's: F(x,y)=0 on the boundary: $H(0)=H(a)=Q(c)=Q(b)=0 \Rightarrow A=C=0$ and $Bsin(ka)=0\Rightarrow k=\frac{m\pi}{a}$,m integer,$Dsin(pb)=0\Rightarrow p=\frac{n\pi}{b}$,n integer. \[\Rightarrow F_{nm}(x,y)=sin(\frac{m\pi x}{a})sin(\frac{m\pi y}{b})\]
+Eigenvalues: $\lambda=c\nu=c\sqrt{k^{2}+p^{2}}\Rightarrow \lambda_{mn}=c\pi\sqrt{\frac{m^{2}}{a^{2}}+\frac{n^{2}}{b^{2}}}$
+From $\ddot G+\lambda^{2}G=0 \Rightarrow G_{mn}(t)=\alpha_{mn}cos(\lambda_{mn}t)+\beta_{mn}sin(\lambda_{mn}t)$ Eigenfunctions:\[u_{mn}(t)=\left[\alpha_{mn}cos(\lambda_{mn}t)+\beta_{mn}sin(\lambda_{mn}t)\right]sin(\frac{m\pi x}{a})sin(\frac{n\pi y}{b})\]
+3) Full solution(with ICs) $\rightarrow$ Double Fourier series.
+General solution: \(u(x,y,t)=\sum_{m,n}=u_{n}(x,y,t)\)
+\[\Rightarrow \alpha_{mn}=\frac{2}{a}\cdot \frac{2}{b}\int_{0}^{a}\int_{0}^{b}f(x,y)sin(\frac{m\pi x}{a})sin(\frac{n\pi y}{b})dydx\] Find $\beta_{mn}$ from IC $\dot u$
 
 
-\newpage
+
+\subsection*{Non-cartesian coordinates}
+$\bullet$ General strategy for boundary value problem: Use coordinates that match the shape of the boundary.
+
+\subsubsection*{1) Polar coordinates - Circular membrane}
+$x=rcos\theta$,$y=rsin\theta$, Laplacian: \(\nabla^{2}=\frac{\partial^{2}}{\partial r^{2}}+\frac{1}{r}\frac{\partial}{\partial r}+\frac{1}{r^{2}}\frac{\partial^{2}}{\partial \theta^{2}}\) \\
+$\bullet$ 2D wave eq. : \(\frac{\partial^{2}u}{\partial t^{2}} = c^{2}\left[\frac{\partial^{2}u}{\partial r^{2}}+\frac{1}{r}\frac{\partial u}{\partial r}+\frac{1}{r^{2}}\frac{\partial^{2}u}{\partial \theta^{2}}\right] \)
+Simplify: Look for radially symmetric solutions, i.e. $\frac{\partial u}{\partial \theta} = 0$ 
+\[\Rightarrow \frac{\partial^{2}u}{\partial t^{2}} = c^{2}\left[\frac{\partial^{2}u}{\partial r^{2}}+\frac{1}{r}\frac{\partial u}{\partial r}\right]\]
+BC: $u(R,t)=0$, all $t\geq 0$. Finite at $r=0$. \\
+IC: $u(r,0)=f(r)$ and $\dot u(r,0)=g(r)$ both $\theta$-independent.\\
+\vspace{2mm}
+1)Sep. of variables $\rightarrow$ Bessel's equation \\
+$u(r,t)=w(r)\cdot G(t)$ Usual procedure \\
+\(w'' + \frac{1}{r}w' k^{2}w=0\), \(\ddot G + \lambda^{2}G=0\) ($\lambda=ck$, sep.const. $-k^{2}$) \\
+Set $s=k\cdot r$, so $\frac{d}{ds}=\frac{1}{k}\frac{d}{dr}$,$\frac{d^{2}}{ds^{2}}=\frac{1}{k^{2}}\frac{d^{2}}{dr^{2}}$
+\[\Rightarrow \frac{d^{2}w}{ds^{2}}+\frac{1}{s}\frac{dw}{ds}+w=0 \text{ Bessel's equation with $\nu =0$} \]
+General form of Bessel's:
+\[s^{2}w''+sw+(s^{2}-\nu^{2})w=0\]
+Solved by Fr\"obenius, tabulated solutions $J_{0}$, $Y_{0}$. \\
+Finite solution at origin: $\underbrace{w=J_{0}(s)=J_{0}(kr)}_{\text{Bessel function of the first kind}}$ \\
+2) BC: \\
+$\bullet$ Finite at $r=0 \rightarrow$ dismissed $Y_{0}$. \\
+$W(R) = J_{0}(kr)=0$. $J_{0}$ has infinitely many, irregurarly spaced, zeros $\{ \alpha_{m}\}^{m=1,2,...}$
+\[\Rightarrow k=k_{m} = \frac{\alpha_{m}}{r}\Rightarrow w_{m}=J_{0}(k_{m}r)=J_{0}(\frac{\alpha_{m}}{R}r)\]
+t-equation: \(G_{m}(t) = a_{m}cos(\lambda_{m}t)+b_{m}sin(\lambda_{m}t)\), where $\lambda_{m}=ck_{m}$
+
+Eigenfunctions: 
+\[u_{m}(r,t)=\left[a_{m}cos(\lambda_{m}t)+b_{m}sin(\lambda_{m}t)\right]J_{0}(k_{m}r) \text{  , m=1,2,..}\] 
+
+3)ICs $\rightarrow$ Fourier-Bessel series \\
+General solution: 
+\[u(r,t) = \sum_{m=1}^{\infty}\left[ a_{m}cos(\lambda_{m}t)+b_{m}sin(\lambda_{m}t)\right]J_{0}\left(\frac{\alpha_{m}}{R}r\right)\]
+t=0? \[u(r,0)=\sum_{m=1}^{\infty}a_{m}J_{0}\left(\frac{\alpha_{m}}{R}r\right)=f(r)\]
+$a_{m}$ are coeffs of the Fourier-Bessel series for f(r) in term of $J_{0}\left(\frac{\alpha_{m}}{R}r\right)$
+\[a_{m}=\frac{2}{R^{2}J_{1}^{2}\left(\alpha_{m}\right)}\int_{0}^{R}f(r)\cdot J_{0}\left(\frac{\alpha_{m}}{R}r\right)dr\]
+Find $J_{0m}$ from $\dot u(r,0)=g(r)$
+
+\subsubsection*{Laplace eq. in spherical coordinates, \texorpdfstring{$\nabla^{2}u=0$}{}}
+\[\nabla^{2}u=\frac{1}{r^{2}}\left[\frac{\partial}{\partial r}\left(r^{2}\frac{\partial u}{\partial r}\right)+\frac{1}{sin\theta}\frac{\partial}{\partial \theta}\left(sin\theta\frac{\partial u}{\partial \theta}\right)+\frac{1}{sin^{2}\theta}\frac{\partial^{2}u}{\partial \phi^{2}}\right]=0\]
+Simplify: Look for $\phi$-independent solutions, $\frac{\partial u}{\partial \phi}=0$
+\[\Rightarrow \nabla^{2}u=\frac{1}{r^{2}}\left[\frac{\partial}{\partial r}\left(r^{2}\frac{\partial u}{\partial r}\right)+\frac{1}{sin\theta}\frac{\partial}{\partial \theta}\left(sin\theta\frac{\partial u}{\partial \theta}\right)\right]=0\]
+BC: $u(R,\theta)=f(\theta)$. \(\lim_{r\to \infty}u(r,\theta)=0 \rightarrow\) Phsyical: finite charge. 
+
+Seperate variables: $u(r,\theta)=G(r)H(\theta)$
+\[\rightarrow \frac{1}{G}\frac{d}{dr}\left(r^{2}\frac{dG}{dr}\right)=-\frac{1}{Hsin\theta}\frac{d}{d\theta}\left(sin\theta\frac{dH}{d\theta}\right) \equiv k \]
+r-equation:
+\begin{align*}
+    \frac{d}{dr}\left(r^{2}G'(r)\right)=kG \\
+    r^{2}G'' + 2rG' -kG = 0 \\
+    \text{Notation: k $\equiv$ n(n+1)} \\
+    r^{2}G'' + 2rG' - n(n+1)G=0 \text{ Euler-Cauchy eq.}
+\end{align*}
+We use $r=e^{z}$:
+\begin{align*}
+    G''(z) + G(z) - n(n+1)G(z) = 0; G=e^{\lambda z}\\
+    \Rightarrow \lambda^{2} + \lambda - n(n+1)=0 \\
+    \Rightarrow \lambda=
+    \begin{cases}
+           n \\
+           -(n+1) \\
+    \end{cases} \\
+    \Rightarrow G(r) = r^{\lambda} = 
+    \begin{cases}
+           r^{n} \\
+           r^{-(n+1)}\\
+    \end{cases}
+\end{align*}
+So two linearly independent solutions: 
+\[G_{n}(r)=r^{n}, \widetilde G_{n}(r) = \frac{1}{r^{n+1}}\]
+
+$\theta$-equation:
+\[\frac{1}{sin\theta}\frac{d}{d\theta}\left(sin\theta\frac{dH}{d\theta}\right)+kH(\theta)=0\]
+Substitute: $w=cos\theta$:
+\begin{align*}
+    \Rightarrow sin^{2}\theta = 1-w^{2}; \frac{d}{d\theta}=\frac{dw}{d\theta}\frac{d}{dw}=-sin\theta\frac{d}{dw} \\
+    \underbrace{\frac{1}{sin\theta}\frac{d}{d\theta}}_{-\frac{d}{dw}}\underbrace{\left(sin\theta\frac{dH}{d\theta}\right)}_{-sin^{2}\theta\frac{dH}{dw}} + kH(\theta)=0 \\
+    \Rightarrow \frac{d}{dw}\left[(1-w^{2})\frac{dH}{dw}\right]+kH=0 \\
+    \Rightarrow \left(1-w^{2}\right)\frac{d^{2}H}{dw^{2}}-2w\frac{dH}{dw}+kH=0 \\
+    \text{or } \left(1-w^{2}\right)\frac{d^{2}H}{dw^{2}}-2w\frac{dH}{dw}+n(n+1)H=0
+\end{align*}
+Solutions finite at $w=cost = \pm 1$ only for integer n. We want this because of physical reasons. \[\Rightarrow H(\theta) = P_{n}(w) = P_{n}(cos\theta) \text{ LEGENDRE POLYNOMIALS}\]
+Eigenfunctions: \[u_{n}(r,\theta) + \widetilde u_{n}(r,\theta) = A_{n}r^{n}P_{n}(cos\theta)+\frac{B_{n}}{r^{n+1}}P_{n}(cos\theta)\]
+Full solution: 
+\[u(r,\theta) = \sum_{n=0}^{\infty}\left[A_{n}r^{n}+\frac{B_{n}}{r^{n+1}}\right]P_{n}(cos\theta)\]
+$A_{n}$ and $B_{n}$ determined from BC's, using orthogonality relations for Legendre polynomials: 
+\[\int_{-1}^{1}P_{n}(x)P_{m}(x)dx=\int_{0}^{\pi}P_{n}(cos\theta)P_{m}(cos\theta)sin\theta d\theta=\frac{2}{2n+1}\delta_{nm}\]
+
+Example: Find electrostatic potential $u(r,\theta)$ inside and outside a sphere of radius R, when $u(R,\theta)$ ON the sphere is given.\\
+\vspace{2mm}
+Outside: \(u(r,\theta)\rightarrow 0 \text{ as } r\rightarrow \infty \text{ (finite charge) }\Rightarrow A_{n}=0\)
+\[u(r,\theta) = \sum_{n=0}^{\infty}\frac{B_{n}}{r^{n+1}}P_{n}(cos\theta) \text{   , so   } 
+u(R,\theta) = \sum_{n=0}^{\infty}\frac{B_{n}}{R^{n+1}}P_{n}(cos\theta)\]
+
+Find $B_{n}$ from orthogonality: 
+\[\int_{0}^{\pi}u(R,\theta)P_{m}(cos\theta)sin\theta d\theta = \sum_{n=0}^{\infty}\frac{B_{n}}{R^{n+1}}\cdot\frac{2}{2^{m+1}}\delta_{nm}=\frac{B_{m}}{2m+1}\cdot \frac{2}{R^{m+1}}\]
+\[\Rightarrow B_{m} = \frac{R^{m+1}\left(2m+1\right)}{2}\int_{0}^{\pi}u(R,\theta)\cdot P_{m}(cos\theta)sin\theta d\theta \text{  ($u(R,\theta)$ known)} \]
+
+Inside: $B_{n}=0$ to avoid divergence at $r=0$ (origin) \(\Rightarrow u(r,\theta)=\sum_{n=0}^{\infty}A_{n}r^{n}P_{n}(cos\theta)\).
+Orthogonality gives
+\[A_{m} = \frac{2m+1}{2}\frac{1}{R^{m}}\int_{0}^{\pi}u(R,\theta)P_{m}(cos\theta)sin\theta d\theta\]
+
+\subsubsection*{Solving PDE's by Fourier Transform(FT)}
+$\bullet$ FT DE wrt. one variable $\rightarrow$ ordinary DE \\
+$\bullet$ Solve $\rightarrow$ find FT of the solution \\
+$\bullet$ FT back \\
+Example: \(a^{2}\frac{\partial^{2}u}{\partial x^{2}} = \frac{\partial u}{\partial t} \text{ with } u(x,0) = b\cdot \delta(x)\)
+Use x-FT $\rightarrow$ 1st order ODE in t. \[U(k,t)=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}u(x,t)e^{-ikx}dx\]
+so \(\mathcal{F}\left\{\frac{\partial^{2}u}{\partial x^{2}}\right\}=-k^{2}U(k,t), \mathcal{F}\left\{\frac{\partial u}{\partial t}\right\} = \frac{\partial U(k,t)}{\partial t}\)
+\[\Rightarrow \text{DE: } a^{2}(-k^{2})U(k,t)-\frac{\partial U(k,t)}{\partial t}=0 \Leftrightarrow \frac{\partial U}{\partial t}+a^{2}k^{2}U=0\]
+\[\Rightarrow U(k,t)=\text{const.}\cdot e^{-k^{2}a^{2}t}=U(k,0)e^{-a^{2}k^{2}t}\]
+IC: \(\mathcal{F} \left\{u(x,0)\right\} = U(k,0)=\mathcal{F}\left\{b\delta(x)\right\}=\frac{b}{\sqrt{2\pi}}\)
+\[\Rightarrow U(k,t)=\frac{b}{\sqrt{2\pi}}e^{-a^{2}k^{2}t}\]
+Transform back to get the original variable x:
+\[u(x,t)=\frac{b}{\sqrt{2\pi}}\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}e^{-a^{2}k^{2}t}e^{ikx}dk = \frac{b}{\sqrt{4\pi a^{2}t}}e^{-\frac{x^{2}}{4a^{2}t}}\]
+
 
 
 
