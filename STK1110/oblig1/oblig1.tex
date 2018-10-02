@@ -81,16 +81,78 @@ Løser vi ulikheten inni parantesen for $\sigma$ får vi at
     F(x) = \int\limits_{-\infty}^x f(x) \dd{x} = \int\limits_{\kappa}^x \theta\kappa^\theta x^{-\theta-1} \dd{x} = \qty[\theta\kappa^\theta\frac{x^{-\theta}}{-\theta}]_\kappa^\theta = 1 - \qty(\frac{\kappa}{x})^\theta
 \end{equation*}
 
+\begin{equation*}
+    F(x) = 1 - \qty(\frac{\kappa}{x})^\theta = \half \ \Rightarrow \ \frac{\kappa}{x} = \frac{1}{2}
+\end{equation*}
+
 
 \subsection*{b)}
-\begin{equation}
-    F(x) = 1 - \qty(\frac{\kappa}{x})^\theta = \half \ \Rightarrow \ \frac{\kappa}{x} = \frac{1}{2}
-\end{equation}
+\begin{equation*}
+    E(X) = \int\limits_{-\infty}^\infty x\cdot f(x) \dd{x}
+         = \int\limits_{\kappa}^\infty \theta\kappa^\theta x^{-\theta} \dd{x}
+         = \qty[ \theta\kappa^\theta \frac{x^{-\theta+1}}{-\theta+1} ]_{\kappa}^\infty 
+         = 0 - \theta\kappa^\theta \frac{\kappa^{-\theta + 1}}{-\theta +1}
+         = \frac{\theta\kappa}{\theta - 1}
+\end{equation*}
 
 
+\subsection*{c)}
+Vi omskriver den gitte definisjonen til å gi $X$ som definisjon av $Y$:
+\begin{align*}
+    Y = 2\theta \qty[\ln(X) - \ln(\kappa)] &= 2\theta\ln(X/\kappa) \\
+    \exp{Y/2\theta} &= X/\kappa \\
+    X &= \kappa \exp{Y/2\theta}
+\end{align*}
+Vi setter dette inn i uttrykket vårt for den kummulative fordelingsfunksjonen:
+\begin{align*}
+    F(Y) = 1 - \qty(\frac{\kappa}{\kappa \exp{y/2\theta}})^\theta = 1 - \exp{-y/2}
+\end{align*}
+\begin{align*}
+    f(y) = F'(y) = \half\exp{-y/2} = \frac{1}{2^{2/2}\Gamma(2/2)}x^{2/2-1}\exp{-x/2}
+\end{align*}
+som vi ser er en kjikvadratfordeling med 2 frihetsgrader.
 
 
+\subsection*{d)}
+\begin{align*}
+    E(X) = \frac{\theta\kappa}{\theta - 1} = \bar{X} \ \Rightarrow \ 
+    \theta\kappa = \theta\bar{X} - \bar{X} \ \Rightarrow \ 
+    \theta = \frac{\bar{X}}{\bar{X} - \kappa}
+\end{align*}
+Momentestimatoren til $\theta$ er altså $\hat{\theta} = \frac{\bar{X}}{\bar{X} - \kappa}$.
 
 
+\subsection*{e)}
+Sannsynligheten for at kombinasjonen av tilfeldige variable $X_1, X_2,...,X_n$ i $n$ uavhengige forsøk blir $x_1, x_2,...,x_n$ vil være produktet av de individuelle sannsynlighetene
+\begin{align*}
+    f(x_1, x_2, ..., x_n; \theta) = \prod_{i=1}^n \theta\kappa^\theta\qty(\frac{1}{x_i})^{\theta+1} = \theta^n\kappa^n\theta \qty(\prod_{i=1}^n (x_i)^{-1})^{\theta+1}
+\end{align*}
+
+Vi skal finne maks-verdien til denne fordelingen. Vi tar først logaritmen av fordelingen, ettersom den deler toppunkt med sin logaritme, og dette er enklere å regne med.
+\begin{align*}
+    \ln[f(x_1, x_2, ..., x_n; \theta)]
+    &= \ln(\theta^n) + \ln(\kappa^n\theta) + \ln\qty[\qty(\prod_{i=1}^n x_i^{-1})^{\theta+1}] \\
+    &= n\ln(\theta) + n\theta\ln(\kappa) + (\theta + 1)\qty[ \sum_{i=1}^n -\ln(x_i) ]
+\end{align*}
+Deriverer, setter lik 0, og løser for $\theta$:
+\begin{align*}
+    \dv{\theta} \ln[f(x_1, x_2, ..., x_n; \theta)] &= \frac{n}{\theta} + n\ln(\kappa) - \sum_{i=1}^n \ln(x_i) = 0 \\
+    n &= \theta\qty[\sum_{i=1}^n \ln(x_i) - n\ln(\kappa)] \\
+    \hat{\theta} &= \frac{n}{\sum_{i=1}^n \ln(x_i) - n\ln(\kappa)}
+\end{align*}
+som da er maximum likelihood estimatoren for $\theta$.
+
+
+\subsection*{f)}
+Vi har en ny stokastisk variabel
+\begin{align*}
+    Y = 2n\frac{\theta}{\hat{\theta}} = 2\theta\qty[\sum_{i=1}^n \ln(x_i) - n\ln(\kappa)] = \sum_{i=1}^n 2\theta\qty[\ln(x_i) - \ln(\kappa)] = \sum_{i=1}^n Z
+\end{align*}
+hvor $Z \sim \chi_2^2$, altså $Z$ er kjikvadratfordelt med 2 frihetsgrader.
+
+Fra s.316 i læreboka har vi at summen av kjikvadratfordelinger selv er en kjikvadratfordeling, med ny frihetsgrad lik summen av frihetsgradene, som betyr at $Z$ er en kjikvadratfordeling med $2n$ frihetsgrader:
+\begin{align*}
+    \sum_{i=1}^n Z \sim \chi_{2n}^2
+\end{align*}
 
 \end{document}
