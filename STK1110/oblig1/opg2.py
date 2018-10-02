@@ -34,3 +34,4 @@ print( get_hit_rate(n=8, N=1000) )
 print( get_hit_rate(n=30, N=1000) )
 print( get_hit_rate(n=200, N=1000) )
 
+#data = np.random.e

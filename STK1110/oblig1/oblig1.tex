@@ -155,4 +155,38 @@ Fra s.316 i læreboka har vi at summen av kjikvadratfordelinger selv er en kjikv
     \sum_{i=1}^n Z \sim \chi_{2n}^2
 \end{align*}
 
+
+\subsection*{g)}
+\begin{align*}
+    E[\hat{\theta}] = 2n\theta \cdot E[Y^{-1}]
+\end{align*}
+Ettersom $Y$ er en kjikvadratfordelt tilfeldig variabel med $\nu = 2n$ frihetsgrader, setter vi inn for dens forventningsverdi, definert i ligning (5) i oppgaven
+\begin{align*}
+    E[\hat{\theta}] = 2n\theta \cdot \frac{2^{-1} \Gamma\qty(\frac{2n}{2} - 1)}{\Gamma\qty(\frac{2n}{2})} = n\theta\frac{\Gamma\qty(n - 1)}{\Gamma\qty(n)} = n\theta \frac{(n-2)!}{(n-1)!} = \theta\frac{n}{n-1}
+\end{align*}
+
+For å finne variansen finner vi først $E[\hat{\theta}^2]$.
+\begin{align*}
+    E[\hat{\theta}^2] = 2^2n^2\theta^2\cdot \frac{2^{-2} \Gamma\qty(\frac{2n}{2} - 2)}{\Gamma\qty(\frac{2n}{2})} = n^2\theta^2\frac{\Gamma\qty(n - 2)}{\Gamma\qty(n)} = n\theta \frac{(n-3)!}{(n-1)!} = \theta^2\frac{n^2}{(n-1)(n-2)}
+\end{align*}
+
+Vi bruker da definisjonen
+\begin{align*}
+    V[\hat{\theta}] &= E[\hat{\theta}^2] - E[\hat{\theta}]^2
+    = \theta^2\frac{n^2}{(n-1)(n-2)} - \theta^2\frac{n^2}{(n-1)^2} \\
+    &= \theta^2\frac{n^2(n-1) - n^2(n-2)}{(n-1)^2(n-2)} = \theta^2\frac{n^2}{(n-1)^2(n-2)}
+\end{align*}
+
+
+\subsection*{h)}
+Estimatoren er ikke unbiased, fordi forventningsverdien ikke er $\theta$. Biasen til estimatoren er definert som
+\begin{align*}
+    Bias(\hat{\theta}) = E[\hat{\theta}] - \theta = \frac{1}{n-1}\theta
+\end{align*}
+Vi ser at vi kan gjøre estimatoren unbiased ved å gange den med $n-1/n$:
+\begin{align*}
+    \frac{n-1}{n}\hat{\theta} = \frac{n-1}{\sum_{i=1}^n\ln(X_i) - n\ln(\kappa)}
+\end{align*}
+
+
 \end{document}
