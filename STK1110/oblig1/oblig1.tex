@@ -30,6 +30,7 @@
 \newcommand{\m}{\mathbb}
 \newcommand{\half}{\frac{1}{2}}
 \renewcommand{\exp}{e^}
+\renewcommand{\bar}{\overline}
 \setlength\parindent{0pt}
 
 
@@ -44,6 +45,58 @@
 \maketitle
 
 \hspace{10cm}
+
+
+
+
+\section*{Oppgave 1}
+\subsection*{a)}
+Vi velger oss estimatoren $\hat{\mu} = \bar{X} \approx 276.89$. $90\%$ konfidensintervallet til $\mu$ med $\bar{X}$ estimatoren er utledet i oppgave 2a til å være
+\begin{equation}
+    P\qty( \bar{X} - t_{0.05,\, n-1}\cdot\frac{S}{\sqrt{n}} < \sigma < \bar{X} + t_{0.95, n-1}\cdot\frac{S}{\sqrt{n}} ) = 0.9
+\end{equation}
+Setter vi inn for alle verdier, får vi (se vedlagt kode) et $90\%$ konfidensintervall på $[266.4, 287.4]$.
+
+
+\subsection*{b)}
+Vi velger oss estimatoren $\hat{\sigma} = S \approx 26.36$. $90\%$ konfidensintervallet til $\sigma$ med $S$ estimatoren er utladet i oppgave 2b til å være
+\begin{equation}
+    P\qty(\sqrt{\frac{(n-1)}{\chi_{0.05,\, n-1}}}S < \sigma < \sqrt{\frac{(n-1)}{\chi_{0.95,\, n-1}}}S) = 0.9
+\end{equation}
+Setter vi inn for alle verdier, får vi (se vedlagt kode) et $90\%$ konfidensintervall på $[20.8, 36.5]$.
+
+
+\subsection*{c)}
+Konfidensintervallene ble utledet under antagelsen om at fordelingen er normalfordelt. Vi er avhengige av å vite fordelingen for å kunne utlede et konfidensintervall, og målingene virker å være normalfordelte. I forventningsverdiens tilfelle kan vi også lene oss på sentralgrenseteoremet, men det er få datapunkter, og dette gjelder uansett ikke for standardavviket.
+
+
+
+\subsection*{d)}
+Ikke-parametrisk bootstrap gir et $90\%$ konfidensintervall på (se vedlagt kode) $[267.2, 287.2]$ for $\mu$ og $[18.3, 32.4]$ for $\sigma$. Vi sitter altså med
+
+\begin{tabular}{c|c|c}
+              & $\mu$ & $\sigma$ \\ \hline
+    Analytisk & $[266.4, 287.4]$  &  $[20.8, 36.5]$ \\
+    Bootstrap & $[267.2, 287.2]$  &  $[18.3, 32.4]$
+\end{tabular}
+
+Som vi ser stemmer intervallet for forventningsverdien $\mu$ meget godt overens, mens det er vesentlige forskjeller i intervallet for standardavviket $\sigma$.
+
+
+
+\subsection*{e)}
+Vi har en nullhypotese $H_0: \mu = 265$, og en alternativ hypotese $H_a = \mu < 265$. Vi har allerede antatt at dataen er normalfordelt, som betyr at $\bar{X}$ skal være t-fordelt. Dersom nullhypotesen holder, skal $\bar{X}$ være t-fordelt rundt $\mu_0$ som
+\begin{equation}
+    t = \frac{\bar{X} - \mu_0}{S/\sqrt{n}}
+\end{equation}
+der vi bruker estimatoren $S$ som erstatning for standardavviket $\sigma$. Vi forkaster nullhypotesen dersom denne verdien er mindre enn $-t_{\alpha} = -  1.734$. Vi har at
+\begin{equation}
+    t = \frac{276.89 - 265}{26.36/\sqrt{19}} = 1.966
+\end{equation}
+Dette er åpenbart ikke mindre enn $-1.734$, og nullhypotesen holder. Dett er å forvente, ettersom den alternative hypotesen var at $\mu$ skulle være mindre enn en verdi som allerede er en del mindre enn det observerte gjennomsnittet.
+
+Dersom vi gjør en "two-tailed" test, forkaster vi nullhypotesen dersom $t > t_{0.025} = 2.101$ eller $t < -t_{0.025} = -2.101$. Ingen av disse holder, selv om det nå åpenbart er betydelig nærmere, ettersom det oberserverte gjennomsnittet var på den øvre delen av nullhypotesen.
+
 
 \section*{Oppgave 2}
 \subsection*{a)}
@@ -60,7 +113,8 @@ Løser vi ulikheten inni parantesen for $\mu$ får vi at
 som er $100(1-\alpha)\%$ konfidensintervallet til $\mu$.
 
 
-\subsection*{b}
+
+\subsection*{b)}
 Ettersom ligning (1) fra oppgaven er kjikvadrat-fordelt med $n-1$ frihetsgrader, vet vi at den tilfredsstiller
 \begin{equation}
     P\qty(\chi_{\alpha/2,\, n-1} < \frac{(n-1)}{\sigma^2}S^2 < \chi_{\alpha/2,\, n-1}) = 1 - \alpha
@@ -71,7 +125,28 @@ Løser vi ulikheten inni parantesen for $\sigma$ får vi at
 \begin{equation}
     \sqrt{\frac{(n-1)}{\chi_{\alpha/2,\, n-1}}}S < \sigma < \sqrt{\frac{(n-1)}{\chi_{1-\alpha/2,\, n-1}}}S
 \end{equation}
+som er $100(1-\alpha)\%$ confidensintervallet til $\sigma$.
 
+
+
+\subsection*{c) \& d)}
+Kode vedlagt i appendiks. Resultatet presenteres i neste oppgave.
+
+
+
+\subsection*{e) \& f)}
+I figur \ref{fig:1} er det plottet andelen av de genererte $95\%$ konfidensintervallene som treffer de faktiske $\mu$ og $\sigma$ verdiene til normal- og eksponensialfordelingene. Vi ser at andelen stemmer godt overens med den forventede verdien på $0.95$ for både standardavvik og forventningsverdi for normalfordelingen (med noe støy). Dette er forventet, ettersom konfidensintervallet er utledet med hensyn på en normalfordeling.
+
+De målte konfidensintervallene til forventningsverdien til eksponensialfordelingen stemmer ikke overens med forventet verdi for lave sample sizes, men begynner å nærme seg forventede verdier ved $n \approx 60$. Her begynner sentralgrenseteoremet å gjelde, som sier at den målte forventningsverdien til \textit{enhver} fordeling vil være normalfordelt ved store samples.
+
+Konfidensintervallet til standardavviket til forventningsverdien er feil hele veien, ettersom sentralgrenseteoremet bare gjelder forventningsverdier, og konfidensintervallet vårt ikke er tilpasset en eksponensialfordeling.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{opg2.pdf}
+    \caption{Observerte hit-rates av konfidensintervaller for forventnignsverdi og standardavvik til eksponensialfordeling og normalfordeling mot forventet konfidens.}
+    \label{fig:1}
+\end{figure}
 
 
 
@@ -86,6 +161,7 @@ Løser vi ulikheten inni parantesen for $\sigma$ får vi at
 \end{equation*}
 
 
+
 \subsection*{b)}
 \begin{equation*}
     E(X) = \int\limits_{-\infty}^\infty x\cdot f(x) \dd{x}
@@ -94,6 +170,7 @@ Løser vi ulikheten inni parantesen for $\sigma$ får vi at
          = 0 - \theta\kappa^\theta \frac{\kappa^{-\theta + 1}}{-\theta +1}
          = \frac{\theta\kappa}{\theta - 1}
 \end{equation*}
+
 
 
 \subsection*{c)}
@@ -113,6 +190,7 @@ Vi setter dette inn i uttrykket vårt for den kummulative fordelingsfunksjonen:
 som vi ser er en kjikvadratfordeling med 2 frihetsgrader.
 
 
+
 \subsection*{d)}
 \begin{align*}
     E(X) = \frac{\theta\kappa}{\theta - 1} = \bar{X} \ \Rightarrow \ 
@@ -120,6 +198,7 @@ som vi ser er en kjikvadratfordeling med 2 frihetsgrader.
     \theta = \frac{\bar{X}}{\bar{X} - \kappa}
 \end{align*}
 Momentestimatoren til $\theta$ er altså $\hat{\theta} = \frac{\bar{X}}{\bar{X} - \kappa}$.
+
 
 
 \subsection*{e)}
@@ -143,6 +222,7 @@ Deriverer, setter lik 0, og løser for $\theta$:
 som da er maximum likelihood estimatoren for $\theta$.
 
 
+
 \subsection*{f)}
 Vi har en ny stokastisk variabel
 \begin{align*}
@@ -154,6 +234,7 @@ Fra s.316 i læreboka har vi at summen av kjikvadratfordelinger selv er en kjikv
 \begin{align*}
     \sum_{i=1}^n Z \sim \chi_{2n}^2
 \end{align*}
+
 
 
 \subsection*{g)}
@@ -178,6 +259,7 @@ Vi bruker da definisjonen
 \end{align*}
 
 
+
 \subsection*{h)}
 Estimatoren er ikke unbiased, fordi forventningsverdien ikke er $\theta$. Biasen til estimatoren er definert som
 \begin{align*}
@@ -188,5 +270,15 @@ Vi ser at vi kan gjøre estimatoren unbiased ved å gange den med $n-1/n$:
     \frac{n-1}{n}\hat{\theta} = \frac{n-1}{\sum_{i=1}^n\ln(X_i) - n\ln(\kappa)}
 \end{align*}
 
+
+
+
+\newpage
+\appendix
+\section*{Appendiks}
+\subsection*{Kode til oppgave 1}
+\lstinputlisting[language=Python, frame=single, basicstyle=\footnotesize]{opg1.py}
+\subsection*{Kode til oppgave 2}
+\lstinputlisting[language=Python, frame=single, basicstyle=\footnotesize]{opg2.py}
 
 \end{document}
