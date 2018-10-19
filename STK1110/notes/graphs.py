@@ -56,3 +56,28 @@ ax.plot(x, y, "ro")
 ax.axis([0, 10, -0.5, 0.15])
 plt.legend(fontsize=9)
 plt.savefig("figs/RV:2.pdf", bbox_inches="tight")
+plt.clf()
+
+
+
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.set_aspect(5)
+
+x = np.linspace(-3, 3, 1001)
+y = st.norm.pdf(x, 0, 1)
+ax.plot(x, y, label="$f(x)$", color='g')
+ax.plot([-3,3], [0,0], 'k')
+ax.plot([-2.2, 2.2], [0, 0], 'ro') 
+ax.plot(-2.8, 0, 'yo')
+ax.plot(-1.7, 0, 'bo')
+ax.annotate('$-z_{\\alpha/2}$', xy=(-2.2,0), xytext=(-2.5, 0.15), arrowprops=dict(facecolor='black', shrink=0.001))
+ax.annotate('$z_{\\alpha/2}$', xy=(2.2,0), xytext=(2.5, 0.15), arrowprops=dict(facecolor='black', shrink=0.001))
+ax.fill_between(x, 0, y, where=x<-2.2, facecolor='gray')
+ax.fill_between(x, 0, y, where=x>2.2, facecolor='gray', label="Rejection Region")
+
+plt.xlabel("$\\theta$", fontsize=12)
+plt.ylabel("$f(\\theta)$", fontsize=12)
+plt.legend(fontsize=10)
+plt.savefig("figs/HT:1.pdf", bbox_inches="tight")
+plt.clf()

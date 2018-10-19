@@ -25,8 +25,10 @@
 \usepackage{blindtext}
 \usepackage{tcolorbox}
 \usepackage{relsize}
+\usepackage[explicit]{titlesec} %Control margins around titles.
 \usepackage[makeroom]{cancel}
-\usepackage[margin=1.5cm]{geometry}
+\usepackage[margin=1.2cm]{geometry}
+%\usepackage[top=0cm, bottom=1.5cm, left=1.5cm, right=1.5cm]{geometry}
 \renewcommand{\baselinestretch}{1}
 \renewcommand{\exp}{e^}
 \renewcommand{\b}{\boldsymbol}
@@ -38,15 +40,53 @@
 \newcommand{\lRightarrow}{\mathlarger{\mathlarger{\Rightarrow}}}
 \setlength\parindent{0pt}
 
+
+% Colorcoding. First for inside equations, second for text.
+\definecolor{lightred}{RGB}{255,70,70}
+\definecolor{lightgreen}{RGB}{140,255,140}
+% Yellow
+\newcommand{\yl}[1]{\colorbox{yellow}{$\displaystyle #1$}}
+\newcommand{\yll}{\colorbox{yellow}}
+% Green
+\newcommand{\gr}[1]{\colorbox{lightgreen}{$\displaystyle #1$}}
+\newcommand{\grr}{\colorbox{lightgreen}}
+% Blue
+\newcommand{\bl}[1]{\colorbox{cyan}{$\displaystyle #1$}}
+\newcommand{\bll}{\colorbox{cyan}}
+% Red
+\newcommand{\rd}[1]{\colorbox{lightred}{$\displaystyle #1$}}
+\newcommand{\rdd}{\colorbox{lightred}}
+
 %\setlength{\tabcolsep}{6pt} % Default value: 6pt
 %\renewcommand{\arraystretch}{1.5} % Default value: 1
+
+%Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+%\usepackage[Bjornstrup]{fncychap}
+
+
+
+\usepackage{eqparbox}   
+\titleformat{\chapter}[block]{}{\eqmakebox[chap]{\Large\MakeUppercase{\sffamily\lsstyle\chaptername} %
+\raisebox{-0.6\height}{\fontsize{50pt}{50pt}\selectfont\thechapter}\quad}}{0pt}{\huge\bfseries\raisebox{1ex}{\parbox[t]{\dimexpr\textwidth-\eqboxwidth{chap}\relax}{\titlerule[2pt]\vspace{1.25ex}#1}}}
+\titlespacing*{\chapter}{0pt}{-32pt}{48pt}
+
+
+
+
+
+
+
+
+
+
+
 
 
 \begin{document}
 
 
-\section*{Random Variables}
-A random variable $X$ is a random, quantifiable answer that answers some probabilistic question, like "how many cars will pass here in the next 10 minutes?". The RV will have some underlying theoretical PDF $f(x)$, which will collapse into a single value when observed. Consider it a quantum particle in a superposition.
+\chapter{Random Variables}
+A random variable $X$ is a random, quantifiable answer that answers some probabilistic question, like "how many cars will pass here in the next 10 minutes?". The RV will have some underlying theoretical PDF $f(x)$, which will collapse into a single value when observed. Consider it a quantum particle in a superposition. The wavefunction will collapse to a single value when observed, but is before that governed by a theoretical probability distribution.
 
 
 \begin{align*}
@@ -56,7 +96,7 @@ A random variable $X$ is a random, quantifiable answer that answers some probabi
     \quad\quad \lRightarrow \quad\quad
     \underbrace{
         X_i = [5.345,\, 7.955,\, 3.895,\, 1.065,\, 4.701,\, 1.696,...]
-    }_{\text{\textcolor{red}{Sample of RV}}}
+    }_{\text{\textcolor{red}{Observed sample of RV}}}
 \end{align*}
 \begin{figure}[H]
     \centering
@@ -65,8 +105,9 @@ A random variable $X$ is a random, quantifiable answer that answers some probabi
     \label{fig:1}
 \end{figure}
 
+
 \section*{Statistics}
-The measured sample $X_i$ will have \underline{statistics} such as mean and standard deviation, mirroring the "actual" values of the theoretical PDF. They will approach the theoretical values as the sample size increases ($N\gg 1$). The most used statistics are the mean $\bar{X}$ and variance $S^2$.
+The measured sample $X_i$ will have \underline{statistics} such as mean and standard deviation, mirroring the "actual" parameters of the theoretical PDF. They will approach the theoretical values as the sample size increases ($N\gg 1$). The most used statistics are the mean $\bar{X}$ and variance $S^2$.
 
 \begin{table}[H]
     \centering
@@ -111,7 +152,7 @@ The \textbf{t distribution} solves the problem. The following random variable ha
 When the RV has \textbf{any distribution}, the sample mean $\bar{X}$ will \textbf{approach a normal distribution} for large $n$. This is called the \underline{central limit theorem}. We can then use both the Z and T distributions as above.
 
 
-\section*{Point Estimators}
+\chapter{Point Estimators}
 \underline{Estimators} $\hat{\theta}$ are attempts at reconstructing a theoretical parameter (left side of \ref{table:1} - $\mu$, $\sigma$,...) from the sample statistics (right side of \ref{table:1} - $\bar{X}$, $S$,...). The most obvious estimators are simply the mirroring statistics, but there are more advanced ones.
 Some definitions:
 \begin{itemize}
@@ -138,19 +179,21 @@ Some definitions:
 
 
 \newpage
-\section*{Confidence Intervals}
-We now know what sort of distributions our estimators have. We can then establish some interval around the estimators mean where we are $100(1-\alpha)\%$ sure that the actual value lies.
+\chapter{Confidence Intervals}
+The next chapters build on the fact that we now know what sort of distributions our estimators/statistics have. 
+
+We can then establish some interval around the estimators' mean where we are $100(1-\alpha)\%$ sure that the actual value lies.
 
 \begin{tcolorbox}[width=\textwidth,colback={yellow},title={Deriving Confidence Intervals},colbacktitle=green,coltitle=black,fonttitle=\Large]
 
     \begin{enumerate}
-        \item Find some RV which involves only your estimator (and known values), and has a known probability distribution. Ex, for the estimator $\hat{\mu} = \bar{X}$ we can use the RV
-        \[ Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \]
-        which has a normal distribution, as long as $\sigma$ is known, or 
-        \[ T = \frac{\bar{X} - \mu}{S/\sqrt{n}} \]
-        which has a T distribution. if $\sigma$ is not known.
+        \item Find some RV which involves only your estimator and known constants, and has a known probability distribution. Ex, for the estimator $\hat{\mu} = \bar{X}$ we can use the RVs
+        \[ Z = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}
+        \quad\quad \text{or} \quad\quad
+        T = \frac{\bar{X} - \mu}{S/\sqrt{n}} \]
+        which has a Z and T distributions, depending on if $\sigma$ is known or not (or N is large).
 
-        \item Use the known distributions' percentiles to establish an interval. Ex, for the normal case:
+        \item Use the known distributions' critical values to establish an interval. Ex; for the normal case:
         \[ P\qty(z_{1 - \alpha/2} < \frac{\bar{X} - \mu}{\sigma/\sqrt{n}} < z_{\alpha/2}) = 100(1-\alpha)\% \]
 
         \item Solve the inequality for the value to be estimated, in this case $\mu$:
@@ -184,5 +227,58 @@ We now know what sort of distributions our estimators have. We can then establis
 \subsection*{Parametric Bootstrap CI}
 \subsection*{Non-parametric Bootstrap CI}
 
-\end{document}
 
+
+\newpage
+\chapter{Hypothesis Testing}
+\subsection*{Introduction}
+Hypotethis testing is just a formalization of confidence intervals, where we decide if we should throw away some old theory for a new one, because oberved data falls outside a large confidence interval around the old theory.
+
+We have some "previously accepted" \grr{\textbf{null hypothesis}} $H_0$ about the value of a parameter $\theta$, called the \textbf{null value}:
+\[
+    H_0: \theta = \theta_0
+\]
+
+We present an \yll{\textbf{alternative hypothesis}} $H_a$, which claims that the null hypothesis is too low, too high, or either:
+\[
+    H_a: \theta > \theta_0 \quad\quad H_a: \theta < \theta_0 \quad\quad H_a: \theta \neq \theta_0
+\]
+
+We will have to choose whether to \yll{reject} or \grr{not reject} the null hypothesis in favor of the alternative hypothesis. When doing so, one of two errors may occur:
+\begin{tcolorbox}
+    \begin{itemize}
+        \item \textbf{Type I Error:} We reject the null hypothesis $H_0$ when it is true, with probability \bll{$\b \alpha$} of happening.
+        \item \textbf{Type II Error:} We do not reject the null hypothesis $H_0$ when it is false, with probability \bll{$\b \beta$} of happening.
+    \end{itemize}
+\end{tcolorbox}
+Type I errors are considered the most serious, as it replaces previously accepted knowledge with something new. This means $\alpha$ is the most interesting parameter, and we usually keep it low $(0.01-0.1)$.
+
+
+\subsection*{Rejection Region}
+We establish $100(1-\alpha)\%$ CI around $\theta_0$, under the assumption that $H_0$ is true. The area outside this now becomes a "rejection region", where the measured values contradict $H_0$ enough to reject it.
+
+A rejection region is simply an inverted confidence interval, where we are $(1  - \alpha)\%$ sure that we can reject the null hypothesis. We choose a probability $\alpha$ of a type I error that we find acceptable, and thereafter have to reject the null hypothesis if our measurement falls in the rejection region.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/HT:1.pdf}
+    \caption{Rejection region of normal standard distribution. Yellow and blue dots are examples of two measured values, outside and inside the rejection region.}
+    \label{fig:3} 
+\end{figure}
+
+
+The distribution is build upon the assumption that $H_0$ is true, meaning we use the null value $\theta = \theta_0$ in the distribution, and derivation of the confidence interval.
+
+
+
+\subsection*{P-Values}
+The P-value of an alternative hypothesis, is the probability of obtaining a value of the test statistic at least as contradictory to $H_0$ as the value calculated from the sample.
+
+In simpler terms, it is the area of the rejection region when we place our sample \textit{just} at the edge of the rejection region - $\theta_a = z_{\alpha/2}$.
+
+
+
+
+
+
+\end{document}
