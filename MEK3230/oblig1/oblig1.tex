@@ -1,0 +1,112 @@
+\documentclass[12p,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage[makeroom]{cancel}
+\usepackage[margin=2cm]{geometry}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\b}{\boldsymbol}
+\newcommand{\h}{\hat}
+\newcommand{\m}{\mathbb}
+\newcommand{\xvec}{\begin{pmatrix} x\\y\\z \end{pmatrix}}
+\newcommand{\ptensor}{\begin{pmatrix} a & b & 0 \\ b & d & 0 \\ 0 & 0 & e \end{pmatrix}}
+\newcommand{\half}{\frac{1}{2}}
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\section{Korte Oppgaver}
+\subsection{Vannstråle}
+\subsubsection{}
+Bernoulli gjelder ikke på kryss av strømlinjer. Det er heller ingen bakgrunn for å påstå at hastigheten er høyere på innsiden av strålen.
+
+
+\subsubsection{}
+
+
+
+\subsection{Atmosfærestrømning}
+
+
+
+\section{Lange oppgaver}
+\subsection{Rankine-virvel - en forenklet tornado}
+Vi ser på en inkompressibel, friksjonsfri strømning gitt i sylinderkoordinater som
+\begin{align*}
+  u_\theta &= \begin{cases}
+    \Gamma r \qquad &r < a \\
+    \frac{\Gamma a^2}{r} &r > 0
+  \end{cases}\\
+  u_r &= 0 \\
+  u_z & = 0
+\end{align*}
+
+Fordi vi kan stryke relativt mange ledd fra Navier Stokes, setter vi den opp på vektor-form, og ikke i sin forferdelige sylinderform:
+\begin{align*}
+    \frac{\partial \b u}{\partial t} + \b u \nabla \b u = - \frac{\nabla P}{\rho} + \nu \nabla^2 \b u + \b f_e
+\end{align*}
+
+
+
+
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        &&\\
+        \bf Parametere          & \bf Enheter     & \bf Dimmensjoner \\
+        &&\\
+        \hline
+        &&\\
+        $\rho$  &  $kg/m^3$  &  $[M][L^{-1}]$ \\
+        &&\\
+        \hline
+        &&\\
+        $\frac{D\b u}{D t}$  &  $m/s^2$  &  $[L][T^{-2}]$ \\
+        &&\\
+        \hline
+        &&\\
+        $\b \Omega$  &  $1/s$  &  $[T^{-1}]$ \\
+        &&\\
+        \hline
+        &&\\
+        $\b u$  &  $m/s$  &  $[L][T^{-1}]$ \\
+        &&\\
+        \hline
+        &&\\
+        $\b r$  &  $m$  &  $[L]$ \\
+        &&\\
+        \hline
+        &&\\
+        $\nabla p$  &  $kg/s^2m^2$  &  $[M][T^{-2}][L^{-1}]$ \\
+        &&\\
+        \hline
+        &&\\
+        $\mu$  &  $kg/sm$  &  $[M][T^{-1}][L^{-1}]$ \\
+        &&\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\end{document}
