@@ -1,0 +1,409 @@
+\documentclass[12p,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage[makeroom]{cancel}
+\usepackage[margin=2.4cm]{geometry}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\exp}{e^}
+\renewcommand{\b}{\boldsymbol}
+\newcommand{\h}{\hat}
+\newcommand{\m}{\mathbb}
+\newcommand{\half}{\frac{1}{2}}
+\renewcommand{\exp}{e^}
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\title{MEK2200 -- Oblig 2}
+\author{
+    \begin{tabular}{r l}
+        Jonas Gahr Sturtzel Lunde & (\texttt{jonassl})
+    \end{tabular}}
+% \date{}    % if commented out, the date is set to the current date
+
+\maketitle
+
+\hspace{10cm}
+
+
+\section*{Eksamen ME 115 - Vår 2001}
+\subsection*{Oppgave 2}
+\subsubsection*{a)}
+Vi tar utgangspunkt i bevegelsesligningen for isotropt lineært elastiske stoffer.
+\begin{align}\label{eqn:bev_lig}
+    \pdv[2]{\b u}{t} = \frac{\lambda + \mu}{\rho}\nabla(\nabla\cdot\b u) + \frac{\mu}{\rho}\nabla^2\b u + \b f^v
+\end{align}
+Vi har ingen eksterne krefter, så $\b f^v = 0$. Forskyvningsfeltet er også divergensfritt, ettersom $\nabla \cdot \b u = \pdv{v(x,z,t)}{y} = 0$. Setter vi inn for $\b u = [0, v, 0]$, får vi
+\begin{align}\label{eqn:wave}
+    \pdv[2]{v}{t} = \frac{\mu}{\rho}\qty(\pdv[2]{v}{x} + \pdv[2]{v}{z})
+\end{align}
+Dette gjelder selvsagt for begge de elastiske stoffene, slik at vi får de to ligningene
+\begin{align}
+    \label{eqn:wave1}
+    \pdv[2]{v_1}{t} = \frac{\mu_1}{\rho_1}\qty(\pdv[2]{v_1}{x} + \pdv[2]{v_1}{z}) \\
+    \label{eqn:wave2}
+    \pdv[2]{v_2}{t} = \frac{\mu_2}{\rho_2}\qty(\pdv[2]{v_2}{x} + \pdv[2]{v_2}{z})
+\end{align}
+Dette gjenkjenner vi som bølgeligningen, med bølgehastigheter
+\begin{align}
+    c_1 = \sqrt{\frac{\mu_1}{\rho_1}} \\
+    c_2 = \sqrt{\frac{\mu_2}{\rho_2}}
+\end{align}
+
+
+\subsubsection*{b)}
+Vi modellerer forskyvningsfeltene som
+\begin{align}
+    v_1 = \h v_1(z)\sin(kx - \omega t) \\
+    v_2 = \h v_2(z)\sin(kx - \omega t)
+\end{align}
+
+Vi setter disse ligningene inn i bølgeligningen \ref{eqn:wave} og får
+\begin{gather*}
+    \pdv[2]{t}(\h v\sin(kx - \omega t)) = c_i^2\qty(\pdv[2]{x}(\h v\sin(kx - \omega t)) + \pdv[2]{z}(\h v\sin(kx - \omega t)) )\\
+    \omega^2\h v\sin(kx - \omega t) = c_i^2k^2\h v\sin(kx - \omega t) + c_i^2\pdv[2]{\h v}{z} \sin(kx - \omega t)\\
+    \omega^2\h v = c_i^2k^2\h v + c_i^2 \pdv[2]{\h v}{z}\\
+    \pdv[2]{\h v}{z} = \h v k^2 \qty(\frac{\omega^2}{c_1^2k^2} - 1)
+\end{gather*}
+Ved å introduserer bølgehastigheten $c = \frac{\omega}{k}$ får vi
+\begin{align}\label{eqn:v_hat}
+    \pdv[2]{\h v}{z} = \h v k^2 \qty(\frac{c^2}{c_i^2} - 1)
+\end{align}
+Setter vi inn for
+\begin{align*}
+    \h v = v_1 \quad\quad k_1^2 = k^2\qty(\frac{c^2}{c_1^2} - 1)
+\end{align*}
+og
+\begin{align*}
+    \h v = v_2 \quad\quad k_2^2 = k^2\qty(1 - \frac{c^2}{c_2^2})
+\end{align*}
+får vi ligningene
+\begin{align}\label{eqn:v1}
+    \pdv[2]{\h v_1}{z} &= -k_1^2 \h v_1\\
+\label{eqn:v2}
+    \pdv[2]{\h v_2}{z} &= k_2^2 \h v_2
+\end{align}
+Ligning \ref{eqn:v1} har løsninger på formen
+\begin{align*}
+    v_1(z) = C_1\cos{k_1z} + C_2\cos{k_1z}
+\end{align*}
+mens ligning \ref{eqn:v2} har løsninger på formen
+\begin{align*}
+    \h v_2(z) = C_3\exp{k_2z} + C_4\exp{-k_2z}
+\end{align*}
+
+For at bølgetallene $k_1$ og $k_2$ skal være reelle, må vi kreve at $c^2 \geq c_1^2$ og at $c^2 \leq c_2^2$.
+
+
+
+\subsubsection*{c)}
+Ettersom bølgene skal dø ut i dypet har vi en betingelse om at
+\begin{align}\label{eqn:GB1}
+    v_2(z=-\infty) = 0
+\end{align}
+I grensesjiktet mellom lagene må vi kreve at hastighetsprofilen er lik for de to stoffene
+\begin{align}\label{eqn:GB2}
+    v_1(z=0) = v_2(z=0)
+\end{align}
+Vi kan også kreve at det er et kontinuerlig skjærstress og normalstress i grensesjiktet, eller at
+\begin{align}
+    P_{zx}^{I} = P_{zx}^{II}\Big|_{z=0}, \quad\quad P_{zy}^{I} = P_{zy}^{II}\Big|_{z=0}, \quad\quad P_{zz}^{I} = P_{zz}^{II}\Big|_{z=0}
+\end{align}
+Vi har også at skjærstresset på overflaten, $z=H$, skal være 0:
+\begin{align}
+    P_{zx}^{I} = P_{zy}^{I} = 0\Big|_{z=H}
+\end{align}
+
+
+\subsubsection*{d)}
+Ligningene
+\begin{align}
+    \pdv[2]{\h v_1}{z} &= -k_1^2 \h v_1 \\
+    \pdv[2]{\h v_2}{z} &= k_2^2 \h v_2
+\end{align}
+har som kjent løsninger
+\begin{align*}
+    v_1 = C_1\cos{k_1z} + C_2\sin{k_1z} \\
+    v_2 = C_3\exp{k_2z} + C_4\exp{-k_2z}
+\end{align*}
+Ved bruk av grensebetingelsen \ref{eqn:GB1} har vi at
+\begin{align*}
+    v_2(z=-\infty) = C_4\cdot\infty = 0
+\end{align*}
+som setter et krav om at $C_4 = 0$, slik at $v_2(z) = C_3\exp{kz}$
+
+Grensebetingelsen \ref{eqn:GB2} gir et krav om at
+\begin{align*}
+    v_1(z=0) &= v_2(z=0) \\
+    C_1 &= C_3
+\end{align*}
+slik at vi får
+\begin{align*}
+    v_2(z) = C_1\exp{k_2z}
+\end{align*}
+Betingelsen om kontinuerlig skjærstress mellom de to mediene gir at
+\begin{align*}
+    P_{zy}^{I} &= P_{zy}^{II} \Big|_{z=0} \\
+    2\mu_1\half\qty(\pdv{w_1}{y}+\pdv{v_1}{z}) &= 2\mu_2\half\qty(\pdv{w_1}{y}+\pdv{v_1}{z}) \Big|_{z=0} \\
+    \mu_1\qty(-C_1k_1\sin{k_1z} + C_2k_1\cos{k_1z}) &= \mu_2\qty(C_1k_2\exp{k_2z}) \Big|_{z=0} \\
+    C_2 &= C_1\frac{\mu_1}{\mu_2}
+\end{align*}
+som betyr at
+\begin{align*}
+    v_1(z) = C_1\cos{k_1z} + C_1\frac{\mu_1}{\mu_2}\sin{k_1z}
+\end{align*}
+
+I grensen $kH \rightarrow 0$ får vi at
+\begin{align*}
+    k_2 = 0 \\
+    k_2^2 = 0 \\
+    k^2\qty(1-\frac{c^2}{c_2^2}) = 0
+\end{align*}
+
+Betingelsen om ingen skjærstress ved den frie overflaten, $z=H$, gir at
+\begin{align*}
+    P_{zy}^I = 0 = 2\mu_1\half\qty(\pdv{w_1}{y}+\pdv{v_1}{z}) &= \mu_2\qty(-C_1k_1\sin{k_1z} + C_1k_1\frac{\mu_1}{\mu_2}\cos{k_1z}) \Big|_{z=H} \\
+    \mu_2C_1k_1\sin{k_1H} &= \mu_2C_1k_1\frac{\mu_1}{\mu_2}\cos{k_1H} \\
+    \tan{k_1H} &= \frac{\mu_2k_2}{\mu_1k_1}
+\end{align*}
+Ved grensen $k_1H \rightarrow 0$ får vi at
+\begin{align*}
+    0 = \frac{\mu_2k_2}{\mu_1k_1} \\
+    k_2 = 0 \\
+    k^2\qty(1 - \frac{c^2}{c_2^2}) = 0 \\
+    c^2 = c_2^2
+\end{align*}
+
+
+
+\subsection*{Oppgave 3}
+\subsubsection*{a)}
+Vi starter med Navier Stokes ligning for inkompressible newtonske fluider.
+\begin{align*}
+    \pdv{\b u}{t} + \b u\cdot\nabla\b u =-\frac{\nabla p}{\rho} + \frac{\mu}{\rho}\nabla^2\b u + \b f^v
+\end{align*}
+Strømmen er stasjonær, så vi stryker akselerasjonsleddet. Det er heller ingen eksterne krefter. Vi kan også anta at trykket er relativt konstant over det tynne grensesjiktet. Vi ser på x-komponenten av N.S. med disse forenklingene, som blir
+\begin{align*}
+    \qty(u\pdv{x} + w\pdv{z})u = \nu\qty(\pdv[2]{x} + \pdv[2]{z})u
+\end{align*}
+Ettersom flaten er lang og grensesjiktet smalt, vil edringene over grensesjiktets utstrekning være betraktelig større enn edringene langs platen. Hastigheten på tvers av grensesjiktet vil også være liten i forhold til langs platen. Vi kan anta følgende relasjoner:
+\begin{align*}
+    u \gg w,\quad \pdv{u}{z} \gg \pdv{u}{x},\quad \pdv[2]{u}{z} \gg \pdv[2]{u}{x}
+\end{align*}
+som videre forenkler ligningen til
+\begin{align}\label{eqn:1}
+    u\pdv{u}{x} + w\pdv{u}{z} = \nu \pdv[2]{u}{z}
+\end{align}
+Merk at vi ikke stryker leddene $u\pdv{u}{x}$ eller $w\pdv{u}{z}$, fordi begge inneholder en liten og en stor størrelse.
+
+
+\subsubsection*{b)}
+Meget nære platen kan det ikke være noen hastighet, etter no-slip og no-penetration betingelsene. Høyresiden av ligning \ref{eqn:1} forsvinner, og vi får
+\begin{align*}
+    \nu\pdv[2]{u}{z} = 0
+\end{align*}
+Integrerer vi opp dette får vi
+\begin{align*}
+    u(z) = \frac{C}{\nu}z + C_2
+\end{align*}
+der vi med en gang ser at $C_2 = 0$, ettersom det ikke skal være strøm ved $z=0$.
+
+
+\subsubsection*{c)}
+Skjærspenningen er gitt som
+\begin{align*}
+    P_{zx}\Big|_{z=0} = 2\mu\half\qty(\pdv{w}{x} + \pdv{u}{z})\Big|_{z=0} = \mu u_0\frac{2}{\pi\delta}\cos(\frac{2\cdot 0}{\pi\delta}) = \frac{2\mu u_0}{\pi\delta} = \frac{2}{5\pi}\mu\sqrt{\frac{u_0^3}{\nu x}}
+\end{align*}
+
+
+\subsubsection*{d)}
+Kraften per lengdeenhet som virker på platen vil så vidt jeg vet bare være definer som spenningsvektoren i retningen vi ønsker å se på.
+Den totale skjærkraften som virker på platen vil være gitt som den integrerte av spenningstensoren over flatens utstrekning:
+\begin{align*}
+    F = \int\limits_0^{\infty} \b P_n \cdot \b t \dd{x} = \int\limits_0^\infty P_{zx} \dd{x} = \int\limits_0^{\infty} \frac{2}{5\pi}\mu\sqrt{\frac{u_0^3}{\nu x}} \dd{x}
+\end{align*}
+Dette integralet konvergerer ikke, så jeg er ikke helt sikker på hvor jeg skal herifra.
+
+
+
+\section*{Eksamen MEK3220 - Høst 2012}
+\subsection*{Oppgave 2}
+\subsubsection*{a)}
+Under ser vi forskyvningsfeltet for et utvalgs sett med $\alpha$ og $\beta$ verdier.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.49\textwidth]{{fig/field_a=0b=0.1}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/field_a=0.1b=0.1}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/field_a=0.2b=0.1}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/field_a=0.3b=0.1}.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.49\textwidth]{{fig/square_a=0b=0.1}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/square_a=0.1b=0.1}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/square_a=0.2b=0.1}.pdf}
+    \includegraphics[width=0.49\textwidth]{{fig/square_a=0.3b=0.1}.pdf}
+\end{figure}
+
+Forskyvningen kan representeres som en lineærtransformasjon ved hjelp av forskyvningstensoren
+\begin{align}\label{eqn:D}
+    \h D =
+    \begin{pmatrix}
+        \pdv{u}{x} & \pdv{u}{y} \\
+        \pdv{v}{x} & \pdv{v}{y}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        0 & \alpha \\
+        \beta & 0
+    \end{pmatrix}
+\end{align}
+Forskyvningen av et punkt $\b x \in \mathbb{R}_2$ kan skrives som
+\begin{align*}
+    \qty(\h D + \h I)\b x =
+    \begin{pmatrix}
+        1 & \alpha \\
+        \beta & 1
+    \end{pmatrix} \b x
+\end{align*}
+Endringen av areal i en lineærtransformasjon er bestemt av determinanten til forskyvningsmatrisen, gitt som
+\begin{align*}
+    \det(\h D + \h I) = (1\cdot 1)-(\beta\cdot\alpha) = 1 - \alpha\beta
+\end{align*}
+Arealet endres med en faktor $1-\alpha\beta$.
+
+\subsubsection*{b)}
+To punkter $\b x_1 = (x_1,\ y_1)$ og $\b x_2 = (x_2,\ y_2)$ vil forskyves en vektoriell avstand $\b u_1 = (\beta + \alpha y_1,\ \alpha + \beta x_1)$ og $\b u_2 = (\beta + \alpha y_2,\ \alpha + \beta x_2)$, som gjør at forskyvningsforskjellen blir
+\begin{align*}
+    \Delta \b u = \b u_2 - \b u_1 = \qty(\alpha (y_2 - y_1),\ \beta (x_2 - x_1)) = \qty(\alpha\Delta y,\ \beta\Delta x)
+\end{align*}
+
+Tensoren for relativt forskyvningsforskjeller ble funnet i forrige oppgave \ref{eqn:D}.
+
+
+\subsubsection*{c)}
+
+
+\subsection*{Oppgave 3}
+\subsubsection*{a)}
+Fluidet kan ikke ha hastighet i z-retning, ettersom det ville måttet oppstå eller forsvinne mot grenseplatene. Det er ingen krefter til å drive fluidet i y-retning. Vi har da bare en hastighet i x-retning. Denne hastigheten kan ikke være x-avhengig, ettersom vi har å gjøre med et inkompresibelt fluid, og dette ville innebære opphopning a fluidet. Det er ingen grunn til at hastigheten skal være y-avhengig, i og med at y-aksen er helt symmetrisk.
+
+Vi tar utgangspunkt i Navier Stokes ligning for hastigheten til et inkompressibelt Newtonsk fluid.
+\begin{align*}
+    \pdv{\b u}{t} + \b u\cdot\nabla\b u =-\frac{\nabla p}{\rho} + \frac{\mu}{\rho}\nabla^2\b u + \b f^v
+\end{align*}
+Her stryker vi først ledd, fordi strømningen er stasjonær, og andre ledd fordi $\b u \cdot \nabla \b u = \qty(u\pdv{x} + v\pdv{y} + w\pdv{z})\b u = 0$.
+\begin{gather*}
+    \frac{1}{\rho}\pdv{p}{x} = \frac{\mu}{\rho}\qty(\pdv[2]{x}+\pdv[2]{y}+\pdv[2]{z}) u(z) + f_z^v
+\end{gather*}
+\begin{gather}\label{eqn:NS}
+    \frac{1}{\rho}\pdv{p}{x} = \frac{\mu}{\rho}\pdv[2]{u(z)}{z} - \sin(\alpha) g
+\end{gather}
+Ettersom vi har med viskøs teori å gjøre, må vi kreve at hastigheten i grensesjiktene til platene er lik hastigheten til platene ("no-slip"). Dette gir grensebetingelsene
+\begin{gather*}
+    u(z=0) = 0 \\
+    u(z=h) = U
+\end{gather*}
+
+\subsubsection*{b)}
+Under antagelsen om at $\nabla p = 0$, har vi at
+\begin{align*}
+    \pdv[2]{u(z)}{z} = \sin(\alpha) \frac{\rho g}{\mu}
+\end{align*}
+som gir
+\begin{align*}
+    u(z) = \half \sin(\alpha) \frac{\rho g}{\mu}z^2 + Cz + D
+\end{align*}
+Grensebetingelsen $u(z=0) = 0$ gir at
+\begin{align*}
+    u(0) = D = 0
+\end{align*}
+mens betingelsen $u(z=h) = U$ gir
+\begin{align*}
+    \half \sin(\alpha) \frac{\rho g}{\mu}h^2 + Ch = U \\
+    C = \frac{U}{h} - \half \sin(\alpha) \frac{\rho g}{\mu}h
+\end{align*}
+slik at vi kan definere $u(z)$ som
+\begin{align*}
+    u(z) = \half \sin(\alpha) \frac{\rho g}{\mu}\qty(z^2 - hz) + \frac{z}{h}U
+\end{align*}
+
+
+\subsubsection*{c)}
+Med en trykkgradient $\pdv{p}{x} = -\beta$ og et trykk $p(x=0) = 0$ i origo, er trykket åpenbart gitt som
+\begin{align*}
+    p(x) = p_0 - \beta x
+\end{align*}
+
+Vi løser for hastighetsfeltet ved å sette trykkgrandenten i ligning \ref{eqn:NS}.
+\begin{align*}
+    \pdv[2]{u}{x} = \sin(\alpha)\frac{g}{\mu} -\frac{\beta}{\mu}
+\end{align*}
+som gir et hastighetsfelt
+\begin{align*}
+    u(z) = \frac{z^2}{2\mu}\qty(\sin(\alpha)g -\beta) + Cz + D = \gamma z^2 + Cz + D
+\end{align*}
+hvor vi har introdusert $\gamma = \frac{\sin(\alpha)g-\beta}{2\mu}$. Vi har $C=0$ etter samme logikk som sist, og $u(z=h) = U$ gir
+\begin{align*}
+    C = \frac{U}{h} - \gamma h
+\end{align*}
+som gir hastighetsfeltet
+\begin{align*}
+    u(z) = \gamma z^2 + Cz = \gamma z^2 + \frac{U}{h}z - \gamma h z = \gamma z^2 - \gamma hz + \frac{U}{h}z
+\end{align*}
+
+For at strømningen skal bevege seg netto oppover, må strømingsfluksen i x-retning være positiv.
+\begin{align*}
+    \int\limits_0^h u(z) \dd{z} = \qty[\frac{1}{6}\gamma z^3 - \half\gamma h z^2 + \half\frac{U}{h}z^2 ]_0^h = \frac{1}{6}\gamma h^3 - \half\gamma h^3 + \half U h = -\frac{1}{3}\gamma h^3 + \half U h
+\end{align*}
+Setter vi inn for $\gamma$ og løser for når fluksen er større enn 0, får vi
+\begin{gather*}
+    -\frac{1}{3}\qty[\frac{\sin(\alpha)g - \beta}{2\mu}]h^3 + \half Uh > 0 \\
+    \frac{1}{6\mu}\beta h^3 > \frac{1}{6\mu}\sin(\alpha)gh^3 - \half Uh \\
+    \beta > \sin(\alpha)g - 3\frac{\mu}{h^2}U
+\end{gather*}
+
+
+\subsubsection*{d)}
+Vi finner tøyningstensoren som
+\begin{align*}
+    \epsilon =
+    \begin{pmatrix}
+        \pdv{u}{x} & \half\qty(\pdv{v}{x} + \pdv{u}{y}) & \half\qty(\pdv{w}{x} + \pdv{u}{z}) \\
+        \half\qty(\pdv{v}{x} + \pdv{u}{y}) & \pdv{v}{y} & \half\qty(\pdv{w}{y} + \pdv{v}{z}) \\
+        \half\qty(\pdv{w}{x} + \pdv{u}{z}) & \half\qty(\pdv{w}{y} + \pdv{v}{z}) & \pdv{w}{z} \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        0 & 0 & \half \qty(2\gamma hz - \gamma h + \frac{U}{h}) \\
+        0 & 0 & 0 \\
+        \half \qty(2\gamma hz - \gamma h + \frac{U}{h}) & 0 & 0
+    \end{pmatrix}
+\end{align*}
+Dette gjør energidissipasjonen til
+\begin{align*}
+    \Delta = 2\mu\epsilon_{ij}^2 = 2\mu\cdot 2\qty[\half \qty(2\gamma hz - \gamma h + \frac{U}{h})]^2
+    = \mu \qty(2\gamma hz - \gamma h + \frac{U}{h})^2
+\end{align*}
+\end{document}
