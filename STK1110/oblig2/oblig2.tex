@@ -1,0 +1,326 @@
+\documentclass[12p,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage[makeroom]{cancel}
+\usepackage[margin=2.0cm]{geometry}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\exp}{e^}
+\renewcommand{\b}{\boldsymbol}
+\newcommand{\h}{\hat}
+\newcommand{\m}{\mathbb}
+\newcommand{\half}{\frac{1}{2}}
+\renewcommand{\exp}{e^}
+\renewcommand{\bar}{\overline}
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\title{STK1110 -- Oblig 2}
+\author{
+    \begin{tabular}{r l}
+        Jonas Gahr Sturtzel Lunde & (\texttt{jonassl})
+    \end{tabular}}
+% \date{}    % if commented out, the date is set to the current date
+
+\maketitle
+
+\hspace{10cm}
+
+
+
+\section*{Oppgave 1}
+\subsection*{a)}
+Fra figur \ref{fig:1} ser vi at det er en relativt markant forskjell mellom kroppstemperaturen til mennene og kvinnene i dataen vår. Dette betyr ikke nødvendigvis at kvinner har høyere kroppstemperatur enn menn, ettersom datasettet er ekstremt lite.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/task1a.pdf}
+    \caption{Boksplott av observert kroppstemperatur blant 10 menn og kvinner.}
+    \label{fig:1}
+\end{figure}
+
+
+
+
+\subsection*{b)}
+Fra figur \ref{fig:2} ser vi at begge datasettene har ganske lineære normalfordelingsplott, som betyr at datasettene sannsynligvis kommer fra normalfordelte populasjoner.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/task1b.pdf}
+    \caption{Normalfordelingsplott av kroppstemperaturen til et utvalg av 10 kvinner og 10 menn.}
+    \label{fig:2}
+\end{figure}
+
+
+
+
+\subsection*{c)}
+Vi skal gjøre en $5\%$ hypotesetest på om det er en forskjell i kroppstemperaturen hos kvinner og menn, altså forskjellen mellom to befolknings-gjennomsnitt. For dette har vi
+\begin{itemize}
+    \item $H_0:\, \mu_1 - \mu_2 = 0$. Nullhypotesen vår er at det ikke er noen forskjell i gjennomsnittlig kroppstemperatur.
+    \item $H_a:\, \mu_1 - \mu_2 \neq 0$. Den alternative hypotese vår er at det er en forskjell i gjennomsnittlig kroppstemperatur.
+    \item Den t-fordelte test-statistikken \[ t = \frac{\bar{x} - \bar{y} - \Delta_0}{\sqrt{\frac{s_1^2}{m} + \frac{s_2^2}{n}}} = \frac{\bar{x} - \bar{y}}{\sqrt{\frac{2s^2}{n}}} \]
+    ettersom $s_1 = s_2 = s$, $m=n$, og $\Delta_0 = 0$.
+    \item En tosidig rejection region for $t < -t_{\alpha/2,\, \nu}$ og $ t_{\alpha/2,\, \nu} < t$.
+\end{itemize}
+Test-statistikken vår er t-fordelt med
+\[
+    \nu = \frac{\qty(\frac{s_1^2}{m}+\frac{s_2^2}{n})^2}{\frac{(s_1^2/m)^2}{m-1} + \frac{(s_2^2/n)^2}{n-1}}
+    = \frac{\frac{2s^4}{n^2}}{\frac{2s^4/n^2}{n-1}} = n-1
+\]
+frihetsgrader. Vi ser altså at for like sample-sizes og antagelse om lik varians, reduseres frihetsgradene til det samme som for gjenomsnittetet til én fordeling.
+
+Dette gir en rejection region $t < -2.26$, og $2.26 < t$.
+
+Vi har verdiene $\bar{x} = 36.6$, $\bar{y} = 36.93$, og $s\approx 0.317$, der $s$ er utregnet fra summen av begge settene, ettersom vi antok de hadde samme varians. 
+Verdien til test-statistikken blir
+\begin{equation}\label{eqn:t}
+    t = \frac{36.6 - 36.93}{\sqrt{\frac{2\cdot 0.317^2}{10}}} \approx -2.33
+\end{equation}
+Vi er altså så vidt ute i rejection region, og kan forkaste nullhypotesen for den alternative hypotesen ved $5\%$ nivå.
+
+P-verdien er sannsynligheten for å få en test-statistikk verdi er mer motsigende nullhypotesen enn det vi sitter med, gitt at nullhypotesen er sann. Dette tilsvarer test-statistikk verdier $t < -2.33$, og $2.33 < t$, som har en sannsynlighet for å inntreffe lik (ettersom t-fordelingen er symetrisk):
+\[
+    P(t < -2.33) + P(2.33 < t) = 2\cdot P(t < 2.33) \approx 0.0447
+\]
+Dette betyr at det bare er $4.47\%$ sannsynlighet for å få en verdi som er mer motsigende nullhypotesen enn det vi sitter med, som er en relativt sterk indikator på at det er en reell forskjell.
+
+Konfidensintervallet for vår observerte verdi er
+\[
+    \mu_1 - \mu_2 \in \qty[\bar{x} - \bar{y} \pm t_{\alpha/2,\, \mu}\sqrt{\frac{s_1^2}{m} + \frac{s_2^2}{n}}] = \qty[-0.603,\, -0.057]
+\]
+Vi ser altså at nullverdien faller utenfor konfidensintervallet til vår observerte verdi, som gir mening, i og med at vi forkastet den.
+
+
+
+
+\subsection*{d)}
+Dersom vi antar at standardavvikene er forskjellig, må de regnes ut separat. De blir $s_1 \approx 0.286$, og $s_2 \approx 0.253$. Dette gir antall frihetsgrader på t-fordelingen som
+\[
+    \nu = \frac{\qty(\frac{s_1^2}{m}+\frac{s_2^2}{n})^2}{\frac{(s_1^2/m)^2}{m-1} + \frac{(s_2^2/n)^2}{n-1}}
+    = \frac{\frac{\qty(s_1^2 + s_2^2)^2}{n^2}}{\frac{s_1^4 + s_2^4}{n^2(n-1)}}
+    = \frac{(s_1^2 + s_2^2)^2}{s_1^4 + s_2^4}(n-1) = 17.73
+\]
+Vi runder dette ned til $\nu = 17$, og får da
+\[
+    t_{0.025,\, 17} = 2.11
+\]
+Rejection region ble nå mindre, og vi er enda lengre ute i den.
+
+\[
+    p = 2\cdot P(t < -2.11) \approx 0.0641
+\]
+
+
+
+\subsection*{e)}
+Vi etablerer en hypotesetest om forholdet mellom variansen til de to fordelingene. Vi har
+\begin{itemize}
+    \item $H_0:\, \sigma_2^2/\sigma_1^2 = 1$
+    \item $H_a:\, \sigma_2^2/\sigma_1^2 \neq 1$
+    \item Den F-fordelte test-statistikken
+    \[
+        f = \frac{s_1^2/\sigma_1^2}{s_2^2/\sigma_2^2} = \frac{s_2^2}{s_1^2} = 0.782
+    \]
+    under antagelsen om at $H_0$ er sann.
+\end{itemize}
+
+P-verdien til F-testen vil da være
+\[
+    p = P(0.782 < f) = 0.72
+\]
+Dette er langt over hva vi kan anta fra et fornuftig rejection region. Den vil holde for F-tester helt opp til et nivå på $72\%$, og det er ingen grunn til å kaste null-hypotesen.
+
+
+
+\subsection*{f)}
+$X_{11} - Y_{11} - [\bar{X} - \bar{Y}]$ vil være normalfordelt, ettersom alle leddene er det. Vi kan etablere et symetrisk sannsynlighetsintervall rundt $[\bar{X} - \bar{Y}]$, der det vil være $95\%$ sannsynlig å finne $X_{11} - Y_{11}$. Vi benytter en t-fordeling til dette:
+\begin{align*}
+    P\qty(-t_{\alpha/2} < \frac{X_{11} - Y_{11} - [\bar{X} - \bar{Y}]}{\sqrt{2s^2/n}} < t_{\alpha/2}) &= 1-\alpha \\
+    P\qty(X_{11} - Y_{11} \in \qty[[\bar{X} - \bar{Y}] \pm \sqrt{2S^2/n}\cdot t_{\alpha/2}] ) &= 1 - \alpha
+\end{align*}
+Som gir oss intervallet
+\[
+    X_{11} - Y_{11} \in \qty[-0.603,\, -0.057]
+\]
+Et konfidensintervall TODO:FIX
+
+
+
+\section*{2}
+\subsection*{a)}
+Det er ingen forskjell på eneggede tvillinger før vi tar hensyn til oppvekst. Det kan derfor være naturlig å ikke se på dette som to separate populasjoner, men to parametere fra samme populasjon. En annen måte å argumentere for dette på er at populasjonene ikke vil være uavhengige, og at det sannsynligvis vil være en korrelasjon i IQ mellom par av tvillinger.
+
+Vi kommer videre til å anta at dataen er normalfordelt, som er en fornuftig antagelse, i og med at IQ per definisjon er normalfordelt.
+
+
+
+\subsection*{b)}
+\begin{itemize}
+    \item $H_0:\, \mu_D = 0$
+    \item $H_a:\, \mu_d \neq 0$
+    \item Test-statistikk:
+    \[
+        t = \frac{\bar{X} - \mu_D}{S/\sqrt{n}} = \frac{-3.26}{1.58} = -2.063
+    \]
+\end{itemize}
+Vi bruker en t-fordeling som test-statistikk, fordi standardavviket til populasjonen er ukjent. Vi har også en tosidet test.
+
+\textbf{p-verdien} til den alternative hypotesen vil da bli:
+\[
+    p = 2\cdot P(t < -2.063) = 0.048
+\]
+Denne p-verdien vil passere både en $10\%$ og $5\%$ nivå test (så vidt). Dette er normalt nok til å konkludere med at nullhypotesen kan forkastes. 
+
+
+
+\subsection*{c)}
+\begin{align*}
+    P\qty(-t_{0.025,\, 30} < \frac{\bar{X} - \mu_d}{S/\sqrt{n}} < t_{0.025,\, 30}) = 95\% \\
+    \mu_D \in \qty[\bar{X} \pm t_{0.025,\, 30}\frac{S}{\sqrt{n}}] = \qty[-6.487,\, -0.033]
+\end{align*}
+Vi ser at konfidensintervallet går fra litt under null, til en ganske negativ verdi. Ettersom samplet vårt falt i rejection region for $5\%$ testen, med en null-verdi lik 0, gir det mening at verdien 0 skal falle utenfor $95\%$ konfidensintervallet til målingen vår. En tosidig test er ikke noe mer enn å sjekke om en måling faller i konfidensintervallet til nullhypotesen eller ikke. Et slikt konfidensintervall vil alltid oppføre seg slik at dersom a faller utenfor konfidensintervallet til b, vil b falle utenfor konfidensintervallet til a.
+
+
+\section*{Oppgave 3}
+\subsection*{a)}
+Fra figur \ref{fig:3} virker det helt klart å være en positiv trend mellom styrke og temperatur. 
+
+Det er betydelig vanskeligere å si noe om sammenhengen mellom styrke og trykk. Punktene med høyest trykk utmerker seg også i å ha lavest styrke, \textit{men}, dette kan også forklares ved at de har lavest temperatur. Sannsynligvis sitter vi med et alt for lite sample til å si noe om trykket.
+
+Fra normalfordelingsplottet av styrkene ser det også ut som dataen er relativt formalfordelt. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.49\textwidth]{figs/task3a1.pdf}
+    \includegraphics[width=0.49\textwidth]{figs/task3a2.pdf}
+    \caption{Til venstre: Scatter plot av styrke mot temperatur, med trykk som fargekode. Til høyre: Normalfordelingsplott av styrkene.}
+    \label{fig:3}
+\end{figure}
+
+
+\subsection*{b)}
+Jeg benyttet numpy til å utføre en lineær regresjon på styrke med temperatur som forklaringsvariabel. Dette gir regresjonskoeffisientene
+\begin{align*}
+    \beta_1 = 0.247 \quad\quad \beta_0 = -29.85
+\end{align*}
+
+Figure \ref{fig:4} viser punktene sammen med den lineære tilpasningen.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/task3b.pdf}
+    \caption{Lineær regresjon av styrke med temperatur som forklaringsvariabel.}
+    \label{fig:4}
+\end{figure}
+
+
+\subsection*{c)}
+Vi vet at RV'en
+\begin{align*}
+    T = \frac{\h \beta_1 - \beta_1}{S/\sqrt{S_{xx}}}
+\end{align*}
+er t-fordelt med $n-2$ frihetsgrader (der $n$ er antall observasjoner), som gir et konfidensintervall for $\beta_1$ som
+\begin{align*}
+    P\qty(-t_{\alpha/2,\, n-2} < \frac{\hat{\beta_1} - \beta_1}{S/\sqrt{S_{xx}}} < t_{\alpha/2,\, n-2}) = 1-\alpha \\
+    \Rightarrow \beta_1 \in \qty[\h \beta_1 \pm t_{\alpha/2,\, n-2}\cdot \frac{S}{\sqrt{S_{xx}}}]
+\end{align*}
+ved et nivå $\alpha = 0.05$ gir dette
+\begin{align*}
+    \beta_1 \in [-0.146, 0.641]
+\end{align*}
+
+
+
+\subsection*{d)}
+Vi vet at RV'en
+\begin{align*}
+    T = \frac{\hat{Y} - (\beta_0 + \beta_1 x^*)}{S_{\hat{Y}}}
+\end{align*}
+er t-fordelt med $n-2$ frihetsgrader, som gir et konfidensintervall for $\hat{Y}$ som
+\begin{align*}
+    \mu_{Y\cdot x^*} \in \qty[\hat{y} \pm t_{\alpha/2,\, n-2}\cdot S_{\hat{Y}}]
+    \quad, \quad\quad
+    S_{\hat{Y}} = s\sqrt{\frac{1}{n} + \frac{(x^* - \bar{x})^2}{S_{xx}}}
+\end{align*}
+
+Prediksjonsintervallet er lignende, på formen
+\begin{align*}
+    \mu_{Y\cdot x^*} \in \qty[\hat{y} \pm t_{\alpha/2,\, n-2}\cdot \sqrt{s_{\hat{Y}}^2 + s^2}]
+\end{align*}
+
+
+
+Vi ser tydelig fra figur \ref{fig:5} og tabell \ref{table:1} ser vi tydelig at prediksjonsintervallet er betydelig bredere enn konfidensintervallet. Konfidensintervallet er en gjetning på hvor den teoretiske forventningsverdien ligger. Dersom vi hadde et ekstremt godt og stort datasett, ville dette intervallet vært svært lite. Prediksjonsintervallet forsøker derimot å predikere hvor en ny måling kunne falle. Dette må da ikke bare ta hensyn til at vi ikke er helt sikre på hva forventningsverdien (og variansen) er, men også at det er en måleusikkerhet - alle verdiene faller ikke på $\mu$ selv om vi vet akkurat hva den er. Predikasjonsintervallet vil bli mindre ved store datasett, men det kan ikke bli mindre enn predikasjonsintervallet til den underliggende, teoretiske fordelingen.
+
+Vi kan også bemerke oss at begge intervallene er minst nær midten av målesettet. Dette er fordi det er enklere å gjøre gode predikasjoner på data dersom du har godt med målinger på hver side. Da er vi så langt unna ekstrapolasjon som mulig.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/task3d.pdf}
+    \caption{asdf.}
+    \label{fig:5}
+\end{figure}
+
+
+\begin{table}[H]
+    \begin{center}
+        \begin{tabular}{c |c | c  c  c}
+                                                &    Temp.  & From & To & Size \\
+                                                        \hline
+        \multirow{3}{*}{Confidence Interval}    &    210    & 13.82 & 30.40 & 16.58 \\
+                                                        \cline{2-5}
+                                                &    240    & 24.13 & 34.94 & 10.81 \\
+                                                        \cline{2-5}
+                                                &    270    & 28.97 & 44.94 & 15.98 \\
+                                                        \hline
+        \multirow{3}{*}{Prediction Interval}    &    210    & 3.12 & 41.10 & 37.98 \\
+                                                        \cline{2-5}
+                                                &    240    & 11.61 & 47.45 & 35.84 \\
+                                                        \cline{2-5}
+                                                &    270    & 18.10 & 55.81 & 37.72 
+        \end{tabular}
+
+        \caption{Konfidens- og prediksjonsintervall for valgte temperaturverdier.}
+        \label{table:1}
+    \end{center}
+\end{table}
+
+
+
+\subsection*{e)}
+Fra oppgave 3a husker vi at styrke-dataen er ganske godt normaltfordelt. Hvis vi antar dette å være sant, kan vi lage et prediksjonsintervall med hensyn på normalfordelingen istedenfor forklaringsvariabelen temperatur. Et slikt predikasjonsintervall ser ut som
+\begin{align*}
+    \mu_{Y} \in \qty[\bar{y} \pm t_{\alpha/2,\, n-1}\cdot \sqrt{1 + \frac{1}{n}}] = \qty[12.20,\, 47.36]
+\end{align*}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/task3e.pdf}
+    \caption{asdf.}
+    \label{fig:6}
+\end{figure}
+
+
+\end{document}
