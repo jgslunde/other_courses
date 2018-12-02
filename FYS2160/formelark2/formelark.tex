@@ -283,8 +283,10 @@ where $f(N)$ is a complicated function, but at least this outlines the multiplic
 \end{framed}
 
 
-\bll{\textbf{Adiabatic Equation:}} $V^{\gamma}P = \text{const.}, \quad \gamma = (f+2)/f$
+\bll{\textbf{Adiabatic Equation:}}$dU = W = -PdV$, $dU = \dfrac{f}{2}NkdT \rightarrow \dfrac{f}{2}\dfrac{dT}{T} = -\dfrac{dV}{V}$ ved ideell gasslov. i.e. $\dfrac{f}{2}\ln\dfrac{T_f}{T_i} = -\ln\dfrac{V_F}{V_i} \rightarrow V_fT_f^{f/2} = V_iT_i^{f/2}$ som mer kompakt $VT^{f/2} = \text{const}$. kan skrives som $\yl{V^\gamma P = const}$, $\gamma=(f+2)/f$.
+Adiabatens PV kurve starter på en lav temp isoterm og slutter på en høy-temp isoterm.
 
+\bll{\textbf{Reversible Process:}} $W = -P\dd{V}$
 
 \rdd{\textbf{Entropy}}
 \begin{framed}
@@ -308,7 +310,7 @@ Entropy-increase from mixing two different gases is $\Delta S_\text{tot} = \Delt
 % ╚██████╗██║  ██║██║  ██║██║        ██║   ███████╗██║  ██║    ██████╔╝
 %  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝   ╚══════╝╚═╝  ╚═╝    ╚═════╝ 
 \section*{\colorbox{red}{***CHAPTER 3: Interaction and Implications***}}
-\bll{DEF - Equation of State:} Relation between $P$, $V$, $T$, and $N$.
+\bll{DEF - Equation of State:} Relation between $P$, $V$, and $T$
 
 \rdd{\textbf{Summary of Thermodynamic Potentials}}
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
@@ -444,7 +446,10 @@ Rewriting as a function of $\dd{U}$, this becomes\\
 \end{align*}\vspace{-.4cm}
 
 Enthalpy = Energy of system + energy to make room for it.\\
-Helmholtz = Energy of system - energy we can lend from reservoar at temp $T$.
+Helmholtz = Energy of system - energy we can lend from reservoar at temp $T$.\\
+Gibbs = The two above combined.
+
+Remembert that tese are linear in $U$, so any increase in $U$ is a direct increase in all.
 
 By inserting the thermodynamic identity for $\dd{U}$, we derive the thermodynamic identities for each potential:
 \vspace{-.2cm}\begin{align*}
@@ -505,14 +510,16 @@ Multiplying an intensive and extensive property creates an extensive one. Multip
 
 \rdd{\textbf{Phase Transformations}}
 
-\begin{wrapfigure}{R}{0.35\textwidth}
+\begin{wrapfigure}{R}{0.33\textwidth}
     \centering
-    \includegraphics[width=0.35\textwidth]{figs/fig5.jpg}
+    \includegraphics[width=0.33\textwidth]{figs/fig5.jpg}
 \end{wrapfigure}
 
 A phase transformation is a discontinious change in a substance properties from an infinitesimal change in its enviroment. This is usually a function of \textit{pressure}, and \textit{temperature}.
 
 Gibbs free energy is the paramter of interest, as the system will attempt to minimize it. The most stable element will be the one with the lowest $G$.
+
+\bll{\textbf{Damptrykk:}} Pressure where phase transformation takes place. In the equilibrium between two phases, \grr{their gibbs factors and chemical potentials are the same:} $\mu_g = \mu_l$, $G_g = G_l$.
 \\
 \\
 \rdd{\textbf{Clausius-Clapeyron modellen}}
@@ -745,20 +752,19 @@ Both these distribution approach the Boltzmann Distribution in the high-energy c
 \bll{DEF - Degeneracy:} Degenerate has a second definition, describing cases where there is a very hard limit between occupied an unoccupied states.
 
 \bll{\textbf{Density of States:}} $D(\epsilon)$ or $D(n)$ represents the density of avaliable states at an energy $\epsilon$ or number $n=\sqrt{n_x^2 + n_y^2 + n_z^2}$, in such a way that\\
-$N = \int_0^{\epsilon_F} D(\epsilon) \dd{\epsilon}$ is the total number of avaliable states up to $\epsilon_F$ (or a number $n$).\\
+$N = \int_0^{\epsilon_F} D(\epsilon) \dd{\epsilon}$ is the total number of avaliable states up to $\epsilon_F$ (or a number $n$).\quad\quad\quad\quad DoS:(Including 2 spin states)\\
 1D: $D(n) = 2$\\
 2D: $D(n) = 2\cdot \frac{1}{4}\cdot 2\pi n_\text{max} = \pi n_\text{max}$\\
 3D: $D(n) = 2\cdot \frac{1}{8}\cdot 4 \pi n_\text{max}^2 = \pi n_\text{max}^2$
 
-\[
+\vspace{-.3cm}\[
     \yl{D(n) \dd{n} = D(\epsilon) \dd{\epsilon}}
-\]
+\]\vspace{-.2cm}
 
 \bll{\textbf{Zero Temperature}}\\
 In the zero-temperature case, the particles simply fill up the lowest possible energy states, up to a hard limit
-\vspace{-.2cm}\[
-    \yl{\epsilon_F \equiv \mu(T = 0)} \quad \text{(Fermi Energy)}
-\]
+$    \yl{\epsilon_F \equiv \mu(T = 0)} \quad \text{(Fermi Energy)}
+$
 and the Fermi-Dirac funtion becomes a step-function. 
 
 The allowed energy levels of a particle in a box is know from Q.M. as (in 3D):
@@ -766,9 +772,9 @@ The allowed energy levels of a particle in a box is know from Q.M. as (in 3D):
     \epsilon = \frac{h^2}{8mL^2}(n_x^2 + n_y^2 + n_z^2) \ , \ \ n \in \{1,2,3...\}
 \]
 Instead of a "step-function" this becomes a quarter-sphere with surface $n_x^2 + n_y^2 + n_z^2 = n_\text{max}^2$, corresponding to the fermi energy:
-\vspace{-.2cm}\[
-    \epsilon_F = \frac{h^2n_\text{max}^2}{8mL^2}
-\]
+$    \epsilon_F = \frac{h^2n_\text{max}^2}{8mL^2}
+$
+
 The number of such states enclosed is equivalent to the volume of this quarter-sphere (times 2 from spins)
 \vspace{-.2cm}\[
     N = 2\cdot\frac{1}{8}\cdot \frac{4}{3}\pi n_\text{max}^3 = \frac{\pi n_\text{max}^3}{3}
@@ -777,10 +783,12 @@ giving the fermi-energy
 \vspace{-.2cm}\[
     \epsilon_F = \frac{h^2}{8m}\qty(\frac{3N}{\pi V})^{2/3}
 \]\vspace{-.2cm}
-I can be shown that the total energy in a fermi surface is 
-\[
-    U = \pi\int_0^{n_\text{max}}\epsilon(n)n^2 \dd{n} = \frac{3}{5}N \epsilon_F
-\]\vspace{-.2cm}
+Energy inside fermi surface:
+\begin{align*}
+    U = 2 \sum_{n_x}\sum_{n_y}\sum_{n_z} \epsilon(\vec{n}) = 2\cdot\int\int\int \epsilon(\vec{n})\dd{n_x}\dd{n_y}\dd{n_z} =\\
+    = 2\int_0^{n_{max}}\int_0^{\pi/2}\int_0^{\pi/2}\epsilon(n)\dd{\phi}\dd{\theta}\dd{n} 
+    = \pi\int_0^{n_\text{max}}\epsilon(n)n^2\sin{\theta} \dd{n} = \frac{3}{5}N \epsilon_F
+\end{align*}
 
 
 \bll{\textbf{Small, non-zero Temperatures}}
@@ -791,8 +799,14 @@ In the non-zero case, we need to multiply the density of states with the probabi
 \[
     U = \int_0^\infty\epsilon \cdot D(\epsilon)\cdot \bar{n}_\text{FD}(\epsilon) \dd{\epsilon} = \int_0^\infty \frac{\epsilon\cdot D(\epsilon)}{\exp{(\epsilon-\mu)/kT} + 1} \dd{\epsilon} \quad\ (T \neq 0)
 \]
+
+\bll{\textbf{Classical Limit:}} $Z_1 \gg N \quad \Rightarrow \quad \mu \ll  kT$
 \end{framed}
 
+\bll{\textbf{Blackbody Rad:}}$Z = 1 + \exp{-\beta h f} + \exp{-2\beta h f} + \cdots = \frac{1}{1-\exp{-\beta h f}}$.\\
+Plack Dist (Avg Eng): $\bar{E} = \frac{1}{Z}\pdv{Z}{\beta} = \frac{hf}{\exp{hf/kT} - 1}$.\\
+$\mu_e = \mu_e + \mu_gamma \quad\Rightarrow\quad \mu = 0$ for photons.\\
+Etropy of photon gas: $C_V = \pd{U}{V}{T} 4aT^3$, $S(T) = \int_0^T\frac{C_V(T')}{T'}\dd{T'} = \frac{32\pi^5Vk}{45}(\frac{kT}{hv})^3$.
 
 \end{twocolumn}
 \end{document}
