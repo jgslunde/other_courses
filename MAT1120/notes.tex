@@ -42,26 +42,24 @@
 
 
 % Colorcoding. First for inside equations, second for text.
-\definecolor{lightred}{RGB}{255,70,70}
-\definecolor{lightgreen}{RGB}{140,255,140}
+\definecolor{lightyellow}{RGB}{255,255,80}
+\definecolor{lightred}{RGB}{255,160,140}
+\definecolor{lightgreen}{RGB}{180,255,180}
+\definecolor{lightblue}{RGB}{180,220,255}
+\definecolor{background_yellow}{RGB}{255,255,220}
+\definecolor{background_red}{RGB}{255,180,150}
 % Yellow
-\newcommand{\yl}[1]{\colorbox{yellow}{$\displaystyle #1$}}
-\newcommand{\yll}{\colorbox{yellow}}
+\newcommand{\yl}[1]{\colorbox{lightyellow}{$\displaystyle #1$}}
+\newcommand{\yll}{\colorbox{lightyellow}}
 % Green
 \newcommand{\gr}[1]{\colorbox{lightgreen}{$\displaystyle #1$}}
 \newcommand{\grr}{\colorbox{lightgreen}}
 % Blue
-\newcommand{\bl}[1]{\colorbox{cyan}{$\displaystyle #1$}}
-\newcommand{\bll}{\colorbox{cyan}}
+\newcommand{\bl}[1]{\colorbox{lightblue}{$\displaystyle #1$}}
+\newcommand{\bll}{\colorbox{lightblue}}
 % Red
 \newcommand{\rd}[1]{\colorbox{lightred}{$\displaystyle #1$}}
 \newcommand{\rdd}{\colorbox{lightred}}
-
-%\setlength{\tabcolsep}{6pt} % Default value: 6pt
-%\renewcommand{\arraystretch}{1.5} % Default value: 1
-
-%Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
-%\usepackage[Bjornstrup]{fncychap}
 
 
 
@@ -85,6 +83,21 @@
 \begin{document}
 
 
+\section*{Definitions}
+
+\textbf{Dimension of a set:} The number of linearly independent vectors.
+
+\textbf{Rank of a matrix:} The dimension of column space.
+
+
+
+%  ██████╗██╗  ██╗ █████╗ ██████╗ ████████╗███████╗██████╗     ██╗  ██╗
+% ██╔════╝██║  ██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ██║  ██║
+% ██║     ███████║███████║██████╔╝   ██║   █████╗  ██████╔╝    ███████║
+% ██║     ██╔══██║██╔══██║██╔═══╝    ██║   ██╔══╝  ██╔══██╗    ╚════██║
+% ╚██████╗██║  ██║██║  ██║██║        ██║   ███████╗██║  ██║         ██║
+%  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝   ╚══════╝╚═╝  ╚═╝         ╚═╝
+                                                                  
 \setcounter{chapter}{3}
 \chapter{Vector Spaces}
 \section{Coordinate systems and mapping}
@@ -109,9 +122,15 @@ This change of basis is just a special case of a more general change of basis be
 
 The change-of-basis matrix from $\mathcal{C}$ to $\mathcal{B}$ is simply the inverse: $\underset{\mathcal{B}\leftarrow\mathcal{C}}{P} = \qty(\underset{\mathcal{C}\leftarrow\mathcal{B}}{P})^{-1}$
 
-
+The change of basis of a linear transformation is
+\[
+    [\,T\,]_\mathcal{C} = P\, [\,T\,]_\mathcal{B}\, P^{-1}
+\]
+where $P$ is the change-of-basis matrix $\underset{\mathcal{C}\leftarrow\mathcal{B}}{P}$
 
 \section{Linear transformations (mappings) between vector spaces}
+
+Any linear transformation is solely defined by how it acts on the unit vectors.
 
 \begin{wrapfigure}{r}{10cm}
     \includegraphics[width=8cm]{figs/map.jpg}
@@ -129,21 +148,73 @@ where
 \]
 This matrix is called the \textbf{matrix for T relative to the bases $\mathcal{B}$ and $\mathcal{C}$.}
 
+If $M$ is invertible, there exists an inverse linear transform $T^{-1}$ with matrix representation $M^{-1}$, mapping every point in $\mathcal{B}$ to a point in $\mathcal{C}$. This makes $T$ an \textbf{isomorphism} (one-to-one mapping).
 
 
 
 
 
+%  ██████╗██╗  ██╗ █████╗ ██████╗ ████████╗███████╗██████╗     ███████╗
+% ██╔════╝██║  ██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ██╔════╝
+% ██║     ███████║███████║██████╔╝   ██║   █████╗  ██████╔╝    ███████╗
+% ██║     ██╔══██║██╔══██║██╔═══╝    ██║   ██╔══╝  ██╔══██╗    ╚════██║
+% ╚██████╗██║  ██║██║  ██║██║        ██║   ███████╗██║  ██║    ███████║
+%  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝   ╚══════╝╚═╝  ╚═╝    ╚══════╝
 \chapter{Eigenvalues and Eigenvectors}
 
 If $A$ has $n$ independent eigenvalues, the eigenvectors of $A$ are linearly independent. If not, we don't know if they are linearly independent or not.
 
 
 \section{Diagonalization}
-If $A$ is a $n\times n$ matrix with with $n$ linearly independent eigenvectors $\b v_1, \dots, \b v_n$, with distinct eigenvalues $\lambda_1,\dots,\lambda_n$.
+If $A$ is a $n\times n$ matrix with with $n$ linearly independent eigenvectors $\b v_1, \dots, \b v_n$, with distinct eigenvalues $\lambda_1,\dots,\lambda_n$, then $A$ is diagonalizable.
+
+We can then write
+\[
+    A = P D P^{-1}
+\]
+where $D$ is a diagonal matrix and $P$ is an invertable matrix such that
+\[
+    D = \begin{pmatrix} \lambda_1 &           &         & \\
+                                  & \lambda_2 &         & \\
+                                  &           & \ddots  & \\
+                                  &           &         & \lambda_n
+        \end{pmatrix}
+        \quad\quad
+    P = \begin{pmatrix} \b v_1 & \b v_2 & \cdots & \b v_n \end{pmatrix}
+\]
+
+\section{Discrete dynamical systems}
+Cosider a difference equation on the form
+\[
+    \b x_{i+1} = A\b x_i \quad\quad \Rightarrow \quad\quad \b x_k = A^k \b x_0
+\]
+where $\{\b x_0,\,\b x_1,\dots\}$ is a vector sequence describing the properties of some system, and $A$ is an $n\times x$ invertable matrix, giving it $n$ descrete eigenvalues, with $n$ orthogonal eigenvectors spanning $\m R^n$. This means any vector $x_i$ can be written as a linear combination of these:
+\[
+    x_i = c_1 \b v_1 + \dots + c_n \b v_n
+\]
+such that the matrix-vector multiplication $A^k \b x_0$ can be rewritten as
+\[
+    x_k = A^k x_0 = A^k\qty(c_1 \b v_1 + \dots + c_n \b v_n) = (\lambda_1)^k c_1 \b v_1 + \dots + (\lambda_n)^k c_n \b v_n
+\]
+
+In short, any such dynamical system can be decomposed into the eigenvectors of $A$, where the eigenvalues decides how the system behaves over time.
+
+The coefficients are usually found as
+\[
+    \b c = P^{-1}\b x
+\]
+
+\subsection{Attractors}
+We see that if all eigenvalues of $A$ are less than 1, the system will tend towards $\b 0$, and we say that $\b 0$ is an \textbf{attractor} for the system.
 
 
-\chapter{asdf}
+
+%  ██████╗██╗  ██╗ █████╗ ██████╗ ████████╗███████╗██████╗      ██████╗ 
+% ██╔════╝██║  ██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ██╔════╝ 
+% ██║     ███████║███████║██████╔╝   ██║   █████╗  ██████╔╝    ███████╗ 
+% ██║     ██╔══██║██╔══██║██╔═══╝    ██║   ██╔══╝  ██╔══██╗    ██╔═══██╗
+% ╚██████╗██║  ██║██║  ██║██║        ██║   ███████╗██║  ██║    ╚██████╔╝
+%  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚═════╝
 \chapter{Orthogonality and least squares}
 \section{Projections}
 \subsection{Projection of vector onto vector}
@@ -159,7 +230,10 @@ Let $W$ be subspace of $\m R^n$ with an orthogonal basis $\{\b u_1, \dots, \b u_
 \begin{align*}
     \hat{\b y} = \frac{\b y \cdot \b u_1}{\b u_1 \cdot \b u_1}\b u_1 + \dots + \frac{\b y \cdot \b u_p}{\b u_p \cdot \b u_p}\b u_p
 \end{align*}
-
+If you have an |\textit{orthonormal} basis, the dot products reduces to $1$, and this can be written.
+\begin{align*}
+    \hat{\b y} = \b y\cdot \b u_1 + \dots + \dots \b y \cdot \b u_p = U U^T \b y
+\end{align*}
 
 
 \subsection{The Gram-Schmidt process of orthogonal factorization}
@@ -174,9 +248,130 @@ The idea is to create one and one new vector $\b v_i$ from the corresponding $\
     \item \dots
 \end{itemize}
 
+Remember to normalize afterwards if you need an \textit{orthonormal} basis.
 
 
 
+\section{Least-sqaure problems}
+Let $W$ be the column space of some matrix $A$: $W = \text{span}\{\text{col}(A)\}$.
+
+Sometimes, the equation $A\b x = \b b$ has no solutions, because $\b b$ is not in $W$. We then often wish to find the solutions $\hat{\b x}$ which places the solutions $A\hat{\b x} = \hat{\b b}$ as close to the actual solution $\b b$ as possible.
+
+This "closest solution" is the projection of $\b b$ onto $W$, $\hat{\b b} = \text{proj}_{W} \b b$.
+
+The least-square solution to $A\b x = \b b$ is then:
+\begin{align*}
+    A\hat{\b x} = \hat{\b b} \quad \Rightarrow\quad
+    \yl{\hat{\b x} = A^{-1}\hat{\b b}} \quad\quad(=A^{-1}AA^T\b b)
+\end{align*}
+
+
+%  ██████╗██╗  ██╗ █████╗ ██████╗ ████████╗███████╗██████╗     ███████╗
+% ██╔════╝██║  ██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ╚════██║
+% ██║     ███████║███████║██████╔╝   ██║   █████╗  ██████╔╝        ██╔╝
+% ██║     ██╔══██║██╔══██║██╔═══╝    ██║   ██╔══╝  ██╔══██╗       ██╔╝ 
+% ╚██████╗██║  ██║██║  ██║██║        ██║   ███████╗██║  ██║       ██║  
+%  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝   ╚══════╝╚═╝  ╚═╝       ╚═╝
+\chapter{Symmetric Matrices and Quadratic Forms}
+
+\section{Diagonalization of symmetric Matrices}
+
+\section{Quadratic Forms}
+Consider a function \bll{$Q: \m R^n \mapsto \m R$} given by \grr{$Q(\b x) = \b x^T A \b x$} called a \yll{\textbf{quadratic form}}, defined by a \underline{symmetric} $n\times n$ matrix $A$.\\
+The result will then be a second order polynomial
+\[
+    c_{00}\, x_1^2 + c_{11}\, x_2^2 + c_{12}\, x_1 x_2 + ...
+\]
+The matrix will then be a form
+\[
+    A = \begin{pmatrix}
+        c_{00} & \half c_{12} & \half c_{13} & \cdots \\
+        \half c_{12} & c_{11} & & \\
+        \vdots & & \ddots & \\
+        & & & c_{nn}
+    \end{pmatrix}
+\]
+The non-diagonals are halved, because they "share" the coefficients due to the symetry.
+
+\begin{tcolorbox}
+    If the eigenvalues of $A$ are 
+    \begin{itemize}
+        \item All positive, $Q(\b x)$ takes only positive values in $\m R$.
+        \item All negative, $Q(\b x)$ takes only negative values in $\m R$.
+    \end{itemize}
+\end{tcolorbox}
+
+
+
+\section{Constraint optimization}
+We often wish to solve for the $\b x$ that gives the maximum or minimum $Q(\b x)$ under some constraint $||\b x || = ||\b x^2|| = \b x^T \b x = 1$.
+
+\begin{itemize}
+    \item The maximum value of $Q(\b x)$ is the largest eigenvalue of $A$. The $\b x$ giving this value is the corresponding eigenvector.
+    \item The minimum value of $Q(\b x)$ it the smallest eigenvalue of $A$. The $\b x$ giving this value is the corresponding eigenvector.
+\end{itemize}
+
+
+
+\section{Singular Value Decomposition}
+We know the $A = PDP^{-1}$ diagonalization of $A$ can only be applied to $n\times n$, diagonalizable matrices $A$.
+
+However, the \yll{\textbf{singular value decomposition}} \bll{$A = U\Sigma V$} can be applied to \textit{any} matrix $A$. It reduces to $PDP^{-1}$ factorization if $A$ is diagonalizable.
+
+\begin{tcolorbox}
+    \begin{itemize}
+    \item The \yll{singular values} of $A$ are the squareroots of the eigenvalues of $A^T A$, in decreasing order:
+    \[
+        \gr{\sigma_i = \sqrt{\lambda_i}}
+    \]
+
+    \item The \yll{singular vectors} of $A$ are the normalized eigenvectors of $A^T A$, ordered by decending eigenvalues.
+    \end{itemize}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}
+    Let $A$ be some $m\times n$ matrix with rank $r$. Then $A$ can be factorized into $A = U\Sigma V$ where \\
+    \begin{itemize}
+        \item $\Sigma$ is a $m\times n$ matrix (same shape as $A$), where the diagonal values are all the \underline{singular values} of $A$, with trailing zeros.
+            \[ \Sigma = 
+            \begin{pmatrix}
+                \sigma_1 & 0 & 0 & 0 & 0 \\
+                0 & \sigma_2 & 0 & 0 & 0 \\
+                0 & 0 & \sigma_3 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0
+            \end{pmatrix}
+            \]
+
+        \item $V$ is an orthogonal $n\times n$ matrix, consisting of the \underline{singular vectors} of $A$:
+            \[
+                V = 
+                \begin{pmatrix}
+                    \b v_1 & \b v_2 & \b v_3
+                \end{pmatrix}
+            \]
+
+        \item $U$ is an orthogonal $m\times m$ matrix where the columns are the normalized $A v_i$ vectors:
+            \[  U = 
+                \begin{pmatrix}
+                    \dfrac{A \b v_1}{\sigma_1} & \dfrac{A \b v_2}{\sigma_2} & \dfrac{A \b v_3}{\sigma_3}
+                \end{pmatrix}
+            \]
+            If there aren't $m$ non-zero vectors to use, construct the rest of $U$ as orthonormal vectors from Gram-Schmidt.
+    \end{itemize}
+\end{tcolorbox}
+
+
+
+\chapter{Matlab}
+\subsection*{Poly(A)}
+Returns the negative of the characteristic polynomial of $A$.\\
+Ex:
+\begin{align*}
+    \text{INPUT:} \quad \text{poly}(A) \\
+    \text{OUTPUT:} \quad 1\ {-4}\ 3\ 0 \\
+    \Rightarrow \ -(\lambda^3 - 4\lambda^2 + 3\lambda + 0) = 0
+\end{align*}
 
 
 \end{document}
