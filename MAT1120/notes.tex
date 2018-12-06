@@ -62,6 +62,8 @@
 \newcommand{\rdd}{\colorbox{lightred}}
 
 
+\renewcommand{\hat}{\widehat}
+
 
 \usepackage{eqparbox}   
 \titleformat{\chapter}[block]{}{\eqmakebox[chap]{\Large\MakeUppercase{\sffamily\lsstyle\chaptername} %
@@ -83,13 +85,6 @@
 \begin{document}
 
 
-\section*{Definitions}
-
-\textbf{Dimension of a set:} The number of linearly independent vectors.
-
-\textbf{Rank of a matrix:} The dimension of column space.
-
-
 
 %  ██████╗██╗  ██╗ █████╗ ██████╗ ████████╗███████╗██████╗     ██╗  ██╗
 % ██╔════╝██║  ██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ██║  ██║
@@ -100,10 +95,38 @@
                                                                   
 \setcounter{chapter}{3}
 \chapter{Vector Spaces}
+\section{Vector Spaces and the Invertible Matrix Theorem}
+Let $A$ be an $m \times n$ matrix $A=[\b a_1, \dots , \b a_n]$
+
+The \bll{\textbf{column space}} of $A$ is the span of its columns: \yll{$\text{Col}(A) = \text{Span}\{\b a_1, \dots , \b a_n\}$}. It's dimension is called the \textbf{rank} of $A$.
+
+The \bll{\textbf{null space}} of $A$ is all vectors solving the equation \yll{$A \b x = \b 0$}.
+
+The sum of their dimensions must equal the size of $A$: \grr{$\text{Dim}(\text{Col}(A)) + \text{Dim}(\text{Nul}(A)) = n$}.
+
+
+$A$ will map any vector from $\m R^n$ onto some space $\m R^k$, where $k = \text{Rank}(A)$. The dimensions of the column space therefor decides the dimension of the space we map onto. The null space then represents all the dimensions that "disappear" during the transform.
+
+\begin{tcolorbox}[title={The Invertible Matrix Theorem}]
+\begin{itemize}
+    \item $A$ is invertible.
+    \item The columns of $A$ are linearly independent, and $A$ spans $\m R^n$.
+    \item $A$ is row-equivalent to the identity matrix $I_n$.
+    \item $A$ has $n$ pivot columns.
+    \item The dimensions of $A$'s null space is zero. ($A\b x = \b x$ has only the solution $\b x = \b 0$).
+    \item $0$ is not an eigenvalue of $A$.
+    \item The determinant of $A$ is different from zero.
+    \item $A^T$ is also invertible, and all of this applies to it.
+\end{itemize}
+
+\end{tcolorbox}
+
+
+
 \section{Coordinate systems and mapping}
 Consider a vector $\b x$ living in a vector space $V$. The vector $\b x$ is an abstract concept, living in some abstract space $V$. It may have some physical or gemoetric meaning or whatnot.
 
-We now enforce a \textit{basis} onto $V$, called $\mathcal{B} = \{\b b_1,\dots, \b b_n\}$. This makes V \textit{behave like} $\m R^n$, in the sense that each vector $\b x$ in $V$ is \textit{mapped onto} a vector $[\b x]_\mathcal{B}$ in $\m R^n$. This is called a \textit{coordinate mapping} $\b x \mapsto [\b x]_\mathcal{B}$ "onto" the basis $\mathcal{B}$. The vector space $V$ might be foreign to us, and it can be important to create a mapping onto a more familiar vector space $\m R^n$, which we know how behaves. This transformation is "one-to-one", mapping each point in $V$ onto a point in $\m R^n$, and vice versa. This relation is called an \textbf{isomorphism}, and makes any vector space $V$ with a basis of $n$ vectors indistinguishable from $\m R^n$.
+We now enforce a \textit{basis} onto $V$, called $\mathcal{B} = \{\b b_1,\dots, \b b_n\}$. This makes V \textit{behave like} $\m R^n$, in the sense that each vector $\b x$ in $V$ is \textit{mapped onto} a vector $[\b x]_\mathcal{B}$ in $\m R^n$. This is called a \textit{coordinate mapping} $\b x \mapsto [\b x]_\mathcal{B}$ "onto" the basis $\mathcal{B}$. The vector space $V$ might be foreign to us, and it can be important to create a mapping onto a more familiar vector space $\m R^n$, which we know how behaves. This transformation is \bll{"one-to-one"}, mapping each point in $V$ onto a point in $\m R^n$, and vice versa. This relation is called an \bll{\textbf{isomorphism}}, and makes any vector space $V$ with a basis of $n$ vectors \underline{indistinguishable from $\m R^n$}.
 
 Usually, when a vector is written plainly as $\b x$, we consider it to be written in a \textit{standard basis} $\mathcal{E} = \{\b e_1,\, \b e_2\} = \begin{bmatrix} \,1\, \\ \,0\, \end{bmatrix},\, \begin{bmatrix} \,0\, \\ \,1\, \end{bmatrix}$, meaning that $\b x = [\b x]_\mathcal{E}$.
 
@@ -161,12 +184,20 @@ If $M$ is invertible, there exists an inverse linear transform $T^{-1}$ with mat
 % ╚██████╗██║  ██║██║  ██║██║        ██║   ███████╗██║  ██║    ███████║
 %  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝   ╚══════╝╚═╝  ╚═╝    ╚══════╝
 \chapter{Eigenvalues and Eigenvectors}
+\section{Eigenvalues and Eigenvectors}
+Let $A$ be an $n\times n$ matrix with eigenvalues $\lambda_1, \lambda_2,\dots, \lambda_n$ in decreasing order, and corresponding eigenvectors $\b v_1, \b v_2, \dots,\b v_n$.
 
-If $A$ has $n$ independent eigenvalues, the eigenvectors of $A$ are linearly independent. If not, we don't know if they are linearly independent or not.
+\begin{itemize}
+    \item The eigenvalues of $A$ is given by \textbf{the characteristic equation} \yll{$\text{Det}(A - \lambda I) = 0$}.
+    \item If $A$ is \underline{triangular}, the eigenvalues are the entries of it's diagonal.
+    \item If $A$ has \underline{$n$ distinct eigenvalues}, \bll{the eigenvectors are linearly independent}. If $A$ has degenerate eigenvalues, we have to check whether the eigenvector are independent or not.
+\end{itemize}
 
 
 \section{Diagonalization}
-If $A$ is a $n\times n$ matrix with with $n$ linearly independent eigenvectors $\b v_1, \dots, \b v_n$, with distinct eigenvalues $\lambda_1,\dots,\lambda_n$, then $A$ is diagonalizable.
+\begin{tcolorbox}[title={The Diagonalization Theorem}]
+    An $n\times n$ matrix $A$ is diagonalizable if it has $n$ linearly independent eigenvectors.
+\end{tcolorbox}
 
 We can then write
 \[
@@ -208,6 +239,28 @@ The coefficients are usually found as
 We see that if all eigenvalues of $A$ are less than 1, the system will tend towards $\b 0$, and we say that $\b 0$ is an \textbf{attractor} for the system.
 
 
+\section{Complex Eigenvalues}
+Let $A$ be a real $2\times 2$ matrix with a complex eigenvalue $\lambda = a-bi$, and an associated eigenvector $\b v$. Then
+\[
+    A = PCP^{-1}, \quad \text{where} \quad P = \big[\, \text{Re}(\b v) \ \text{Im}(\b v)\, \big] \quad \text{and} \quad C = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}
+\]
+
+
+\section{Applications to Differential Equations}
+Consider the system of equations
+\begin{align*}
+    x_1' &= a_{11}x_1 + \dots + a_{1n}x_n \\
+    x_2' &= a_{21}x_1 + \dots + a_{2n}x_n \\
+    &\vdots \\
+    x_n' &= a_{n1}x_1 + \dots + a_{nn}x_n
+\end{align*}
+where $x_i$ are differentiable functions of $t$.
+
+This problem can be written as the matrix problem
+\[
+    \b x'(t) = A\b x(t)
+\]
+where we need to solve it for some known $t$.
 
 %  ██████╗██╗  ██╗ █████╗ ██████╗ ████████╗███████╗██████╗      ██████╗ 
 % ██╔════╝██║  ██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ██╔════╝ 
@@ -216,11 +269,20 @@ We see that if all eigenvalues of $A$ are less than 1, the system will tend tow
 % ╚██████╗██║  ██║██║  ██║██║        ██║   ███████╗██║  ██║    ╚██████╔╝
 %  ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚═════╝
 \chapter{Orthogonality and least squares}
+\section{Orthogonal Matrixes}
+Consider an $m\times n$ matrix $U$ with \bll{orthonormal columns}. We call this an orthonormal matrix. This matrix has the properties:
+\begin{itemize}
+    \item $U$ is orthonormal only if $U^T U = I$.
+    \item $U$ preserves length: $||U \b x|| = ||\b x||$.
+    \item If $U$ is square, we have that \yll{$U^{-1} = U^T$}.
+\end{itemize}
+
+
 \section{Projections}
 \subsection{Projection of vector onto vector}
 The projection of a vector $\b y$ onto another vector $\b x$ is
 \begin{align*}
-    \hat{\b y} = \frac{\b y \cdot \b x}{\b x \cdot \b x}\b x
+    \hat{\b y} = \yl{\text{proj}_{\b x}(\b y) = \frac{\b y \cdot \b x}{\b x \cdot \b x}\b x}
 \end{align*}
 
 
@@ -228,15 +290,17 @@ The projection of a vector $\b y$ onto another vector $\b x$ is
 \subsection{Projection of vector onto subspace}
 Let $W$ be subspace of $\m R^n$ with an orthogonal basis $\{\b u_1, \dots, \b u_p\}$ and $\b y$ be any vector in $\m R^n$. Then the projection of $\b y$ onto $W$ is simply the projection onto each basis-vector:
 \begin{align*}
-    \hat{\b y} = \frac{\b y \cdot \b u_1}{\b u_1 \cdot \b u_1}\b u_1 + \dots + \frac{\b y \cdot \b u_p}{\b u_p \cdot \b u_p}\b u_p
+    \hat{\b y} = \yl{\text{proj}_{W}(\b y) =\frac{\b y \cdot \b u_1}{\b u_1 \cdot \b u_1}\b u_1 + \dots + \frac{\b y \cdot \b u_p}{\b u_p \cdot \b u_p}\b u_p}
 \end{align*}
-If you have an |\textit{orthonormal} basis, the dot products reduces to $1$, and this can be written.
+If you have an \underline{orthonormal} basis, the dot products reduces to $1$, and this can be written.
 \begin{align*}
-    \hat{\b y} = \b y\cdot \b u_1 + \dots + \dots \b y \cdot \b u_p = U U^T \b y
+    \hat{\b y} = \yl{\text{proj}_{W}(\b y) = (\b y\cdot \b u_1)\b u_1 + \dots + (\b y\cdot \b u_n)\b u_n = U U^T \b y}
 \end{align*}
+where $U = [\b u_1,\dots \b u_n]$ contains the basis vectors.
 
 
-\subsection{The Gram-Schmidt process of orthogonal factorization}
+
+\section{The Gram-Schmidt process of orthogonal factorization}
 The Gram-Schmidt process takes any basis of vectors $\{\b x_1, \dots, \b x_p\}$ spanning a subspace in $\m R^n$, and creates a new \textit{orthogonal} basis of the same space, $\{\b v_1, \dots, \b v_p\}$.
 
 The idea is to create one and one new vector $\b v_i$ from the corresponding $\b x_i$, \textit{but} subtract the projection of $\b x_i$ onto each of the former vectors $\b v_1, \dots, \b v_{i-1}$, such that the new vector is orthogonal to all formerly created vectors.
@@ -247,9 +311,18 @@ The idea is to create one and one new vector $\b v_i$ from the corresponding $\
      - \dfrac{\b x_3 \cdot \b v_2}{\b v_2 \cdot \b v_2}\b v_2$
     \item \dots
 \end{itemize}
-
 Remember to normalize afterwards if you need an \textit{orthonormal} basis.
 
+
+\section{QR-factorization}
+If the columns of any $m\times n$ matrix $A$ are linearly independent, it can be QR-factorized:
+\begin{tcolorbox}
+    \grr{$A = QR$}
+    \begin{itemize}
+        \item \yll{$Q = [\b u_1 \ \b u_2 ... \b u_n]$} where $\b u_i$ is an \underline{orthonormal} basis for the columnspace of $A$. Simply use Gram-Schmidt on the columns of $A$, and normalize them.
+        \item \yll{$R = Q^{-1}A = Q^T A$}, because $Q^T = Q^{-1}$ due to orthonormal columns. $R$ will always be upper diagonal.
+    \end{itemize}
+\end{tcolorbox}
 
 
 \section{Least-sqaure problems}
@@ -259,12 +332,25 @@ Sometimes, the equation $A\b x = \b b$ has no solutions, because $\b b$ is not
 
 This "closest solution" is the projection of $\b b$ onto $W$, $\hat{\b b} = \text{proj}_{W} \b b$.
 
-The least-square solution to $A\b x = \b b$ is then:
+The \bll{least-square solution} to \grr{$A\b x = \b b$} is then:
 \begin{align*}
-    A\hat{\b x} = \hat{\b b} \quad \Rightarrow\quad
+    \yl{A\hat{\b x} = \hat{\b b}} \quad \Rightarrow\quad
     \yl{\hat{\b x} = A^{-1}\hat{\b b}} \quad\quad(=A^{-1}AA^T\b b)
 \end{align*}
 
+
+If we have a $QR$ factorization of $A$, we can solve the least square problem as
+\[
+    \hat{x} = R^{-1}Q^T \b b
+\]
+
+
+\subsection{Applications to linear models}
+Let's say we wish to fit some data $(x_1, y_1), (x_2, y_2),\dots$ to a linear model $y(x) = \beta_0 + \beta_1 x$.
+\begin{figure}[H]
+    \includegraphics[width=0.7\textwidth, trim={0cm 8cm 0cm 9cm}]{figs/fig.pdf}
+\end{figure}
+which produces a least-square solution $X\hat{\beta} = \hat{y}$.
 
 %  ██████╗██╗  ██╗ █████╗ ██████╗ ████████╗███████╗██████╗     ███████╗
 % ██╔════╝██║  ██║██╔══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ╚════██║
@@ -275,6 +361,11 @@ The least-square solution to $A\b x = \b b$ is then:
 \chapter{Symmetric Matrices and Quadratic Forms}
 
 \section{Diagonalization of symmetric Matrices}
+A \bll{symetric} matrix $A$ is such that $A^T = A$.
+
+If $A$ is symetric, any two eigenvectors from different eigenspaces are \underline{orthogonal}.
+
+A is then \bll{orthogonally diagonalizable}, such that $A = PDP^{-1} = PDP^T$, where $P$ consists of $A$'s orthogonal eigenvectors.
 
 \section{Quadratic Forms}
 Consider a function \bll{$Q: \m R^n \mapsto \m R$} given by \grr{$Q(\b x) = \b x^T A \b x$} called a \yll{\textbf{quadratic form}}, defined by a \underline{symmetric} $n\times n$ matrix $A$.\\
@@ -301,6 +392,12 @@ The non-diagonals are halved, because they "share" the coefficients due to the s
     \end{itemize}
 \end{tcolorbox}
 
+\subsection{Change of variable}
+Let $A = PDP^{-1}$. We can then substitute $\b x = P \b y$, giving
+\[
+    \b xx^T A \b x = \b y^t D y
+\]
+where $D$ is diagonal.
 
 
 \section{Constraint optimization}
@@ -325,7 +422,7 @@ However, the \yll{\textbf{singular value decomposition}} \bll{$A = U\Sigma V$} c
         \gr{\sigma_i = \sqrt{\lambda_i}}
     \]
 
-    \item The \yll{singular vectors} of $A$ are the normalized eigenvectors of $A^T A$, ordered by decending eigenvalues.
+    \item The \yll{singular vectors} of $A$ are the \underline{normalized} eigenvectors of $A^T A$, ordered by decending eigenvalues.
     \end{itemize}
 \end{tcolorbox}
 
