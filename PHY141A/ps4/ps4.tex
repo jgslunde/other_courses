@@ -129,22 +129,100 @@ For $n \leq -1$, we have $|n| = -n$, $|n-1| = -n+1$, and $|n+1| = -n-1$, giving
     \omega^2m = \kappa\qty[\exp{-qa} + \exp{qa} - 2], \quad\quad n \leq -1
 \]
 which turns out to be the same thing.
+
 At $n=0$, we end up getting the same story. This could also have been seen due to symetry, as swithcing $n$-direction only switches $|n-1|$ and $|n+1|$, leaving the same expression.
 
 We regocnize this as
 \[
-    m\omega^2 =2\kappa\qty[1 - \cos(qa)]
+    m\omega^2 =2\kappa\qty[1 - \cosh(qa)]
 \]
-which we regocnize from Simon, with $q = k$. This has frequencies
+where we can rewrite $2[\cosh(qa) - 1] = 4\sinh^2(qa/2)$, giving
 \[
-    \omega = \sqrt{\frac{\kappa}{m}}\qty|\, \sin(\frac{qa}{2})|
+    \omega = 2\sqrt{\frac{k}{m}}\sinh(\frac{qa}{2})
 \]
+In constrast to exercise 9.4, where having $\omega > \omega_{max}$ would require a complex $k$, which in turn would lead to a decaying wave, $\sinh(qa/2)$ offers values larger than 1 without requiring $q$ to be complex, which in turn doesn't it require to decay.
 
-In 9.4, we solved for $k$, given $\omega > \omega_{max}$, allowing for a complex $k$. Since $q$ is supposed to be complex, we apply this solution, giving
-\[
-    q = \frac{\pi}{a} + \frac{2}{a}i\ln(\frac{\omega}{\omega_{max}} \pm \frac{\sqrt{1 - \omega^2/\omega_{max}^2}}{i})
-\]
 
-We know from 9.4 that these kind of waves fall off for $\omega > \omega_{max}$, which is kindoff what we would expect from the waves of the impurity, if they are not in ressonanse with the frequencies of the other material, and has a higher frequency.
+% which we regocnize from Simon, with $q = k$. This has frequencies
+% \[
+%     \omega = \sqrt{\frac{\kappa}{m}}\qty|\, \sin(\frac{qa}{2})|
+% \]
+
+% In 9.4, we solved for $k$, given $\omega > \omega_{max}$, allowing for a complex $k$. Since $q$ is supposed to be complex, we apply this solution, giving
+% \[
+%     q = \frac{\pi}{a} + \frac{2}{a}i\ln(\frac{\omega}{\omega_{max}} \pm \frac{\sqrt{1 - \omega^2/\omega_{max}^2}}{i})
+% \]
+
+% We know from 9.4 that these kind of waves fall off for $\omega > \omega_{max}$, which is kindoff what we would expect from the waves of the impurity, if they are not in ressonanse with the frequencies of the other material, and has a higher frequency.
+
+
+
+\section*{Exercise 3}
+From Simon eq. (10.3) and (10.4) have the planewave solutions to both atoms as
+\begin{align*}
+    \delta x_n = A_x\exp{i\omega t - ikna} \\
+    \delta y_n = A_y\exp{i\omega t - ikna}
+\end{align*}
+
+which we plug into the equations of motion, described in Simon eq (10.1) and (10.2) as (with consideration of the differing masses):
+\begin{align*}
+    m_x \ddot{\delta x_n} = \kappa\qty(\delta y_n - \delta x_n) + \kappa(\delta y_{n-1} - \delta x_n) \\
+    m_y \ddot{\delta y_n} = \kappa\qty(\delta x_{n+1} - \delta y_n) + \kappa(\delta x_n - \delta y_n)
+\end{align*}
+giving
+\begin{align*}
+    -\omega^2 m_x A_x\exp{i\omega t - ikna} = \kappa\qty(\delta y_n - \delta x_n) + \kappa(\delta y_{n-1} - \delta x_n) \\
+    -\omega^2 m_y A_y\exp{i\omega t - ikna} = \kappa\qty(\delta x_{n+1} - \delta y_n) + \kappa(\delta x_n - \delta y_n)
+\end{align*}
+Inserting for $\delta x_n$ and $\delta y_n$, as done is Simon, results in 
+
+\begin{align*} - \omega ^ { 2 } m_x A _ { x } & = \kappa A _ { y } + \kappa A _ { y } e ^ { i k a } - 2 \kappa A _ { x } \\ - \omega ^ { 2 } m_y A _ { y } & = \kappa A _ { x } e ^ { - i k a } + \kappa A _ { x } -  2\kappa A _ { y } \end{align*}
+
+which can be written as the eigenvalue equation
+\begin{align*}
+    \omega^2
+    \begin{pmatrix}A_x \\ A_y \end{pmatrix}
+    =
+\left( \begin{array} { c c } { 2\kappa/m_x } & { (-\kappa - \kappa e ^ { i k a })/m_x } \\ { (- \kappa - \kappa e ^ { - i k a })/m_y } & { 2\kappa/m_y } \end{array} \right) \left( \begin{array} { c } { A _ { x } } \\ { A _ { y } } \end{array} \right)
+\end{align*}
+
+\begin{align*} 0 = \left| \begin{array} { c c } { 2 \kappa /m_x - \omega ^ { 2 } } & { (- \kappa - \kappa e ^ { i k a })/m_x } \\ { (- \kappa - \kappa e ^ { - i k a })/m_y } & { 2\kappa /m_y - \omega ^ { 2 } } \end{array} \right| \end{align*}
+
+which becomes
+\begin{align*}
+    0 = \frac{4 \kappa^2}{m_xm_y} - \omega^2 2\kappa\qty[\frac{1}{m_x} + \frac{1}{m_y}] + \omega^4 - \frac{\qty(\kappa + \kappa\exp{-ika})^2}{m_xm_y} \\
+    = \omega^4
+    - \omega^2 2\kappa\qty[\frac{1}{m_x} + \frac{1}{m_y}]
+    + \frac{4\kappa^2 - \qty(\kappa + \kappa\exp{-ika})^2}{m_xm_y}
+\end{align*}
+which is a is a second order polynomial equation for $(\omega^2)$ with solutions
+\begin{align*}
+    \omega^2 = 2\kappa \qty[\frac{1}{2m_x} + \frac{1}{2m_y}] \pm \sqrt{\kappa^2\qty[\frac{1}{m_x} + \frac{1}{m_y}]^2 + 4\frac{\kappa^2 + \qty(\kappa + \kappa\exp{-ika})^2}{m_xm_y} }
+\end{align*}
+where we can simplify
+\begin{align*} \left| \kappa + \kappa e ^ { i k a } \right| & = \sqrt { \left( 2\kappa e ^ { i k a } \right) \left( \kappa + \kappa e ^ { - i k a } \right) } \\ & = \sqrt { 2\kappa ^ { 2 }  \qty( 1 + \cos ( k a ) ) }  \end{align*}
+
+giving
+\begin{align*}
+    x &= \kappa\qty[\frac{1}{m_x} + \frac{1}{m_y}] \pm \sqrt{\kappa^2\qty(\qty[\frac{1}{m_x} + \frac{1}{m_y}]^2 - \frac{4}{m_x m_y}) + 4\frac{\kappa^2 + \kappa\cos(ka)}{m_xm_y} } \\
+    &= \kappa\qty[\frac{1}{m_x} + \frac{1}{m_y}] \pm \sqrt{\kappa^2\qty(\frac{1}{m_x^2} + \frac{1}{m_y^2} - \frac{2}{m_x m_y}) + 4\frac{\kappa^2 + \kappa\cos(ka)}{m_xm_y} } \\
+    &= \kappa\qty[\frac{1}{m_x} + \frac{1}{m_y}] \pm \sqrt{\kappa^2\qty(\frac{1}{m_x^2} + \frac{1}{m_y^2}) - \frac{6\kappa^2 + 4 \kappa\cos(ka)}{m_x m_y} }
+\end{align*}
+giving
+\begin{align*}
+    \omega_\pm =  \sqrt{\kappa\qty[\frac{1}{m_x} + \frac{1}{m_y}] \pm \sqrt{\kappa^2\qty(\frac{1}{m_x^2} + \frac{1}{m_y^2} - \frac{6\kappa^2}{m_xm_y}) - \frac{4 \kappa\cos(ka)}{m_x m_y} }}
+\end{align*}
+
+As $\omega$ can take values of both $\omega_+$ and $\omega_-$, there are two branches.
+
+At $k=0$ this has values
+\begin{align*}
+    \omega_\pm =  \sqrt{\kappa\qty[\frac{1}{m_x} + \frac{1}{m_y}] \pm \sqrt{\kappa^2\qty(\frac{1}{m_x^2} + \frac{1}{m_y^2} - \frac{6\kappa^2}{m_xm_y}) - \frac{4}{m_x m_y} }}
+\end{align*}
+
+Below is a sketch of the real(orange) and imaginary (blue) parts of the postivie part ($\omega_+$) dispersion from $k \in [-6,\, 6]a$. $\kappa$ is set to 1, $m_x$ is set to 1, and $m_y = 1.5$.
+\begin{figure}[H]
+    \includegraphics[width=0.4\linewidth]{img.png}
+\end{figure}
 
 \end{document}
