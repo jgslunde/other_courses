@@ -1,0 +1,263 @@
+\documentclass[12p,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage[makeroom]{cancel}
+\usepackage[margin=2.0cm]{geometry}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\exp}{e^}
+\renewcommand{\b}[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand{\h}{\hat}
+\newcommand{\m}{\mathbb}
+\newcommand{\half}{\frac{1}{2}}
+\renewcommand{\exp}{e^}
+\renewcommand{\bar}{\overline}
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\title{PHYSICS 141A -- Problem Set 2}
+\author{
+    \begin{tabular}{r l}
+        Jonas Gahr Sturtzel Lunde & (\texttt{jonassl})
+    \end{tabular}}
+% \date{}    % if commented out, the date is set to the current date
+
+\maketitle
+
+\hspace{10cm}
+
+\section*{Exercise 1 (Simon 2.3)}
+Debye theory has a set of assumptions:
+\begin{itemize}
+    \item We assume that sound waves follow the $\omega = v|k|$ relation, like light waves.
+    \item We assume that the longetudial and tranverse waves in a solid share the same velocity.
+    \item We assume there is some cutoff frequenct, $\omega_{cutoff}$, above which there exists no waves.
+    \item We assume that the electron does not notacibly impact the heat capacity of a solid (while in reality it dominates at low temperatures).
+\end{itemize}
+
+We start by borrowing Einstein's expression for average energy in a solid consisting of harmonic oscilators in 1D:
+\[
+    \langle E \rangle = \hbar\omega\qty(n_B(\beta\hbar\omega) + \half), \quad\quad n_B(x) = \frac{1}{\exp{x} - 1}
+\]
+From Debye, we know that we should rather consider the oscilation modes to be waves, with frequencies $\omega(\b k) = v|\b k|$. In 2D, these will each have two possible oscilation nodes, and $\b k$ will be a 2D vector. Correcting for this, we get the average energy
+\[
+    \langle E \rangle = 2\sum_{\b k} \hbar \omega (\b k)\qty(n_B(\beta\hbar\omega (\b k)) + \half )
+\]
+Using periodic(Born-von Karman) boundary conditions in two dimensions, we can rewrite this to an integral using the substitution
+\[
+    \sum_{\b k} \rightarrow \frac{L^2}{(2\pi)^2} \int_{-\infty}^{\infty} \dd{\b k}
+\]
+giving
+\[
+    \langle E \rangle = 2 \frac{L^2}{(2\pi)^2} \int_{-\infty}^{\infty} \dd{\b k} \hbar \omega (\b k)\qty(n_B(\beta\hbar\omega (\b k)) + \half )
+\]
+Now, $\dd{\b k}$ is an integral over each vector component in euclidian space. We can rewrite this into polar coordinates, with $k = |\b k|$, giving the substitution
+\[
+    \int_{-\infty}^{\infty} \dd{\b k} = 2\pi\int_0^\infty k \dd{k}
+\]
+resulting in
+\[
+    \langle E \rangle = 2 \frac{2\pi L^2}{(2\pi)^2} \int_0^{\infty} \dd{k} k \hbar \omega \qty(n_B(\beta\hbar\omega) + \half )
+\]
+Further, substituting $k = \omega/v$ and $\dd{k} = \dd{\omega}/v$ gives
+\[
+    \langle E \rangle = \frac{L^2}{\pi} \int_0^{\infty} \dd{\omega} \frac{\omega}{v^2} (\hbar \omega) \qty(n_B(\beta\hbar\omega) + \half ) =
+    \int_0^{\infty} \dd{\omega} g(\omega) (\hbar \omega) \qty(n_B(\beta\hbar\omega) + \half ) 
+\]
+where $g(\omega) = \dfrac{\omega L^2}{\pi v^2}$ is the density of states. We introduce the 2D particle density $n = N/L^2$, and the 2D Debye frequency, $\omega_D^2 = 4\pi n v^2$, meaning we can rewrite the density of states as $g(\omega) = 4N\frac{\omega}{\omega_D^2}$.
+
+Writing out the occupancy, this becomes
+\[
+    \langle E \rangle = \frac{4N\hbar}{\omega_D^2} \int_0^{\infty} \dd{\omega} \qty(\frac{\omega^2}{\exp{\beta\hbar\omega} - 1} + \half )
+\]
+
+This integral is not analytical, and we will study it in the high and low temperature limits seperately.
+
+
+\textbf{The limit $T \gg 1$:}
+In the high-temperature limit, we Taylor expand the $beta$ term to the first order, as
+\[
+    \exp{\beta\hbar\omega} \approx 1 + \beta\hbar\omega
+\]
+
+For this to be valid, we require that $\omega$ doesn't run off to infinity, such that $\omega\beta \ll 1$ actually holds. We invoke the cutoff frequency, described in 2.3.3 of Simon. It involves that there is some upper frequency $\omega_{cutoff}$, which no phonon can exist with higher frequency than.
+
+The resulting integral is 
+\[
+    \langle E \rangle =  \frac{4N\hbar}{\omega_D^2} \int_0^{\omega_{cutoff}} \dd{\omega} \qty(\frac{\omega^2}{\beta\hbar\omega} + \half ) = \frac{4N\hbar}{\omega_D^2} \int_0^{\omega_{cutoff}} \dd{\omega} \qty(\frac{\omega}{\beta\hbar} + \half ) =  \frac{2N\omega_{cutoff}^2}{\beta\omega_D^2} + C = 2Nk_B\frac{\omega_{cutoff}^2}{\omega_D^2}T + C
+\]
+Which gives the heat capacity
+\[
+    C_{T \gg 1} = \dv{\langle E \rangle}{T} = 2Nk_B\frac{\omega_{cutoff}^2}{\omega_D^2} = const.
+\]
+It can be shown that the cutoff frequency \textit{is} the Debye frequency. In that case, the heat capacity is simply $C = 2Nk_B$. This confirms what we could derive from the equipartition theorem, and corresponds to Dulong-Petit's law in two dimensions.
+
+
+
+\textbf{The limit $T \ll 1$:}
+In the low temperature limit, $\beta \gg 1$, such that $\exp{\beta\hbar\omega} - 1 \approx \exp{\beta\hbar\omega}$. This gives the integral
+\[
+    \langle E \rangle = \frac{4N\hbar}{\omega_D^2} \int_0^{\infty} \dd{\omega} \qty(\frac{\omega^2}{\exp{\beta\hbar\omega}} + \half )
+\]
+substituting $x = \beta\hbar\omega$, such that $\omega = x/\hbar\beta$, and $\dd{\omega} = \dd{x}/\hbar\beta$, gives
+\[
+    \langle E \rangle = \frac{4N\hbar}{\omega_D^2} \frac{1}{\hbar^3\beta^3} \int_0^\infty\dd{x} \frac{x^2}{\exp{x} - 1} = T^3 \frac{4N}{\omega_D^2} \frac{k_B^3}{\hbar^2} \int_0^\infty\dd{x} \frac{x^2}{\exp{x} - 1}
+\]
+such that
+\[
+    C_{T \ll 1} = \dv{E}{T} = KT^2, \quad\quad K = \frac{12N}{\omega_D^2} \frac{k_B^3}{\hbar^2} \int_0^\infty\dd{x} \frac{x^2}{\exp{x} - 1}
+\]
+
+\section*{Exercise 2 (Simon 4.1)}
+\subsection*{a)}
+\textbf{Fermi energy}\\
+A solid at $T = 0$ will be in its ground state, in the lowest possible energy. In the case of fermions, which cannot occupy the same state, they will keep filling up whatever most low energy states are avaliable. The energy of the most energetic occupied state is called the \textbf{Fermi energy}. This will also\footnote{at least in the infinitesimal case.} correspond to the energy of removing or adding a fermion to a zero-temperature solid, in other words, the chemical potential at $T=0$:
+\[
+    E_F = \mu_{T=0}
+\]
+
+\textbf{Fermi temperature}\\
+The Fermi temperature is just an equivalent quantity to Fermi energy, defined as
+\[
+    T_F = \frac{E_F}{k_B}
+\]
+and is usually introduced in comparison with some actual temperature of the system, as quantum effects dominate below the fermi temperature. For metals, the Fermi temperature is well above melting temperature, and the world is always quantum.
+
+\textbf{Fermi surface}\\
+If we take a look at the k-space (momentum space) of the fermions in 3D, we have a grid of discrete allowed momentum states, each representing a point $\b k = (k_x, k_y, k_z)$ in k-space. Now, we know that in the $T=0$ limit, the fermions will occupy all avaliable states up to a fermi energy $E_F$. Now, since $E \propto |\b k|^2$, the fermi-energy corresponds to some sphere in k-space ($|\b k|^2 = const.$ for some vector $\b k$ defines a sphere). This sphere-surface is called the \textbf{Fermi surface}, and at $T=0$, alle states inside it is occupied, and none outside it. In 2D, this will be a circle, and in 1D just two points.
+
+The Fermi surface is important, because in the low-temperature limit $T \ll T_F$ (as is almost always the case in metals), most interactions happen around the Fermi surface, where fermions can jump from just below the fermi surface, to just above (or the other way). The lower energy fermions are kinda "stuck" further down in the sphere, with no avaliable states directly above them.
+
+
+\subsection*{b)}
+Assume a system of size $L^3$ and periodic boundary conditions. For a gas of electrons, we will have harmonic wave solutions on the form
+\[
+    \exp{i \b k\cdot \b r}
+\]
+The periodic boundary coniditions require that
+\[
+    \exp{i \b k\cdot \b r}  = \exp{i \b k \cdot \b r + L}
+\]
+Setting a restraint on all k-components to be decrete as $k = 2\pi n/L$, or 
+\[
+    \b k = \frac{2\pi}{L}(n_x, n_y, n_z)
+\]
+Now, for the $T=0$, we can define the \textit{fermi wavevector} as all vectors poiting to the Fermi surface, as described above. These vectors will be uniquely defined by their length, as they point from the origin to a sphere. The length of the fermi vector will simply be
+\[
+    k_F = \frac{2\pi}{L}\qty(n_x^3 + n_y^3 + n_z^3)^{1/3} = \frac{2\pi}{L}(R^3)^{1/3}
+\]
+Now we wish to write this in terms of the total number of particles, which is $N = 2\cdot \frac{4}{3}\pi R^3$, where the 2 factors is from the two possible spin states. This can be written $R^3 = \frac{3}{8}\frac{\pi}{N}$, which inserting into $k_F$ gives
+\[
+    k_F = \frac{2\pi}{L}\qty(\frac{3}{8}\frac{\pi}{N})^{1/3} = \qty(3\pi^2 \frac{N}{L^3})^{1/3} = \qty(3\pi^2n)^{1/3}
+\]
+
+As we assume a gas of non-interacting electrons, the energy is simply the kinetic energy:
+\[
+    E_F = E(\b k) = \frac{|\b p|^2}{2m} = \frac{\hbar^2|\b k|^2}{2m} = \frac{\hbar^2 k_F^2}{2m} = \frac{\hbar^2\qty(3\pi^2 n)^{2/3}}{2m}
+\]
+
+
+\subsubsection*{$\rhd$}
+From above we have that
+\[
+    E_F = \frac{\hbar^2(3\pi^2)^{3/2}}{2m}\frac{N^{2/3}}{V^{2/3}}
+\]
+Derivating, we get
+\[
+    \dv{E_F}{N} = \frac{\hbar^2(3\pi^2)^{3/2}}{2m}\frac{N^{-1/3}}{V^{2/3}}\cdot \frac{2}{3} = \underbrace{\frac{\hbar^2(3\pi^2)^{3/2}}{2m}\frac{N^{2/3}}{V^{2/3}}}_{E_F} \cdot \frac{2}{3N} = \frac{2E_F}{3N}
+\]
+turning both sides of this upsidedown gives
+\[
+    g(N, E_F) = \dv{N}{E_F} = \frac{3N}{2E_F}
+\]
+
+
+\subsection*{c)}
+The density is $\SI{1}{g/cm^3} = \SI{6.022e29}{AMU/m^3}$, giving an electron density of $n = \frac{\SI{6.022e29}{AMU/m^3}}{\SI{23}{AMU}} = \SI{2.618e28}{m^{-3}}$ 
+The fermi energy is defined as
+\[
+    E_F = \frac{\hbar^2(3\pi^2 n)^{2/3}}{2m} = \SI{5.151e-19}{J} = \SI{3.215}{eV}
+\]
+
+
+
+\subsection*{d)}
+In exercise b we derived the fermi energy of a 3D gas of electrons. To translate this to 2D, we use a 2D fermi wavevector of size
+\[
+    k_F = \frac{2\pi}{L}(R^2)^{1/2}
+\]
+where now, the total number of particles is $N = 2\cdot \pi R^2$, giving $R^2 = \frac{N}{2\pi}$. This gives a fermi wavevector
+\[
+    k_F = \frac{2\pi}{L}\qty(\frac{N}{2\pi})^{1/2} = \qty(2\pi n)^{1/2}
+\]
+Again, giving a fermi energy
+\[
+    E_F = \frac{\hbar^2 k_F^2}{2m} = \frac{\hbar^2 \pi n}{m} = \frac{\hbar^2\pi}{mL^2}N
+\]
+Solving for $N$ and deriving gives
+\[
+    g(N, E_F) = \dv{N}{E_F} = \dv{E_F}\qty(\frac{mL^2}{\hbar^2 \pi}E_F) = \frac{mL^2}{\hbar^2 \pi} = \frac{N}{E_F}
+\]
+
+\section*{Exercise 3 (Simon 4.2)}
+\subsection*{a)}
+We have that
+\[
+    v_F = \frac{P_F}{m} = \frac{\hbar}{m}k_F = \frac{\hbar}{m}(3\pi^2n)^{1/3}
+\]
+where $k_F = (3\pi^2n)^{1/3}$ is taken from Simon page 29.
+
+\subsection*{b)}
+From $j=nev$, we have that
+\[
+    v = \frac{j}{ne} = \frac{\sigma E}{ne}
+\]
+Now, to derive $\sigma$, we use the steady-state equation of motion from Drude theory:
+\[
+    0 = \dv{p}{t} = -eE - \frac{p}{\tau} \quad\rightarrow\quad v = \frac{p}{m} = -\tau e E = \frac{\lambda e}{m v_F} = \frac{\lambda e^2 n}{m v_F} \frac{E}{ne} = \frac{\sigma E}{ne}, \quad\quad \sigma = \frac{\lambda e^2 n}{m v_F}
+\]
+
+
+
+\subsection*{c)}
+\subsubsection*{i)}
+\[
+    v_f = \frac{\hbar}{m}(3\pi^2 n)^{1/3} = \SI{1.158e-4}{m^2/s}\cdot (3\pi^2 \SI{8.45e-28}{m^{-3}}) = \SI{1.572e6}{m/s}
+\]
+
+\[
+    v_d = \frac{\sigma E}{n e} = \frac{\SI{5.9e-7}{\Omega^{-1}m^{-1}}\cdot \SI{1}{V/m}}{\SI{8.45e28}{m^{-3}}\cdot \SI{1.602e-19}{C}} = \SI{0.0044}{m/s}
+\]
+
+As we can see, the random motion of the electrons in a metal, even at $T=0$ far surpasses any net drift under normal conditions. We do, however, not notice this extreme motion, due to it's net motion being zero, and the fact that they can't really give away their energy (large it may be), due to Pauli.
+
+
+\subsubsection*{ii)}
+\[
+    \lambda = \frac{\sigma m v_F}{e^2 n} = \frac{\SI{5.9e7}{\Omega^{-1}m^{-1}} \cdot \SI{9.109e-31}{kg} \cdot \SI{1.572e6}{m/s}}{\SI{2.567e-38}{C^2}\cdot \SI{8.45e28}{m^{-3}}} = \SI{3.9e-8}{m}
+\]
+A lookup gives the spacing between Copper atoms to be something like $\SI{2.3e-10}{m}$. This would imply that the mean traveling distance of electrons before scattering off an impurity is ~200 times the mean spacing between atoms. This seems like a reasonable number.
+
+
+
+\end{document}

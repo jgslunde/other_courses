@@ -1,0 +1,204 @@
+\documentclass[12p,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage[makeroom]{cancel}
+\usepackage[margin=2.0cm]{geometry}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\exp}{e^}
+\renewcommand{\b}[1]{\boldsymbol{\mathrm{#1}}}
+\newcommand{\h}{\hat}
+\newcommand{\m}{\mathbb}
+\newcommand{\half}{\frac{1}{2}}
+\renewcommand{\exp}{e^}
+\renewcommand{\bar}{\overline}
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\title{PHYSICS 141A -- Problem Set 3}
+\author{
+    \begin{tabular}{r l}
+        Jonas Gahr Sturtzel Lunde & (\texttt{jonassl})
+    \end{tabular}}
+% \date{}    % if commented out, the date is set to the current date
+
+\maketitle
+
+\hspace{10cm}
+
+\section*{Exercise 1}
+\subsection*{a)}
+Approximating the potential between two atoms in a diatomic molecule as an harmonic oscilator gives
+\[
+    U = \half k(x - x_0)^2 = \half k\Delta x^2
+\]
+where inserting for a potential of $U = \SI{1}{eV}$ and a distance of $\Delta x = \SI{1}{a_o}$ gives a spring constant of 
+\[
+    \SI{1}{eV} = \SI{0.5}{a_o}^2 k \quad\Rightarrow\quad k = \SI{2}{eV/a_0^2} = \SI{114.43}{kg/s^2}
+\]
+The harmonic oscilating frequency is given as $\omega = \sqrt{\frac{k}{m}}$, where $m$ is the reduced mass of the system, which in this case is
+\[
+    m = \frac{m_1m_2}{m_1 + m_2} = \frac{m_H^2}{2m_H} = \half m_H = \SI{8.369e-28}{kg}
+\]
+giving a oscilating frequency
+\[
+    \omega = \sqrt{\frac{\SI{114.43}{kg/s^2}}{\SI{8.369e-28}{kg}}} = \SI{3.698e14}{Hz}
+\]
+
+Now, the energy levels in a quantum harmonic oscilator is quantified as
+\[
+    E_n = \hbar\omega(n + \half)
+\]
+meaning that the distance between two energy levels is $\Delta E = \hbar\omega$, which is our case would be
+\[
+    \Delta E = \underbrace{\SI{6.582e-16}{eV s}}_{\hbar} \ \cdot \ \SI{3.698e14}{Hz} = \SI{0.2434}{eV}
+\]
+
+
+\subsection*{b)}
+\[
+    \lambda = \frac{c}{f} = \frac{c}{\omega} = \frac{\SI{2.998e8}{m/s}}{\SI{3.698e14}{1/s}} = \SI{8.107e-7}{m} = \SI{810.7}{nm}
+\]
+which is in the infrared zone, actually very close to the visible band of the EM specter, which traditionally end at $\SI{700}{nm}$.
+
+
+\subsection*{c)}
+We will consider the atoms to be point-particles rotating around a common mass center, at a distance $\SI{1}{Å}$ from each other. Since they share the same mass, the center of rotation will be in the middle, $\SI{0.5}{Å}$ from each particle, giving each a moment of intertia $I_H = mL^2 = m_H\frac{1}{4}Å^2$, giving a total intertia $I = 2I_H = \frac{1}{2}m_HÅ$. Now, assuming the first excited rotational eigenstate is $E_{1,R} = \frac{\hbar^2}{I}$, we get
+\[
+    E_{1,R} = \frac{\hbar^2}{m_HÅ^2/2} = \frac{\SI{1.112e-68}{kgm^2J}}{\SI{8.369e-48}{kgm^2}} = \SI{0.008294}{eV}
+\]
+
+Now, comparing this to a typical energy at room temperature($\SI{300}{K}$):
+\[
+    k_BT = \SI{8.61733e-5}{eV/K} \cdot \SI{300}{K} = \SI{0.025852}{eV}
+\]
+Their ratio is $E/k_BT = 0.32$. Thus, in a system at room temperature, where energies lie in the typical level of $~k_BT$, there is sufficient energy to put a molecule in its first excited rotationary energy state.
+
+
+
+\section*{Exercise 2}
+\subsection*{a)}
+In part 3.1.1. of his Oxford Solid State Basics, Simon shows Drude's derivation of the electron current from an electric field, resulting in
+\[
+    j = -env = \frac{e^2\tau n}{m} E
+\]
+There will be a current in the direction of the electric field (as all the values must be positive).
+
+I we repeat the derivation with $e$ instead of $-e$, all that will happen is that is shows up twice in the end, and cancels out.
+We can also see this from the final result, where, if we swap the charge, we just get $(-e)^2 = e^2$. The intuitive reason for this result is rather simple. A positively charged particle will move in the oposite direction in regard to the electric field, but its movement will also contribute to the current in the oposite direction, due to its oposite charge. These two cancels, and we are simply left with that the total charge carried from a set of electrons and ios is:
+\[
+    j = j_e + j_i = \frac{e^2\tau_e n_e}{m_e}E + \frac{e^2\tau_p n_p}{m_p}E = e^2E \qty(\frac{\tau_e n_e}{m_e} + \frac{\tau_i n_i}{m_i})
+\]
+Both electrons and ions contribute to the current flow in the same direction, so the total current flow increases. The electron is still probably the main contributer to charge flow, as its mass is several orders of magnitude smaller than any ion. There are also unlikely to be more ions than electrons, and I see no reason that their scattering time should be substantially larger.
+
+Note, however, that when written as a function of velocity, the ion current doesn't have the minus sign:
+\[
+    j_i = env
+\]
+
+
+\subsection*{b)}
+Considering a system where a current $\b j = j_x \b x$ moves in the x-direction, and a magnetic field $\b B = B \b z$ is applied in the z-direction, the Hall resistivity, $\rho_{yx}$, is can be defined as
+\begin{align}\label{eqn:2}
+    \rho_{yx} = \frac{E_y}{j_x}
+\end{align}
+This can be derived from the general resistivity matrix, defined from $\b E = \rho \b j$.
+
+Now, looking at Drude theory's transportation equation, iserting the Lortentz force, and assuming steady state, we get
+\[
+    \dv{\b p}{t} = \b F - \frac{\b p}{\tau} \quad\Rightarrow\quad \b E = - \b v \times \b B + \frac{\b p}{\tau q}
+\]
+which is a three-component vector equation. Looking at the one containing $E_y$, we get
+\[
+    E_y = v_x B
+\]
+Let us write $v_x$ in terms of current instead. Considering a case of both positive and negative charge-carriers, we have an electron velocity $v_e = -\dfrac{j_e}{n_e e}$, and an ion-velocity $v_i = \dfrac{j_i}{n_i e}$. The total x-velocity can be written
+\[
+    v_x = v_{i,x} + v_{e,x} = \frac{j_{i,x}}{n_ie} - \frac{j_{e,x}}{n_e e}
+\]
+Now, inserting all this into equation \ref{eqn:2}, we get the Hall resistivity
+\[
+    \rho_{yx} = \frac{E_y}{j_x} = \frac{B v_x}{j_x} = \dfrac{B\qty(\frac{j_{i,x}}{n_i} - \frac{j_{e,x}}{n_e})}{e\qty(j_{i,x} + j_{e,x})}
+\]
+which looks similar to what we had in the electron-only case, but the ions obviously set up an electric field in the other direction. In the electron-only case, we retrieve the original electron only result from Simon. In the ion-only case, we retrieve the negative of the original result.
+
+
+\section*{Exercise 3}
+\subsection*{a)}
+Simon showed in chapter 4.2, equation 4.8 that the total energy of a free electron gas can be written as
+\[
+    E = V\int_0^\infty \dd{\epsilon} \epsilon g(\epsilon) n_F(\beta(\epsilon - \mu))
+\]
+where $g(\epsilon) = \dfrac{3n}{2E_F^{3/2}}\epsilon^{1/2}\dd{\epsilon}$ is the density of states, and $n_F = \dfrac{1}{\exp{\beta(\epsilon - \mu)} + 1}$ is the fermion occupancy. Inserting for these gives
+\begin{align}\label{eqn:1}
+    E = \frac{V3n}{2E_F^{3/2}} \int_0^\infty \dd{\epsilon} \frac{\epsilon^{3/2}}{\exp{\beta(\epsilon - \mu)} + 1}
+\end{align}
+Now, this integral isn't analytically solvable, but we can employ a Sommerfeld expansion to ease our pains. A Sommerfeld expansion is defined, for any function of $\epsilon$, $H(\epsilon)$, as
+\[
+    \int_{-\infty}^\infty \frac{H(\epsilon)}{\exp{\beta(\epsilon - \mu)} + 1}\dd{\epsilon} = \int_{-\infty}^\mu H(\epsilon) \dd{\epsilon} + \frac{\pi^2}{6}\qty(\frac{1}{\beta})^2 H'(\epsilon=\mu) + \mathcal{O}\qty(\frac{1}{\beta\mu})^4
+\]
+We observe that the higher factors in the expansion can be discarded in the low temperature limit, where $\beta \gg 1$. Since we are working with a solid, where $T \ll T_F$ will always be a fairly good approximation, we can consider $\beta \gg 1$ a valid limit. Keeping only the first term of the Sommerfeld, and inserting into equation \ref{eqn:1}, where $H(\epsilon) = \epsilon^{3/2}$, we get\footnote{It doesn't matter that the Sommerfeld expansions runs to $-\infty$, as there is no negative-energy states, and the negative intregral will simply evaluate to zero.}
+\[
+    E = \frac{V3n}{2E_F^{3/2}} \int_0^\mu \dd{\epsilon} \epsilon^{3/2} = \frac{V3n}{2E_F^{3/2}} \cdot \frac{2}{5}\mu^{5/2} = \frac{3}{5} \frac{\mu^{5/2}}{E_F^{3/2}} N
+\]
+Now we again employ the low-temperature limit to approximate $\mu \approx E_F$. This will give us the final result of
+\[
+    E = \frac{3}{5}E_F N
+\]
+which we recognize as the same result as for the $T=0$ case, where the occupancy is a step function.
+
+The fact that our total energy agrees with the $T=0$ case is very unsurprising, as this is exactly what we have calculated. The $T=0$ total energy is
+\[
+    E(T=0) = V\int_0^{E_F} \dd{\epsilon} g(\epsilon)
+\]
+which is exactly what we ended up with, after our $T\ll T_F$ approximations. In other words, we assumed that $T=0$ (or, if you wish, we showed that $T=0$ works well as an approximation also for a $T \ll T_F$ case, and no additional term appears).
+
+
+\subsection*{b)}
+Since $E_F$ contains is $V$ dependent, we write it out as $E_F = \dfrac{\hbar^2(3\pi^2N)^{2/3}}{2m}V^{-2/3}$.
+\[
+    P = -\pdv{E}{V} = -\pdv{V} \frac{3}{5}E_FN = -\frac{3}{5}\frac{\hbar^2(3\pi^2)^{2/3}N^{5/3}}{2m} \pdv{V}V^{-2/3} = \frac{2}{5}\frac{\hbar^2(3\pi^2)^{2/3}N^{5/3}}{2m} V^{-5/3}
+\]
+\[
+    B = -V\pdv{P}{V} = -V\cdot -\frac{2}{3}\frac{\hbar^2(3\pi^2)^{2/3}N^{5/3}}{2m} V^{-8/3} = \frac{2}{3}\frac{\hbar^2(3\pi^2)^{2/3}N^{5/3}}{2m} V^{-5/3} = \frac{1}{3}\frac{\hbar^2(3\pi^2)^{2/3}}{m} n^{5/3}
+\]
+which can also be written as $B = \frac{2}{3}E_F n$, if we wish.
+Writing out the known terms, with the mass equal to the electron mass $m=m_e$, we get the numerical result
+\[
+    B = \SI{6.557e-37}{kgm^4/s^2} \cdot n^{5/3}
+\]
+
+
+\subsection*{c)}
+Inserting the given densities into the result above, we get bulk moduluses of
+\[
+    B_S =  \SI{6.557e-37}{kgm^4/s^2} \cdot (\SI{2.53e28}{m^{-3}})^{5/3} = \SI{8.492e9}{kg/ms^2} = \SI{8.492}{GPa}
+\]
+
+\[
+    B_P =  \SI{6.557e-37}{kgm^4/s^2} \cdot (\SI{1.33e28}{m^{-3}})^{5/3} = \SI{8.492e9}{kg/ms^2} = \SI{2.908}{GPa}
+\]
+We see that these values are definitively in the proximity of the measured values of $\SI{6.3}{GPa}$ and $\SI{3.1}{GPa}$, but especially the first one is off by a non-negligible amount. Interestingly, one is above and one is below the measured values.
+
+
+\end{document}
