@@ -1,0 +1,82 @@
+\documentclass[12p,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc,url}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{parskip}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{verbatim}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usepackage{physics}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+\usepackage[makeroom]{cancel}
+\usepackage[margin=2.0cm]{geometry}
+\usepackage{pdfpages}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\exp}{e^}
+\renewcommand{\b}{\boldsymbol}
+\newcommand{\h}{\hat}
+\newcommand{\m}{\mathbb}
+\newcommand{\half}{\frac{1}{2}}
+\renewcommand{\exp}{e^}
+\renewcommand{\bar}{\overline}
+\setlength\parindent{0pt}
+
+
+\begin{document}
+\title{AST4320 -- Oblig 2}
+\author{
+    \begin{tabular}{r l}
+        Jonas Gahr Sturtzel Lunde & (\texttt{jonassl})
+    \end{tabular}}
+% \date{}    % if commented out, the date is set to the current date
+
+\maketitle
+
+\hspace{10cm}
+
+
+\includepdf[pages={1}]{handwrites.pdf}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{tophat.png}
+\end{figure}
+
+
+\newpage
+\section*{Exercise 2}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{hist1.png}
+    \caption{Histogram of delta values after random walks.}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{hist2.png}
+    \caption{Histogram of delta values after random walk with cutoff for value that exceed 1 at some point. Also shown as orange plot: Analytical plot.}
+\end{figure}
+
+
+
+\includepdf[pages={2}]{handwrites.pdf}
+
+
+\section*{Appendix: Code}
+\lstinputlisting[language=Python, frame=full]{tophat.py}
+\lstinputlisting[language=Python, frame=full]{randomwalk.py}
+\lstinputlisting[language=Python, frame=full]{randomwalk2.py}
+
+\end{document}
