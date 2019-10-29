@@ -41,7 +41,7 @@ for j in range(M):
 
         ax[i].imshow(img2, cmap="gray")
         ax[i].axis("off")
-        ax[i].set_title(f"N = {N}, Comp Ratio = {comp_ratio[j, i]:.1f}")
+        ax[i].set_title(f"r = {N}, Comp Ratio = {comp_ratio[j, i]:.1f}")
     plt.tight_layout()
     plt.savefig(f"../figs/img{j}.png", bbox_layout="tight")
     plt.clf()
