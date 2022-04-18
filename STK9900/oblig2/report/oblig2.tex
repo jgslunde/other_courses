@@ -1,0 +1,213 @@
+\documentclass[a4paper, twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{hyperref}  % \href \url
+\usepackage{physics}  % \dd{} \pdv{} \qty
+\usepackage{graphicx}  % Inserting images.
+\usepackage{siunitx}  % \si \SI
+\usepackage{float}  % Allows for H float placement.
+\usepackage{parskip}  % Separates paragraphs with vertical space.
+\usepackage[margin=0.6cm]{geometry}
+\usepackage{fancyvrb}
+
+\renewcommand{\exp}{e^}
+
+\begin{document}
+\title{STK9900 -- Assignment 2}
+\author{
+    \begin{tabular}{r l}
+        Jonas Gahr Sturtzel Lunde & (\texttt{jonassl})
+    \end{tabular}}
+% \date{}    % if commented out, the date is set to the current date
+\maketitle
+
+\section*{Problem 1}
+\subsection*{a)}
+This is a binary prediction, with a single predictor, making a logarithmic regression a natural choice. The outcome of a logarithmic regression can be interpreseted as a probability of either outcome, and is, unlikely e.g. linear regression bound to the interval [0,1]. The model takes the form
+\begin{equation}\label{eqn:log}
+    p(x) = \frac{\exp{\beta_0 + \beta_1x}}{1 + \exp{\beta_0 + \beta_1x}}
+\end{equation}
+where $p(x)$ is the probability of one or more sattelites, given a width $x$.
+
+Performing the logarithmic regression in R, we get the following:
+\begin{Verbatim}[fontsize=\scriptsize]
+                Estimate Std. Error z value Pr(>|z|)    
+    (Intercept) -12.3508     2.6287  -4.698 2.62e-06 ***
+    width         0.4972     0.1017   4.887 1.02e-06 ***
+\end{Verbatim}
+
+Meaning that $\beta_0 = -12.35$ and $\beta_1 = 0.497$.
+
+\subsection*{b)}
+Let $x_1$ and $x_0$ be two width differing by $\SI{1}{cm}$, such that $x_1 = x_0 + \SI{1}{cm}$. The odds ratio between two predictor values is defined as
+\begin{equation}
+    \mathrm{OR} = \frac{p(x_1)/[1-p(x_1)]}{p(x_0)/[1 - p(x_0)]}
+\end{equation}
+which, inserting for \ref{eqn:log}, gives an odds ratio of presences of satellites of
+\begin{equation}
+    \mathrm{OR} = \frac{\exp{\beta_0 + \beta_1[x_1 - x_0]}}{\exp{\beta_0 + \beta_1 x_0}} = \exp{\beta_1[x_1 - x_0]} = \exp{\beta_1 \cdot \SI{1}{cm}} = 1.644
+\end{equation}
+
+This means there is a $64\%$ increase in the \textit{odds} of satellites with a $\SI{1}{cm}$ increase in width. The odds is the ratio between probabilities of successful and unsuccessful outcomes, and the odds ratio is simply the relative difference in this ratio between predictor values. An interesting result of logarithmic regression is the the odds ratio is independent of the actual predictor value, and only dependent on the change in predictor value. The odds increase is $64\%$ for any $\SI{1}{cm}$ change in width.
+
+In the limit that $p(x_0) \ll 1$ and $p(x_1) \ll 1$, the odds ratio is also the \textit{relative ratio}, in which case the $64\%$ can be interpreted directly as the increase in chance of satellites. However, for the mean width of $\SI{26.3}{cm}$, we have that $p(x = \SI{26.3}{cm}) = \frac{\exp{0.497\cdot 26.3}}{1 - \exp{0.497\cdot 26.3}} = 0.674$, meaning the limit does not hold for typical values of the width.
+
+Under the assumption that $\beta_1$ follows a normal distribution, its 95\% confidence interval is $\beta_1 \pm 1.96\cdot se(\beta_1) = [0.2989, 0.6975]$. Given  that the $\beta_1$ confidence interval does not include 0, we can conclude that there is statistically significant correlation between the presence of satellites and width.
+
+This translates into a confidence interval on the odds ratio of $\exp{\beta_1 \pm 1.96\cdot se(\beta_1)} = [1.348, 2.009]$.
+
+\subsection*{c)}
+\textbf{Weight.} Weight is an obvious numerical predictor, as the values are naturally continous, just as width. Using weight as a lone numerical predictor, we get the logarithmic regression result:
+\begin{Verbatim}[fontsize=\scriptsize]
+                Estimate Std. Error z value Pr(>|z|)    
+    (Intercept)  -3.6947     0.8802  -4.198 2.70e-05 ***
+    weight        1.8151     0.3767   4.819 1.45e-06 ***
+\end{Verbatim}
+giving a 95\% confidence interval of $[1.077, 2.553]$, which means that the weight also has a statistically significant correlation with the presence of satellites.
+
+\textbf{Color.} As the colors are annotated in a logically ascending order, from lightest to darkest, we could leave it as a numerical predictor, to limit the number of predictors in use. However, it would be more suitable to use it as a categorical predictor, to allow for more non-linear modelling. Factoring the color with "medium light" as the reference, we get the following logarithmic regression results:
+\begin{Verbatim}[fontsize=\scriptsize]
+                Estimate Std. Error z value Pr(>|z|)  
+    (Intercept)   1.0986     0.6667   1.648   0.0994 .
+    color_cat2   -0.1226     0.7053  -0.174   0.8620  
+    color_cat3   -0.7309     0.7338  -0.996   0.3192  
+    color_cat4   -1.8608     0.8087  -2.301   0.0214 *
+\end{Verbatim}
+We see that only the very darkest color gets a P-value below 0.05, and we can conclude that the darkest color is negatively correlated with satellite presence, although not with as much certainty as width or weight.
+
+\textbf{Spine.} As with color, it makes more sense to treat the spine condition as a categorical predictor, giving the following logarithmic regression:
+\begin{Verbatim}[fontsize=\scriptsize]
+                Estimate Std. Error z value Pr(>|z|)  
+    (Intercept)   0.8602     0.3597   2.392   0.0168 *
+    spine_cat2   -0.9937     0.6303  -1.577   0.1149  
+    spine_cat3   -0.2647     0.4068  -0.651   0.5152  
+\end{Verbatim}
+None of the spine conditions are correlated with satellite presence to a statistically significant degree.
+
+
+\subsection*{d)}
+Using all predictors, we see that now none of them have statistically significant correlation with the satellite presence:
+\begin{Verbatim}[fontsize=\scriptsize]
+                    Estimate Std. Error z value Pr(>|z|)  
+    (Intercept)    -8.06501    3.92855  -2.053   0.0401 *
+    width           0.26313    0.19530   1.347   0.1779  
+    weight          0.82578    0.70383   1.173   0.2407  
+    factor(color)2 -0.10290    0.78259  -0.131   0.8954  
+    factor(color)3 -0.48886    0.85312  -0.573   0.5666  
+    factor(color)4 -1.60867    0.93553  -1.720   0.0855 .
+    factor(spine)2 -0.09598    0.70337  -0.136   0.8915  
+    factor(spine)3  0.40029    0.50270   0.796   0.4259 
+\end{Verbatim}
+Especially notable are the width and weight, which were both highly significant. The explanation is pretty easy to imagine: They are almost entirely degenerate, as can be seen in figure \ref{fig:width_weight}. With this in mind, we chose to exclude one of them from our model. As the width is (ever so slightly) more statistically significant, we stick with the width only.
+
+\begin{figure}
+    \includegraphics[width=\linewidth]{figures/width_weight.png}
+    \caption{}
+    \label{fig:width_weight}
+\end{figure}
+
+We try and add the spline and color seperately, after having removed the weight, but now find that neither is statistically significant, after having included width in our model:
+\begin{Verbatim}[fontsize=\scriptsize]
+                    Estimate Std. Error z value Pr(>|z|)    
+    (Intercept)    -11.38519    2.87346  -3.962 7.43e-05 ***
+    width            0.46796    0.10554   4.434 9.26e-06 ***
+    factor(color)2   0.07242    0.73989   0.098    0.922    
+    factor(color)3  -0.22380    0.77708  -0.288    0.773    
+    factor(color)4  -1.32992    0.85252  -1.560    0.119    
+\end{Verbatim}
+
+\begin{Verbatim}[fontsize=\scriptsize]
+                    Estimate Std. Error z value Pr(>|z|)    
+    (Intercept)    -12.32899    2.78390  -4.429 9.48e-06 ***
+    width            0.49531    0.10480   4.726 2.28e-06 ***
+    factor(spine)2  -0.04290    0.70204  -0.061    0.951    
+    factor(spine)3   0.04496    0.45222   0.099    0.921    
+\end{Verbatim}
+
+We must therefore return to our original model of using the width as our only reliable predictor.
+
+
+\subsection*{e)}
+We include width as a predictor in all our models, and test all 6 possible models with interactions between the 4 predictors.
+
+\textbf{width - weight}
+\begin{Verbatim}[fontsize=\scriptsize]
+                    Estimate Std. Error z value Pr(>|z|)    
+    (Intercept)    1.6580    12.2587   0.135    0.892
+    width         -0.1118     0.4827  -0.232    0.817
+    weight        -4.2244     5.5120  -0.766    0.443
+    width:weight   0.1904     0.2065   0.922    0.357
+\end{Verbatim}
+
+\textbf{width - color}
+\begin{Verbatim}[fontsize=\scriptsize]
+    Estimate Std. Error z value Pr(>|z|)    
+    (Intercept)           -1.75261   11.46409  -0.153    0.878
+    width                  0.10600    0.42656   0.248    0.804
+    factor(color)2        -8.28735   12.00363  -0.690    0.490
+    factor(color)3       -19.76545   13.34251  -1.481    0.139
+    factor(color)4        -4.10122   13.27532  -0.309    0.757
+    width:factor(color)2   0.31287    0.44794   0.698    0.485
+    width:factor(color)3   0.75237    0.50435   1.492    0.136
+    width:factor(color)4   0.09443    0.50042   0.189    0.850
+\end{Verbatim}
+
+\textbf{width - spine}
+\begin{Verbatim}[fontsize=\scriptsize]
+    Estimate Std. Error z value Pr(>|z|)
+    (Intercept)           -9.8763     5.2009  -1.899   0.0576 .
+    width                  0.4022     0.1966   2.045   0.0408 *
+    factor(spine)2        -4.6794    12.8215  -0.365   0.7151  
+    factor(spine)3        -3.1353     6.1597  -0.509   0.6108  
+    width:factor(spine)2   0.1817     0.5137   0.354   0.7236  
+    width:factor(spine)3   0.1214     0.2345   0.518   0.6048    
+\end{Verbatim}
+
+\textbf{weight - color}
+\begin{Verbatim}[fontsize=\scriptsize]
+    Estimate Std. Error z value Pr(>|z|)
+    (Intercept)           -6.85936    6.09032  -1.126    0.260
+    width                  0.29519    0.19556   1.509    0.131
+    weight                 0.02078    2.04378   0.010    0.992
+    factor(color)2        -1.02515    5.12717  -0.200    0.842
+    factor(color)3        -6.44370    5.58395  -1.154    0.249
+    factor(color)4         0.05708    5.49611   0.010    0.992
+    weight:factor(color)2  0.42993    1.99550   0.215    0.829
+    weight:factor(color)3  2.77120    2.25136   1.231    0.218
+    weight:factor(color)4 -0.68764    2.18951  -0.314    0.753    
+\end{Verbatim}
+
+\textbf{weight - spine}
+\begin{Verbatim}[fontsize=\scriptsize]
+    Estimate Std. Error z value Pr(>|z|)
+    (Intercept)            -8.8999     4.1111  -2.165   0.0304 *
+    width                   0.3054     0.1889   1.617   0.1059  
+    weight                  0.6414     0.9111   0.704   0.4815  
+    factor(spine)2         -7.5008     6.5151  -1.151   0.2496  
+    factor(spine)3         -0.2529     2.1217  -0.119   0.9051  
+    weight:factor(spine)2   3.5066     3.0527   1.149   0.2507  
+    weight:factor(spine)3   0.1329     0.8681   0.153   0.8784 
+\end{Verbatim}
+
+\textbf{color - spine}
+\begin{Verbatim}[fontsize=\scriptsize]
+    Estimate Std. Error z value Pr(>|z|)    
+    (Intercept)                    -10.6940     3.0935  -3.457 0.000546 ***
+    width                            0.4364     0.1097   3.976    7e-05 ***
+    factor(color)2                  -0.1649     0.9609  -0.172 0.863768    
+    factor(color)3                  16.4709  2225.9261   0.007 0.994096    
+    factor(color)4                 -17.9993  3956.1804  -0.005 0.996370    
+    factor(spine)2                  17.4630  2793.2705   0.006 0.995012    
+    factor(spine)3                 -18.1302  3956.1804  -0.005 0.996343    
+    factor(color)2:factor(spine)2  -17.7953  2793.2707  -0.006 0.994917    
+    factor(color)3:factor(spine)2  -34.6376  3571.7094  -0.010 0.992262    
+    factor(color)4:factor(spine)2  -15.4994  6253.4059  -0.002 0.998022    
+    factor(color)2:factor(spine)3   18.7723  3956.1805   0.005 0.996214    
+    factor(color)3:factor(spine)3    1.5081  4539.3953   0.000 0.999735    
+    factor(color)4:factor(spine)3   35.0152  5594.8839   0.006 0.995007
+\end{Verbatim}
+
+None of the interactions are significant, and we are again left with our width-only model.
+
+\end{document}
