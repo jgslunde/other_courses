@@ -134,80 +134,129 @@ We include width as a predictor in all our models, and test all 6 possible model
 \textbf{width - weight}
 \begin{Verbatim}[fontsize=\scriptsize]
                     Estimate Std. Error z value Pr(>|z|)    
-    (Intercept)    1.6580    12.2587   0.135    0.892
-    width         -0.1118     0.4827  -0.232    0.817
-    weight        -4.2244     5.5120  -0.766    0.443
-    width:weight   0.1904     0.2065   0.922    0.357
+    (Intercept)      1.6580    12.2587   0.135    0.892
+    width           -0.1118     0.4827  -0.232    0.817
+    weight          -4.2244     5.5120  -0.766    0.443
+    width:weight     0.1904     0.2065   0.922    0.357
 \end{Verbatim}
 
 \textbf{width - color}
 \begin{Verbatim}[fontsize=\scriptsize]
-    Estimate Std. Error z value Pr(>|z|)    
-    (Intercept)           -1.75261   11.46409  -0.153    0.878
-    width                  0.10600    0.42656   0.248    0.804
-    factor(color)2        -8.28735   12.00363  -0.690    0.490
-    factor(color)3       -19.76545   13.34251  -1.481    0.139
-    factor(color)4        -4.10122   13.27532  -0.309    0.757
-    width:factor(color)2   0.31287    0.44794   0.698    0.485
-    width:factor(color)3   0.75237    0.50435   1.492    0.136
-    width:factor(color)4   0.09443    0.50042   0.189    0.850
+                            Estimate Std. Error z value Pr(>|z|)    
+    (Intercept)              -1.75261   11.46409  -0.153    0.878
+    width                     0.10600    0.42656   0.248    0.804
+    factor(color)2           -8.28735   12.00363  -0.690    0.490
+    factor(color)3          -19.76545   13.34251  -1.481    0.139
+    factor(color)4           -4.10122   13.27532  -0.309    0.757
+    width:factor(color)2      0.31287    0.44794   0.698    0.485
+    width:factor(color)3      0.75237    0.50435   1.492    0.136
+    width:factor(color)4      0.09443    0.50042   0.189    0.850
 \end{Verbatim}
 
 \textbf{width - spine}
 \begin{Verbatim}[fontsize=\scriptsize]
-    Estimate Std. Error z value Pr(>|z|)
-    (Intercept)           -9.8763     5.2009  -1.899   0.0576 .
-    width                  0.4022     0.1966   2.045   0.0408 *
-    factor(spine)2        -4.6794    12.8215  -0.365   0.7151  
-    factor(spine)3        -3.1353     6.1597  -0.509   0.6108  
-    width:factor(spine)2   0.1817     0.5137   0.354   0.7236  
-    width:factor(spine)3   0.1214     0.2345   0.518   0.6048    
+                            Estimate Std. Error z value Pr(>|z|)
+    (Intercept)             -9.8763     5.2009  -1.899   0.0576 .
+    width                    0.4022     0.1966   2.045   0.0408 *
+    factor(spine)2          -4.6794    12.8215  -0.365   0.7151  
+    factor(spine)3          -3.1353     6.1597  -0.509   0.6108  
+    width:factor(spine)2     0.1817     0.5137   0.354   0.7236  
+    width:factor(spine)3     0.1214     0.2345   0.518   0.6048    
 \end{Verbatim}
 
 \textbf{weight - color}
 \begin{Verbatim}[fontsize=\scriptsize]
-    Estimate Std. Error z value Pr(>|z|)
-    (Intercept)           -6.85936    6.09032  -1.126    0.260
-    width                  0.29519    0.19556   1.509    0.131
-    weight                 0.02078    2.04378   0.010    0.992
-    factor(color)2        -1.02515    5.12717  -0.200    0.842
-    factor(color)3        -6.44370    5.58395  -1.154    0.249
-    factor(color)4         0.05708    5.49611   0.010    0.992
-    weight:factor(color)2  0.42993    1.99550   0.215    0.829
-    weight:factor(color)3  2.77120    2.25136   1.231    0.218
-    weight:factor(color)4 -0.68764    2.18951  -0.314    0.753    
+                            Estimate Std. Error z value Pr(>|z|)
+    (Intercept)             -6.85936    6.09032  -1.126    0.260
+    width                    0.29519    0.19556   1.509    0.131
+    weight                   0.02078    2.04378   0.010    0.992
+    factor(color)2          -1.02515    5.12717  -0.200    0.842
+    factor(color)3          -6.44370    5.58395  -1.154    0.249
+    factor(color)4           0.05708    5.49611   0.010    0.992
+    weight:factor(color)2    0.42993    1.99550   0.215    0.829
+    weight:factor(color)3    2.77120    2.25136   1.231    0.218
+    weight:factor(color)4   -0.68764    2.18951  -0.314    0.753    
 \end{Verbatim}
 
 \textbf{weight - spine}
 \begin{Verbatim}[fontsize=\scriptsize]
-    Estimate Std. Error z value Pr(>|z|)
-    (Intercept)            -8.8999     4.1111  -2.165   0.0304 *
-    width                   0.3054     0.1889   1.617   0.1059  
-    weight                  0.6414     0.9111   0.704   0.4815  
-    factor(spine)2         -7.5008     6.5151  -1.151   0.2496  
-    factor(spine)3         -0.2529     2.1217  -0.119   0.9051  
-    weight:factor(spine)2   3.5066     3.0527   1.149   0.2507  
-    weight:factor(spine)3   0.1329     0.8681   0.153   0.8784 
+                            Estimate Std. Error z value Pr(>|z|)
+    (Intercept)             -8.8999     4.1111  -2.165   0.0304 *
+    width                    0.3054     0.1889   1.617   0.1059  
+    weight                   0.6414     0.9111   0.704   0.4815  
+    factor(spine)2          -7.5008     6.5151  -1.151   0.2496  
+    factor(spine)3          -0.2529     2.1217  -0.119   0.9051  
+    weight:factor(spine)2    3.5066     3.0527   1.149   0.2507  
+    weight:factor(spine)3    0.1329     0.8681   0.153   0.8784 
 \end{Verbatim}
 
 \textbf{color - spine}
 \begin{Verbatim}[fontsize=\scriptsize]
-    Estimate Std. Error z value Pr(>|z|)    
-    (Intercept)                    -10.6940     3.0935  -3.457 0.000546 ***
-    width                            0.4364     0.1097   3.976    7e-05 ***
-    factor(color)2                  -0.1649     0.9609  -0.172 0.863768    
-    factor(color)3                  16.4709  2225.9261   0.007 0.994096    
-    factor(color)4                 -17.9993  3956.1804  -0.005 0.996370    
-    factor(spine)2                  17.4630  2793.2705   0.006 0.995012    
-    factor(spine)3                 -18.1302  3956.1804  -0.005 0.996343    
-    factor(color)2:factor(spine)2  -17.7953  2793.2707  -0.006 0.994917    
-    factor(color)3:factor(spine)2  -34.6376  3571.7094  -0.010 0.992262    
-    factor(color)4:factor(spine)2  -15.4994  6253.4059  -0.002 0.998022    
-    factor(color)2:factor(spine)3   18.7723  3956.1805   0.005 0.996214    
-    factor(color)3:factor(spine)3    1.5081  4539.3953   0.000 0.999735    
-    factor(color)4:factor(spine)3   35.0152  5594.8839   0.006 0.995007
+                                    Estimate Std. Error z value Pr(>|z|)    
+    (Intercept)                     -10.6940     3.0935  -3.457 0.000546 ***
+    width                             0.4364     0.1097   3.976    7e-05 ***
+    factor(color)2                   -0.1649     0.9609  -0.172 0.863768    
+    factor(color)3                   16.4709  2225.9261   0.007 0.994096    
+    factor(color)4                  -17.9993  3956.1804  -0.005 0.996370    
+    factor(spine)2                   17.4630  2793.2705   0.006 0.995012    
+    factor(spine)3                  -18.1302  3956.1804  -0.005 0.996343    
+    factor(color)2:factor(spine)2   -17.7953  2793.2707  -0.006 0.994917    
+    factor(color)3:factor(spine)2   -34.6376  3571.7094  -0.010 0.992262    
+    factor(color)4:factor(spine)2   -15.4994  6253.4059  -0.002 0.998022    
+    factor(color)2:factor(spine)3    18.7723  3956.1805   0.005 0.996214    
+    factor(color)3:factor(spine)3     1.5081  4539.3953   0.000 0.999735    
+    factor(color)4:factor(spine)3    35.0152  5594.8839   0.006 0.995007
 \end{Verbatim}
 
 None of the interactions are significant, and we are again left with our width-only model.
+
+
+
+\section*{Problem 2}
+\subsection*{a)}
+The Poisson model is defined by the single parameter $\lambda$, which is assumed to equal both the expectation value and the variance in the data, $\lambda = E[y|x] = Var[y]$. In the Poisson model, this parameter is defined 
+\begin{equation}
+    \log{\lambda_i} = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + ...
+\end{equation}
+
+When a count model has different numbers of subjects in each group, it is common to include an offset in the Poisson model. The reason for this is that the occurances which we are counting often originate from the individual members of each group, and not the entirety of the group. In our case, we would expect the number of medals achieved to be roughly proportional to the number of athletes, and it makes more sense to model the medals achieved per athlete in a country, and not for all the athletes representing each country.
+
+Substituting $\lambda$ for $\lambda/\mathrm{athletes}$ in the model above, we get
+\begin{align}
+    \log{\frac{\lambda}{\mathrm{athletes}}} = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + ... \\
+    \log{\lambda} - \log{\mathrm{athletes}} = \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + ... \\
+    \log{\lambda} = \log{\mathrm{athletes}} + \beta_0 + \beta_1 x_{1,i} + \beta_2 x_{2,i} + ...
+\end{align}
+where $\log{\mathrm{athletes}}$ is called the \textit{offset} of the model.
+
+
+
+\subsection*{b)}
+With our chosen offset, we perform the Poisson regression, and get the following results:
+\begin{Verbatim}[fontsize=\scriptsize]
+                    Estimate Std. Error z value Pr(>|z|)    
+    (Intercept)     -2.862299   0.319076  -8.971  < 2e-16 ***
+    Total1996        0.011832   0.001607   7.364 1.79e-13 ***
+    Log.population   0.027510   0.031539   0.872    0.383    
+    GDP.per.cap     -0.014924   0.003208  -4.652 3.29e-06 ***
+\end{Verbatim}
+The number of medals won at the previous olympic games is heavily correlated, which is rather unsurprising. Additionally, the GDP per capita is also statistically significantly correlated with number of medals won. The log poputation, however, does not make the cut, at a P-value of $0.383$.
+
+However, the original claim was that "participants from larger and wealthier nations are more likely to win medals". I see no reason why we should allow our model to use the medal winnings from 1996 to predict the year 2000 model winnings, when what we aim to assess is the population and GDP impact. Using log pupulation and GDP as the only predictors, we get the following model:
+\begin{Verbatim}[fontsize=\scriptsize]
+                    Estimate Std. Error z value Pr(>|z|)    
+(Intercept)         -4.255144   0.250782 -16.968  < 2e-16 ***
+Log.population       0.179605   0.022466   7.995  1.3e-15 ***
+GDP.per.cap         -0.004340   0.002726  -1.592    0.111  
+\end{Verbatim}
+Now GDP is no longer statistically significant at a 95\% level. However, population is highly so. This was likely because it was correlated with the 1996 medal winnings, which acted as a confounder. In reality, the log population was a great predictor of medal winnings. Removing the GDP per capita, we are left with our final model:
+\begin{Verbatim}[fontsize=\scriptsize]
+                Estimate Std. Error z value Pr(>|z|)    
+(Intercept)     -4.34619    0.24585 -17.678  < 2e-16 ***
+Log.population   0.18212    0.02256   8.073 6.84e-16 ***
+\end{Verbatim}
+
+In conclusion, medal winnings (per athlete) is highly positiviely correlated with the population size of a country, but not significantly correlated with GDP per capita.
+
 
 \end{document}
