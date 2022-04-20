@@ -10,6 +10,7 @@
 \usepackage{parskip}  % Separates paragraphs with vertical space.
 \usepackage[margin=0.6cm]{geometry}
 \usepackage{fancyvrb}
+\usepackage{listings}
 
 \renewcommand{\exp}{e^}
 
@@ -416,7 +417,17 @@ The expected correlation between response time of the same subject on different 
     \frac{\sigma_\mathrm{subj}^2}{\sigma_\mathrm{subj}^2 + \sigma_\mathrm{\epsilon}^2} = \frac{37.08727}{37.08727 + 31.42592} = 0.582
 \end{equation}
 
-
+\newpage
+\onecolumn
+\section*{Appendix: Code}
+\subsection*{Problem 1}
+\lstinputlisting[language=R, basicstyle=\ttfamily\scriptsize]{../Rcode/problem1.R}
+\subsection*{Problem 2}
+\lstinputlisting[language=R, basicstyle=\ttfamily\scriptsize]{../Rcode/problem2.R}
+\subsection*{Problem 3}
+\lstinputlisting[language=R, basicstyle=\ttfamily\scriptsize]{../Rcode/problem3.R}
+\subsection*{Problem 4}
+\lstinputlisting[language=R, basicstyle=\ttfamily\scriptsize]{../Rcode/problem4.R}
 
 
 
