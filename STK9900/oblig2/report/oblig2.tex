@@ -24,7 +24,7 @@
 
 \section*{Problem 1}
 \subsection*{a)}
-This is a binary prediction, with a single predictor, making a logarithmic regression a natural choice. The outcome of a logarithmic regression can be interpreseted as a probability of either outcome, and is, unlikely e.g. linear regression bound to the interval [0,1]. The model takes the form
+This is a binary prediction, with a single predictor, making logarithmic regression a natural choice. The outcome of a logarithmic regression can be interpreted as a probability of either outcome, and is, unlikely e.g. linear regression bound to the interval [0,1]. The model takes the form
 \begin{equation}\label{eqn:log}
     p(x) = \frac{\exp{\beta_0 + \beta_1x}}{1 + \exp{\beta_0 + \beta_1x}}
 \end{equation}
@@ -103,7 +103,7 @@ Especially notable are the width and weight, which were both highly significant.
 
 \begin{figure}
     \includegraphics[width=\linewidth]{figures/width_weight.png}
-    \caption{}
+    \caption{Scatter plot showing the relation between crab weight and width.}
     \label{fig:width_weight}
 \end{figure}
 
@@ -270,7 +270,7 @@ By eye, we see some pretty clear trends. Females seem to live longer than males,
     \includegraphics[width=0.49\linewidth]{figures/surv_asc.png}
     \includegraphics[width=0.49\linewidth]{figures/surv_agegr.png}
     \includegraphics[width=0.49\linewidth]{figures/surv_treat.png}
-    \caption{}
+    \caption{Kaplan-Meier plot of the fraction of surviving patients after a given amount of days, split by different variables. From the top-left: Split by sex, ascites, age, and treatment type.}
     \label{fig:surv}
 \end{figure}
 
@@ -333,6 +333,88 @@ The $95\%$ confidence interval becomes $\exp{\beta_\mathrm{sex}} \pm 1.96 se(\be
 
 As stated before, our data can not conclude that prednisone has an effect on survival of patients.
 
+
+\section*{Problem 4}
+\subsection*{a)}
+Figure \ref{fig:sleepstudy} shows the distribution of reaction times after different number of sleep deprived days. There appears to be an increasing trend. At the 0th day, the mean reaction time is $\SI{256.7}{ms}$. This increases to $\SI{350.9}{ms}$ on the 9th day.
+
+Performing a two-way ANOVA test on the difference in the mean, with the null hypothesis that the means are identical, we get the following results: 
+\begin{Verbatim}[fontsize=\scriptsize]
+                Df Sum Sq Mean Sq F value   Pr(>F)    
+    Reaction     1  335.2   335.2   28.94 5.52e-06 ***
+    Residuals   34  393.8    11.6           
+\end{Verbatim}
+
+This is a strongly significant increase, which also seems evident from our figure. However, an ANOVA test is not really appropriate for our data, as it contains the same subject group in both tests. Special methods are needed when analysing so-called "repeated measure" experiments.
+
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/sleepstudy.png}
+    \caption{Scatter plot showing the recorded response time in ms of each subject after 0-9 days of sleep deprivation.}
+    \label{fig:sleepstudy}
+\end{figure}
+
+
+\subsection*{b)}
+Performing a linear regression on the sleep data with days only gives the following results:
+\begin{Verbatim}[fontsize=\scriptsize]
+                Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)  251.405      6.610  38.033  < 2e-16 ***
+    Days          10.467      1.238   8.454 9.89e-15 ***
+\end{Verbatim}
+There is a very clear statistical correlation between days of sleep deprivation and reaction time.
+
+If we additionally include the subject number as a categorical predictor, we get:
+\begin{Verbatim}[fontsize=\scriptsize]
+                        Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)         295.0310    10.4471  28.240  < 2e-16 ***
+    Days                 10.4673     0.8042  13.015  < 2e-16 ***
+    factor(Subject)309 -126.9008    13.8597  -9.156 2.35e-16 ***
+    factor(Subject)310 -111.1326    13.8597  -8.018 2.07e-13 ***
+    factor(Subject)330  -38.9124    13.8597  -2.808 0.005609 ** 
+    factor(Subject)331  -32.6978    13.8597  -2.359 0.019514 *  
+    factor(Subject)332  -34.8318    13.8597  -2.513 0.012949 *  
+    factor(Subject)333  -25.9755    13.8597  -1.874 0.062718 .  
+    factor(Subject)334  -46.8318    13.8597  -3.379 0.000913 ***
+    factor(Subject)335  -92.0638    13.8597  -6.643 4.51e-10 ***
+    factor(Subject)337   33.5872    13.8597   2.423 0.016486 *  
+    factor(Subject)349  -66.2994    13.8597  -4.784 3.87e-06 ***
+    factor(Subject)350  -28.5311    13.8597  -2.059 0.041147 *  
+    factor(Subject)351  -52.0361    13.8597  -3.754 0.000242 ***
+    factor(Subject)352   -4.7123    13.8597  -0.340 0.734300    
+    factor(Subject)369  -36.0992    13.8597  -2.605 0.010059 *  
+    factor(Subject)370  -50.4321    13.8597  -3.639 0.000369 ***
+    factor(Subject)371  -47.1498    13.8597  -3.402 0.000844 ***
+    factor(Subject)372  -24.2477    13.8597  -1.750 0.082108 .  
+\end{Verbatim}
+
+Accounting for subject number, the number of days gains an even stronger level of significance. We also see that most of the subject factors have strong significance themselves, meaning that the different subject differ noticably in their responses to sleep deprivation. A disadvantage of including the subjects as a predictor is that we increase the degrees of freedom in our model. The subjects is also an uninteresting predictor. However, the predicted slope coefficient is very similar in the two models (10.467 vs 10.4673), which is a good sign.
+
+
+\subsection*{c)}
+Another drawback of the linear model is that we have no reason to suspect believe that the reaction time will respond linearly to sleep deprivation. Usinga a random model the days as categorical predictors solves this problem, and gives us the following results:
+\begin{Verbatim}[fontsize=\scriptsize]
+                    Value Std.Error  DF   t-value p-value
+    (Intercept)   256.65181  11.45778 153 22.399781  0.0000
+    factor(Days)1   7.84395  10.47531 153  0.748804  0.4551
+    factor(Days)2   8.71009  10.47531 153  0.831488  0.4070
+    factor(Days)3  26.34021  10.47531 153  2.514504  0.0130
+    factor(Days)4  31.99762  10.47531 153  3.054576  0.0027
+    factor(Days)5  51.86665  10.47531 153  4.951325  0.0000
+    factor(Days)6  55.52645  10.47531 153  5.300699  0.0000
+    factor(Days)7  62.09878  10.47531 153  5.928111  0.0000
+    factor(Days)8  79.97770  10.47531 153  7.634879  0.0000
+    factor(Days)9  94.19942  10.47531 153  8.992521  0.0000
+\end{Verbatim}
+
+This models also shows us that there is a clear trend between days of sleep deprivation and reaction time. However, we get a more fine-grained result. The reaction time during the first two days of sleep deprivation is actually not significantly different from the 0th day at the 0.05 level. The 3rd day and onwards, are (with increasing significance).
+
+The expected correlation between response time of the same subject on different days can be estimated as
+\begin{equation}
+    \frac{\sigma_\mathrm{subj}^2}{\sigma_\mathrm{subj}^2 + \sigma_\mathrm{\epsilon}^2} = \frac{37.08727}{37.08727 + 31.42592} = 0.582
+\end{equation}
 
 
 

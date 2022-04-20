@@ -1,6 +1,7 @@
 data = read.delim("/home/jonas/github/other_courses/STK9900/oblig2/data/cirrhosis.txt", header=TRUE, sep="")
-
 library(survival)
+
+# Problem 3a)
 surv.sex = survfit(Surv(data$time, data$status)~sex, data=data, conf.type="none")
 surv.agegr = survfit(Surv(data$time, data$status)~agegr, data=data, conf.type="none")
 surv.asc = survfit(Surv(data$time, data$status)~asc, data=data, conf.type="none")
@@ -25,3 +26,13 @@ png(file="/home/jonas/github/other_courses/STK9900/oblig2/report/figures/surv_tr
 plot(surv.treat, lty=1:2)
 legend(1, 0.2, c("prednisone", "placebo"), lty=1:2)
 dev.off()
+
+# Problem 3b)
+survdiff(Surv(data$time, data$status)~sex, data=data)
+survdiff(Surv(data$time, data$status)~agegr, data=data)
+survdiff(Surv(data$time, data$status)~asc, data=data)
+survdiff(Surv(data$time, data$status)~treat, data=data)
+
+# Problem 3c)
+fit.1 = coxph(Surv(data$time, data$status==1)~factor(sex)+age+factor(asc)+factor(treat), data=data)
+summary(fit.1)
