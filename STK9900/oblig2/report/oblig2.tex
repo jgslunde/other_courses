@@ -259,4 +259,83 @@ Log.population   0.18212    0.02256   8.073 6.84e-16 ***
 In conclusion, medal winnings (per athlete) is highly positiviely correlated with the population size of a country, but not significantly correlated with GDP per capita.
 
 
+\section*{Problem 3}
+\subsection*{a)}
+Figure \ref{fig:surv} shows the Kaplan-Meier plots of deaths from liver cirrhosis with different predictors. The plots simply show, after some amount of days on the x axis, what fraction of the group (like sex) is still alive.
+
+By eye, we see some pretty clear trends. Females seem to live longer than males, younger people seem to live longer than older, and lower levels of excess fluids in abdomen tends to outlive those with higher levels. The seemingly least decisive factor is in fact the treatment.
+
+\begin{figure}[h!]
+    \includegraphics[width=0.49\linewidth]{figures/surv_sex.png}
+    \includegraphics[width=0.49\linewidth]{figures/surv_asc.png}
+    \includegraphics[width=0.49\linewidth]{figures/surv_agegr.png}
+    \includegraphics[width=0.49\linewidth]{figures/surv_treat.png}
+    \caption{}
+    \label{fig:surv}
+\end{figure}
+
+
+\subsection*{b)}
+Below is the results of the logrank test on each of the covariates.
+\textbf{Sex}
+\begin{Verbatim}[fontsize=\scriptsize]
+            N Observed Expected (O-E)^2/E (O-E)^2/V
+    sex=0 198      111      127      2.00      3.55
+    sex=1 290      181      165      1.54      3.55
+    Chisq= 3.5  on 1 degrees of freedom, p= 0.06 
+\end{Verbatim}
+
+\textbf{Agegroup}
+\begin{Verbatim}[fontsize=\scriptsize]
+            N Observed Expected (O-E)^2/E (O-E)^2/V
+    agegr=1  80       26     58.7     18.18     22.87
+    agegr=2 250      148    162.0      1.21      2.72
+    agegr=3 158      118     71.3     30.51     40.87
+    Chisq= 50.6  on 2 degrees of freedom, p= 1e-11 
+\end{Verbatim}
+
+\textbf{Ascites}
+\begin{Verbatim}[fontsize=\scriptsize]
+            N Observed Expected (O-E)^2/E (O-E)^2/V
+    asc=0 386      211    251.9      6.63     48.66
+    asc=1  54       39     26.2      6.30      6.94
+    asc=2  48       42     14.0     56.17     59.60
+    Chisq= 69.9  on 2 degrees of freedom, p= 7e-16 
+\end{Verbatim}
+
+\textbf{Treatment}
+\begin{Verbatim}[fontsize=\scriptsize]
+            N Observed Expected (O-E)^2/E (O-E)^2/V
+    treat=0 251      142      149     0.355     0.728
+    treat=1 237      150      143     0.371     0.728
+    Chisq= 0.7  on 1 degrees of freedom, p= 0.4
+\end{Verbatim}
+
+We see that the age group and ascites have very strong effects on patient survival, at P-values of $10^{-11}$ and numerically zero, respectively. The sex of the patient, while seemingly correlated by eye, is just barely not statistically significant, at a P-value of $0.06$. The treatment is even less so, at a P-value of $0.4$.
+
+
+\subsection*{c)}
+Performing a Cox regression on the data, with age now as a numeric predictor, we get:
+\begin{Verbatim}[fontsize=\scriptsize]
+                    coef exp(coef) se(coef)     z Pr(>|z|)    
+    factor(sex)1   0.461877  1.587050 0.125631 3.676 0.000236 ***
+    age            0.048877  1.050091 0.006844 7.141 9.26e-13 ***
+    factor(asc)1   0.603507  1.828520 0.175019 3.448 0.000564 ***
+    factor(asc)2   1.187254  3.278068 0.175224 6.776 1.24e-11 ***
+    factor(treat)1 0.044818  1.045837 0.117657 0.381 0.703263    
+\end{Verbatim}
+
+Again, we see that ascites and age are very good predictors of patient survival. With our multi-predictor model, we now see that sex now is a significant predictor, at a P-value of $0.0002$, far below the required $0.05$ significance level. The prednisone treatment is still far from significant.
+
+Being a multiplicative model, the hazard ratio for sex is simply $\exp{\beta_\mathrm{sex}}$, which, reading off the table above, gives us a ratio of $\exp{0.461877} = 1.587$. This means that, with all other parameters constant, a male has a 58.7\% higher hazard than a female.
+
+The $95\%$ confidence interval becomes $\exp{\beta_\mathrm{sex}} \pm 1.96 se(\beta_\mathrm{sex}) = [1.34, 1.83]$. As the interval does not include 1, we can conclude that the sex is a statistically significant predictor (we already new this from the P-value).
+
+As stated before, our data can not conclude that prednisone has an effect on survival of patients.
+
+
+
+
+
+
 \end{document}
